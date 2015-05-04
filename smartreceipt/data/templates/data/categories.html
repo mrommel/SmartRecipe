@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block scripts %}
+<style>
+.level1 { 
+	padding-top: 10px;
+}
+.level1 ul li { 
+	padding-left: 10px;
+	padding-top: 10px;
+}
+.level2 {
+	list-style: url({% static 'data/images/sym.png' %});
+}
+ul.level2 li { 
+	padding-top: 7px;
+	padding-left: 10px;
+	margin-left: 40px;
+}
+ul.level2 {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #d4d4d4;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container_symfony">
+	<div id="rezepteingabe">
+		<div class="h2 floatLeft displayInlineItem">Kategorien</div>
+		<br class="clearboth">  
+		<hr class="rezeptAnsicht3">
+		<ul class="level1">
+		{% for rootCategory in categories %}
+		     <li class="level1">
+		     	{{ rootCategory.name }}
+		     	<ul class="level2">
+		     		{% for sub1Category in rootCategory.children %}
+		     			<li class="level2"><a href="{{ sub1Category.url }}">{{ sub1Category.name }}</a></li>
+		     		{% endfor %}
+		     	</ul>
+		     </li>            
+		{% endfor %}
+		</ul>
+		<br class="clearboth">
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block scripts %}
+<script src="{% static 'data/js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'data/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'data/js/jquery.caret.min.js' %}"></script>
+<script src="{% static 'data/js/jquery.tag-editor.js' %}"></script>
+<script src="{% static 'data/js/integrient_search.js' %}"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'data/css/jquery.tag-editor.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'data/css/integrient_search.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<div class="container_symfony">
+	<div id="rezepteingabe" class="suchergebnis">
+		<div class="h2 floatLeft displayInlineItem">Rezepte</div>
+		<br class="clearboth">
+		Bitte gib die Namen von Zutaten hier ein:
+		<div style="margin:0 0 1.2em"><textarea id="integrients"></textarea></div>
+
+		<script type="text/javascript">
+			$('#integrients').tagEditor({
+			placeholder: 'Hier Zutaten eingeben ...',
+			onChange: function(field, editor, tags) {
+				$.getJSON("receipts_by_integrients.json?" + (tags.length ? tags.join(',') : 'all'), function(json) {
+    				$('#receiptResults').empty();
+    				$.each( json.receipts, function( index, receipt ) {
+    					$('#receiptResults').append(createReceiptDOM(receipt));
+					});
+				});
+			},
+			beforeTagSave: function(field, editor, tags, tag, val) {
+				//$('#response').prepend('Tag ' + val + ' saved' + (tag ? ' over ' + tag : '') + '.');
+			},
+			beforeTagDelete: function(field, editor, tags, val) {
+				/*var q = confirm('Remove tag "' + val + '"?');
+				if (q) $('#response').prepend('Tag ' + val + ' deleted.');
+				else $('#response').prepend('Removal of ' + val + ' discarded.');
+				return q;*/
+			},
+			autocomplete: {
+        		delay: 1, // show suggestions immediately
+        		position: { collision: 'flip' }, // automatic menu position up/down
+        		source: {% autoescape off %}{{ integrient_name_list }}{% endautoescape %}
+    		},
+		});
+		</script>
+		
+		<div class="food_static_links">
+			<div class="artikel">
+				<div class="articleteaser" id="articleteaser_2">
+					<div class="articleteaser_group" id="receiptResults">
+						<!-- results will be inserted here -->
+					</div>
+				</div>
+			</div>
+		</div>
+		                       
+		<br class="clearboth">
+	</div>
+</div>
+
+{% endblock %}

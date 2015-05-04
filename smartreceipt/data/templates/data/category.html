@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block scripts %}
+<style>
+.suchergebnis .foto img {
+	width: 80px;
+}
+#rezepteingabe.suchergebnis dd a .file {
+	width: 135px;
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container_symfony">
+	<div id="rezepteingabe" class="suchergebnis">
+		<div class="h2 floatLeft displayInlineItem">Rezepte</div>
+		<div class="floatRight">
+			<a class="arrowleft" href="/rezept-suche">Profi-Rezeptsuche</a>                      
+		</div>
+		<br class="clearboth">
+		<div class="bold midGrey">{{ category.receipts|length }} Ergebnisse in der Kategorie
+			<span class="black">"{{ category.name }}"</span>
+		</div>
+		<br>
+		<br class="clearboth">
+		<div id="suchErgRezHeader">Rezepte</div>
+						
+		<div id="suchErgPagingTop">
+			<span class="floatLeft">&nbsp;</span>
+			<ul class="pagerList" id="">
+				<li class="numbers trenner"><a class="numberActive" style="font-weight: bold;" href="{{ category.url }}?p=1">1</a></li>
+				<li class="numbers trenner"><a class="" style="" href="{{ category.url }}?p=2">2</a></li>
+				<li class="numbers"><a class="" style="" href="{{ category.url }}?p=3">3</a></li>
+				<li><a href="{{ category.url }}?p=2"><img alt=">" src="{% static 'data/images/0200_sort_right.gif' %}"></a></li>
+				<li><a href="{{ category.url }}?p=847"><img alt="»" src="{% static 'data/images/0200_sort_rightright.gif' %}"></a></li>
+			</ul>
+			<br class="clearboth">
+		</div>            
+		<br class="clearboth">
+
+		<ul>
+			<li>
+				<dl id="suchErgHeader">
+					<dd class="floatLeft rezept"><a class="red" href="{{ category.url }}?sort=name">Rezeptname</a></dd>
+					<dd class="floatLeft foto"><a class="red" href="{{ category.url }}?sort=photo">Foto</a></dd>
+					<dd>Zeit</dd>
+					<dd><a class="red" href="{{ category.url }}?sort=date">Datum</a></dd>
+					<dd><br class="clearboth"></dd>
+				</dl>
+			</li>
+
+			{% for receipt in receipts %}
+			<!-- {{ receipt.receipt }} -->
+			<li>
+				<dl id="suchErgZeile">
+					<dd class="rezept">
+						<a title="Kommentare ansehen" rel="nofollow" href="/rezept/1369/kommentare">
+							<img src="{% static 'data/images/rating_crown5.gif' %}" alt="500">
+						</a>
+						<a class="headline" href="{{ receipt.url }}">{{ receipt.receipt.name }}</a>            
+						<span class="midGrey smallFont">von <a rel="nofollow" href="/user/essen+%26+trinken">essen &amp; trinken</a><!-- catline --></span>
+						<a href="#"><div class="file" recipe_id="1369">Rezept merken<span class="arrow"></span></div></a>
+					</dd>
+					<dd class="foto">
+						<a class="" href="{{ receipt.receipt.url }}">
+							<img alt="{{ receipt.receipt.name }}" class="img3" id="recipePreviewImage" src="{{ receipt.receipt.image_url }}">
+						</a>
+						<div class="clearboth"></div>
+					</dd>
+					<dd class="time">{{ receipt.receipt.time }}</dd>
+					<dd class="date">{{ receipt.receipt.created_at | date:"d.m.Y" }}</dd>
+				</dl>
+			</li>
+			{% endfor %}
+			
+		</ul>
+		<br class="clearboth">
+						
+		<div id="suchErgPaging">
+			<span class="floatLeft">&nbsp;</span>
+			<ul class="pagerList" id="">
+				<li class="numbers trenner"><a class="numberActive" style="font-weight: bold;" href="{{ category.url }}?p=1">1</a></li>
+				<li class="numbers trenner"><a class="" style="" href="{{ category.url }}?p=2">2</a></li>
+				<li class="numbers"><a class="" style="" href="{{ category.url }}?p=3">3</a></li>
+				<li><a href="{{ category.url }}?p=2"><img alt=">" src="{% static 'data/images/0200_sort_right.gif' %}"></a></li>
+				<li><a href="{{ category.url }}?p=847"><img alt="»" src="{% static 'data/images/0200_sort_rightright.gif' %}"></a></li>
+			</ul>
+			<br class="clearboth">
+		</div>                            
+		<br class="clearboth">
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block scripts %}
+<style>
+	#contentLeft h1.h2 { 
+		padding: 0px;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container_recipe">
+	<div itemscope="" itemtype="http://schema.org/Recipe"> 
+		<div id="rezeptansicht" class="ra">
+      		<div class="spitzmarke">Rezept</div>
+			<h1 class="h2 marginBottom5">
+				<span class="marginRight10">
+					<span class="item">
+						<span class="fn" itemprop="name">{{ receipt.name }}</span>
+					</span>
+					<span class="crown crown0"></span>
+					<div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating" style="display:none">
+						<span itemprop="ratingValue">0</span>
+						<span itemprop="ratingCount">0</span>
+						<span itemprop="bestRating">5</span>
+						<span itemprop="worstRating">0</span>
+					</div>
+				</span>
+			</h1>
+			<div class="userinfo">
+				Von
+				<span class="author" itemprop="author">
+					<a rel="author" href="/user/F%26uuml%3Br+jeden+Tag">Für jeden Tag</a>
+				</span>
+				<span class="published" content="2012-05">
+					<span class="value-title" title="2012-05"></span> 
+					{{ receipt.created_at|date:"d.m.Y" }}
+				</span>
+				<a id="addFavoriteCookLinkActive" style="display:none" href="#" onclick="return false;; return false;">
+					<img id="addFavoriteCookLinkAktiveImg" src="{% static 'data/images/icon_user_rot.gif' %}" alt="Icon_user_rot">
+				</a>	 	
+			</div>
+			<br />
+			<div id="leftSideTop">
+			</div>
+		</div>
+
+		<!-- hRecipe photo -->
+		<div class="pictureframe" id="picframe">
+			<a rel="galerie" class="thickbox" title="<b>Fotos:</b> Matthias Haupt" href="{{ receipt.image_url }}" id="image_267994">
+				<span><img alt="" title="" class="img3 photo" id="recipePreviewImage" name="slide" itemprop="image" border="0" src="{{ receipt.image_url }}" height="420" width="560"></span>
+			</a>
+			<input type="hidden" name="image_asset_id" id="image_asset_id" value="0">
+			<input type="hidden" name="headline" id="headline" value="Spargel mit Schweinemedaillons">  
+			<div class="picAuthor" id="picAuthor"><b>Fotos:</b> Matthias Haupt</div>
+			<span id="recipeImageNav" class="floatRight rezeptAnsichtImgNav">
+				<a rel="-galerie" class="thickbox" title="<b>Fotos:</b> Matthias Haupt" href="{{ receipt.image_url }}"><img id="img4" class="img4" src="{% static 'data/images/pager_lupe.gif' %}" alt="Pager_lupe"></a>    
+			</span>  
+		</div>
+		<!-- ENDE DES BILDTEILS LINKS -->
+		<div class="clearboth"></div>
+
+		<div class="picturedetails" id="picturedetails">
+			<hr class="rezeptAnsicht3">
+			<ul class="rezeptList">
+				<li><a id="cookBookLink" class="pictureDetailsList1" href="#" onclick="new Ajax.Request('/rezept/267993/form', {asynchronous:true, evalScripts:true, method:'get', onFailure:function(request, json){FormDispatcher.showForm('login', request, 'cookBookLink');}, onSuccess:function(request, json){if(json.action=='show'){setForm2Link(request, json, 'cookBookLink');}}, parameters:{'asset_id':267993, 'form':'add2cookbook', 'css_suffix':'Right'}}); return false;">Ins Kochbuch</a><a id="cookBookLinkActive" class="pictureDetailsList1Active" style="display:none" href="#" onclick="; return false;">Ins Kochbuch</a></li>
+				<li><a id="printLink" class="pictureDetailsList2" rel="nofollow" href="/rezept/267993/267994/drucken">Rezept drucken</a></li>
+				<li><a id="recommendRecipeLink" class="pictureDetailsList3" href="#" onclick="new Ajax.Request('/rezept/267993/form', {asynchronous:true, evalScripts:false, onSuccess:function(request, json){if(json.action=='show'){setForm2Link(request, json, 'recommendRecipeLink');}}, parameters:{form:'recommend_recipe', css_suffix:'Right'}}); return false;">Weiterempfehlen</a><a id="recommendRecipeLinkActive" class="" style="display:none" href="#" onclick="; return false;"></a></li>            
+				<li><a id="upLoadBildLink" class="pictureDetailsList5" href="#" onclick="new Ajax.Request('/rezept/267993/form', {asynchronous:true, evalScripts:true, onComplete:function(request, json){FB.XFBML.parse();}, onSuccess:function(request, json){if(json.action=='show'){setForm2Link(request, json, 'upLoadBildLink');}}, parameters:{'asset_id':267993, 'form':'image_upload', 'css_suffix':'Right'}}); return false;">Bild hochladen</a><a id="upLoadBildLinkActive" class="" style="display:none" href="#" onclick="; return false;"></a>&nbsp;<a id="image_upload_info_link" class="infoOff" onmouseover="try{overlayImg(this.id, 'image_upload_info_layer', 'bottom', 'infoOff', 'infoOn', 'buttonIsStatic'); return false;}catch(e){}" onmouseout="try{overlaycloseImg(this.id, 'image_upload_info_layer', ' ', 'infoOff', 'image_upload_info_layer', 'bottom', 'infoOff', 'infoOn'); return false;}catch(e){}" onclick="return false" href="#">&nbsp;</a>
+					<div id="image_upload_info_layer" style="display: none;position: absolute;z-index: 10;top: 105px;left: 443px;">
+						<div>
+							<div class="layerInfoContent">
+								<span class="h3">Hinweis</span>
+								<br><br>Aufgrund des Schutzes von Nutzungsrechten dürfen nur Bilder verwendet werden, an denen der Benutzer die Rechte besitzt oder der Besitzer das Recht zur Benutzung einräumt.
+							</div>
+						</div>
+					</div>
+				</li>      
+			</ul>
+			<hr class="rezeptAnsicht2">
+		</div>
+
+		<div id="pictureframeBig" class="pictureframeBig" style="display: none; z-index:9999; background-color:#ffffff; border: 1px solid #CFCAB4">
+			<div class="linkOptionsDiv" id="linkOptionsDiv" style="width:484px; background-color:#ffffff; border: 1px solid #CFCAB4; padding: 5px">
+				<div id="recipeImageNav2" style="float:right; width:220px; display:block;">
+					<a class="linkBackLupe2" style="" href="#" onclick="new Ajax.Request('/asset_recipe/GetRecipeImage', {asynchronous:true, evalScripts:false, onComplete:function(request, json){changeRecipeImage(request, json);hideBigImg();}, parameters:{'pos': 0, 'asset_id':267993, 'image_asset_id': $('image_asset_id').value, 'img2change':'recipePreviewImage'}}); return false;">Zurück zum Rezept</a>
+				</div>
+				<div class="clearboth"></div>
+				<img id="recipeBigImage" title="" src="{{ receipt.image_url }}">    
+				<div class="midGrey marginTop5" id="picBigAuthor"><b>Fotos:</b> Matthias Haupt</div>
+			</div>
+		</div>
+	</div>
+	<br class="clearboth">
+	<div id="leftSideBottom">
+		<div class="rezeptansichtright">
+			<div class="floatLeft width50Percent">
+				<h2 class="h5 rezeptAnsichtH2">Zutaten</h2>
+				<div class="rezeptAnsichtH2">
+					<span itemprop="recipeYield">Für {{ receipt.portions }} Portionen</span>
+					<br>
+				</div>        
+				<div class="marginTop15">
+					{% for integrient in receipt.integrients %}
+						<span><span class="ingredient" itemprop="ingredients"><span>{{ integrient.amount }} {{ integrient.get_amount_type_display }}</span> <span>{{ integrient.integrient.name }}</span></span></span>
+					{% endfor %}       
+				</div><!-- marginTop15 -->
+			</div><!-- floatLeft width50Percent -->
+
+			<div class="floatLeft marginLeft5">
+				<div class="recipe-cooktime">
+					<h2 class="h5 rezeptAnsichtH2">Zeit</h2>
+					<meta itemprop="cookTime" content="P0Y0M0DT1H15M">
+					<span class="black"><span class="cooktime" content="P0Y0M0DT1H15M"><span class="value-title" title="P0Y0M0DT1H15M"></span>{{ receipt.time_str }}</span><br></span>    	
+				</div>
+				<div class="recipe-nutrition" itemprop="nutrition" itemscope="" itemtype="http://schema.org/NutritionInformation">
+					<h2 class="h5 rezeptAnsichtH2">Nährwerte</h2>
+					<span class="legendtext">pro Portion</span>
+					<br>
+					<span class="black">
+					<span itemprop="calories"><span property="amf:value">767</span> <span property="amf:type">kcal</span></span><br>
+					<span property="amf:nutrition"><span property="amf:value" itemprop="proteinContent">43</span> <span property="amf:type">g</span> Eiweiß</span><br>
+					<span property="amf:nutrition"><span property="amf:value" itemprop="fatContent">49</span> <span property="amf:type">g</span> Fett</span><br>
+					<span property="amf:nutrition"><span property="amf:value" itemprop="carbohydrateContent">36</span> <span property="amf:type">g</span> KH</span><br>
+					</span>	        
+				</div>
+				<div class="kategorien" id="katsTop">
+					<div id="kats">
+						<h2 class="h5 rezeptAnsichtH2">Kategorien</h2>
+						{% for category in receipt.categories %}
+							<div class="" style="display:">
+								<a class="midGreyA" href="{{ category.receiptCategory.url }}">
+									<span itemprop="recipeCategory">{{ category.receiptCategory.name }}</span>
+								</a>
+							</div>
+						{% endfor %}              
+					</div>
+					<div id="addedKats"></div>
+				</div><!-- katsTop -->
+				<div class="paddingTop15"><br></div>
+			</div>
+			<div class="clearboth"></div>
+		</div>
+		<div id="content-rezeptansichtbeschreibung">
+			<h2 class="h5 rezeptAnsichtH">Zubereitung</h2>
+			<span itemprop="recipeInstructions">
+				{% for step in receipt.steps %}
+					<p class="rezeptansichttext">{{ step }}</p>
+				{% endfor %}
+			</span>
+			<div id="recipestepimages">
+				<hr class="searchLabel rezeptAnsicht">
+				<h2 class="h5 rezeptAnsichtH">Zubereitungsschritte</h2>
+			</div>
+		</div>
+	</div>
+	<br class="clearboth">
+	<div class="marginTop15 marginBottom30">
+		<hr class="searchLabel rezeptAnsicht">
+		<a href="javascript:;" class="arrow" onclick="new Ajax.Updater('layerLogin', '/user/login', {asynchronous:true, evalScripts:true, method:'get', onComplete:function(request, json){overlay('commentLogin', 'layerLogin', 'bottom left', 'arrow', 'arrowred', 'buttonIsRight'); return false;}})" onfocus="if(this.blur)this.blur()" id="commentLogin">Dieses Rezept bewerten &amp; kommentieren</a>    
+	</div>
+	<div class="clearboth"></div>
+</div>
+
+
+{% endblock %}

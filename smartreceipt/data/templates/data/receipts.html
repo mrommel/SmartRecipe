@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block scripts %}
+<style>
+	img.recipePreviewImage { 
+		width: 140px;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="food_static_links">
+	<div class="artikel">
+		<div class="articleteaser" id="articleteaser_2">
+			<div class="articleteaser_group">
+				{% if receipt_list %}
+					{% for receipt in receipt_list %}
+						<!-- articleteaser single -->
+						<div class="articleteaser_single">
+							<a href="{{ receipt.url }}">  
+								<div class="image">
+									<img src="{{ receipt.image_url }}" rel="amf:photo" name="slide" id="recipePreviewImage" class="recipePreviewImage" alt="{{ receipt.name }}" />
+								</div>
+							</a>
+							<div class="spitzmarke"></div>
+							<div class="headline">
+								<a href="{{ receipt.url }}">{{ receipt.name }}</a>
+							</div>
+							<div class="teasertext">{{ receipt.teaser }}</div>
+							<br>
+							<a href="{{ receipt.url }}">zum Rezept</a>
+							<div style="clear:both"></div>
+							<div class="line"></div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<p>No receipts are available.</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

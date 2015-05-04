@@ -1,0 +1,23 @@
+/* MiRo SmartReceipt 2015 */
+textarea {
+	width: 100%; height: 29px; padding: .3em .5em; border: 1px solid #ddd; font-size: .9em;
+	box-sizing: border-box; margin: 0 0 20px;
+}
+textarea[readonly] { 
+	color: #aaa; 
+	background: #f7f7f7; 
+}
+.suchergebnis ul li {
+  display: block;
+  float: left;
+  overflow: hidden;
+  margin: 3px 0;
+  line-height: 1.5;
+}
+.clear_both {
+	clear: both;
+}
+#recipePreviewImage {
+	width: 140px;
+	height: 140px;
+}
