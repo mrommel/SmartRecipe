@@ -140,3 +140,38 @@ class ReceiptCategoryRelation(models.Model):
 	
 	def __unicode__(self):			  
 		return u'%s -> %s' % (self.receipt, self.receiptCategory)
+		
+"""
+	class of a ReceiptTopic
+"""	
+class ReceiptTopic(models.Model):
+	name = models.CharField(max_length=50)
+	parentReceiptTopic = models.ForeignKey("self", blank=True, null=True)
+	
+	def path(self):
+		if self.parentReceiptTopic is None:
+			return self.name
+		else:
+			return u'%s - %s' % (self.parentReceiptTopic.path(), self.name)
+	
+	def url(self):
+		return '/data/topic/%d/%s.html' % (self.id, self.name.replace(' ', '_').lower())
+	
+	def children(self):
+		return ReceiptTopic.objects.filter(parentReceiptTopic = self)
+		
+	def receipts(self):
+		return ReceiptTopicRelation.objects.filter(receiptTopic = self)
+	
+	def __unicode__(self):			  
+		return u'%s' % (self.path())
+		
+"""
+	class of a ReceiptTopicRelation
+"""	
+class ReceiptTopicRelation(models.Model):
+	receipt = models.ForeignKey(Receipt)
+	receiptTopic = models.ForeignKey(ReceiptTopic)
+	
+	def __unicode__(self):			  
+		return u'%s -> %s' % (self.receipt, self.receiptTopic)

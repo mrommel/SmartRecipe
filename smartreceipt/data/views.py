@@ -8,31 +8,42 @@ from operator import attrgetter
 from django.http import Http404
 import json
 
-from data.models import Receipt, ReceiptCategory, Integrient, ReceiptIntegrientRelation
+from data.models import Receipt, ReceiptCategory, Integrient, ReceiptIntegrientRelation, ReceiptTopic
 
 def index(request):
+	# get all receipts
 	receipt_list = Receipt.objects.all
+	# get root topics
+	topic_list = ReceiptTopic.objects.filter(parentReceiptTopic = None)
+	# load template
 	template = loader.get_template('data/index.html')
+	# prepare context
 	context = RequestContext(request, { 
 		'receipt_list': receipt_list,
+		'topic_list': topic_list,
 	})
 	return HttpResponse(template.render(context))
 	
 def receipts(request):
+	# get all receipts
 	receipt_list = Receipt.objects.all
+	# load template
 	template = loader.get_template('data/receipts.html')
+	# prepare context
 	context = RequestContext(request, { 
 		'receipt_list': receipt_list,
 	})
 	return HttpResponse(template.render(context))
 
 def receipt(request, receipt_id):
+	# get receipt (or fail)
 	try:
 		receipt = Receipt.objects.get(pk=receipt_id)
 	except Receipt.DoesNotExist:
-		raise Http404("Receipt does not exist")
-		
+		raise Http404("Receipt does not exist")	
+	# load template
 	template = loader.get_template('data/receipt.html')
+	# prepare context
 	context = RequestContext(request, {
 		'receipt': receipt,
 	})
@@ -45,8 +56,9 @@ def category(request, category_id):
 		raise Http404("Category does not exist")
 		
 	receipts = category.receipts()
-		
+	# load template
 	template = loader.get_template('data/category.html')
+	# prepare context
 	context = RequestContext(request, {
 		'receipts': receipts,
 		'category': category,
@@ -55,8 +67,9 @@ def category(request, category_id):
 
 def categories(request):
 	categories = ReceiptCategory.objects.filter(parentReceiptCategory = None)
-
+	# load template
 	template = loader.get_template('data/categories.html')
+	# prepare context
 	context = RequestContext(request, {
 		'categories': categories,
 	})
@@ -72,8 +85,9 @@ def integrient_search(request):
 		integrient_name = integrient.name
 		integrient_name = integrient_name.replace(u'\xdf', '&szlig;')
 		integrient_name_list.append(str(integrient_name))
-	
+	# load template
 	template = loader.get_template('data/integrient_search.html')
+	# prepare context
 	context = RequestContext(request, { 
 		'receipt_list': receipt_list,
 		'integrient_list': integrient_list,

@@ -19,7 +19,7 @@
 	<div id="adsWrapper" class="wrapper">
     	<div id="maindiv">
 			<div id="header">
-    			<a href="/">
+    			<a href="/data/index/">
     				<img src="{% static 'data/images/0200_essen-und-trinken.gif' %}" alt="essen und trinken" class="floatLeft" />
     			</a>    
     			<div id="topnavi">
@@ -127,21 +127,8 @@
 			
 			<div class="sidebar_other">
 				<div id="contentRight" class="floatLeft">
-					<div id="food_static_rechts">
-						<!-- sidebar -->
-						<!-- sidebar box 1 -->
-						<div class="sidebar_linklist">
-							<div class="headline">Unsere Top Themen</div>
-							<div class="link"><a href="/low-carb" fptrack="15">Low Carb Rezepte</a></div>
-							<div class="link"><a href="/fruehlingsrezepte" fptrack="15">Frühlingsrezepte</a></div>
-							<div class="link"><a href="/leichte-rezepte" fptrack="15">Leichte Küche - kalorienarm</a></div>
-							<div class="link"><a href="/backen" fptrack="15">Backrezepte: Kuchen, Torten, Cupcakes</a></div>
-							<div class="link"><a href="/partyrezepte" fptrack="15">Partyrezepte, Snacks &amp; Fingerfood</a></div>
-							<div class="link"><a href="/schnelle-rezepte" fptrack="15">Schnelle Rezepte unter 35 Minuten </a></div>
-							<div class="link"><a href="/data/category/16/dessert.html" fptrack="15">Köstliche Ideen für Desserts</a></div>
-							<div class="link"><a href="/brunch" fptrack="15">Brunch Rezepte für Freunde</a></div>
-						</div>
-					</div>
+					{% block sidebar %}
+					{% endblock %}
 					
 					<!-- sidebar box 2 -->
 					<div class="teaserbox_rechts">

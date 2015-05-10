@@ -44,3 +44,18 @@
 	</div>
 </div>
 {% endblock %}
+
+{% block sidebar %}
+<div id="food_static_rechts">
+	<div class="sidebar_linklist">
+		<div class="headline">Unsere Top Themen</div>
+		{% if topic_list %}
+			{% for topic in topic_list %}
+				<div class="link"><a href="{{ topic.url }}">{{ topic.name }}</a></div>
+			{% endfor %}
+		{% else %}
+			<p>No topics are available.</p>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
