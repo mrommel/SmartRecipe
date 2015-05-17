@@ -75,6 +75,19 @@ def categories(request):
 	})
 	return HttpResponse(template.render(context))
 
+def topic(request, topic_id):
+	try:
+		topic = ReceiptTopic.objects.get(pk=topic_id)
+	except ReceiptTopic.DoesNotExist:
+		raise Http404("Topic does not exist")
+	# load template
+	template = loader.get_template('data/topic.html')
+	# prepare context
+	context = RequestContext(request, {
+		'topic': topic,
+	})
+	return HttpResponse(template.render(context))
+
 def integrient_search(request):
 	receipt_list = Receipt.objects.all
 	integrient_list = Integrient.objects.all()

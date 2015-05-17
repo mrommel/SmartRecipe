@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block scripts %}
+<style type="text/css">
+.cell {
+  margin: 0px;
+  padding: 0px;
+  float: left;
+  width:112px;
+  height: 40px;
+  text-align: center;
+  overflow: hidden;
+}
+.cell-facebook {
+  background-color: #3B5998;
+}
+.cell-pinterest {
+  background-color: #CB232A;
+  left:-14px;
+  top: 4px;
+  padding-top:4px !important;
+  height:36px;
+}
+.cell-twitter {
+  background-color: #55ACEE;
+}
+.cell-google {
+  background-color: #DD4B39;
+}
+.cell-mail {
+  background-color: #A6D2C3;
+}
+.cell-container {
+  text-align: center;
+}
+.cell-container .cell img {
+  border: 0;
+  position: relative;
+  left: -14px;
+}
+.outer-cell-container {
+  width: 100%;
+  height: 70px;
+}
+@media print {
+  .outer-cell-container { display: none; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="contentLeft">
+	<div class="subheader2" id="nointelliTXT">
+	    <div class="spitzmarke">Wenig Kohlenhydrate</div>
+	</div>
+	<div class="clearboth"></div>
+    <div id="content-teaser" class="floatLeft">
+    	<div class="food_static_links">
+    		
+    		<div class="artikel">        
+        		<h1 class="h2-artikel-detail" id="nointelliTXT">{{ topic.name }}</h1>                        
+        		<p class="intro">Die Low Carb Küche basiert darauf, die Kohlenhydratzufuhr stark zu reduzieren. Deshalb wird weitestgehend auf Produkte wie Kartoffeln, Reis, Brot und Nudeln verzichtet. Bei uns finden Sie passende, köstliche Rezepte, mit denen Sie die Low Carb-Kost einfach mal ausprobieren können.</p>       
+      			<div class="clearboth"></div>
+				<div class="special">
+					<h2 class="h3">Rezepte aus der Low Carb Küche</h2>
+					<div class="introtext">Die Art sich kohlenhydratarm zu ernähren gab es in Deutschland bereits im 19. Jahrhundert, genannt Banting-Kur und erreichte in den 1970er Jahren weltweit große Popularität. Wir haben für Sie viele abwechslungsreiche und schmackhafte Low Carb Gerichte zusammengestellt, die Sie in Ihren Speiseplan nehmen können, auch wenn Sie Ihre Ernährung nicht komplett umstellen wollen.</div>
+					<div class="articleteaser_group">
+						<!-- articleteaser single -->
+						<div class="articleteaser_single">
+							<a href="/low-carb/low-carb-omelettes-und-andere-eierspeisen-1007870.html?eid=1007933">  
+								<div class="image">
+									<img src="http://static1.essen-und-trinken.de/uploads/thumbnails/0009/00000000009/140x140/Erbsen-Fritatta-d2e2d33ad44cddec9edc772f29936a3c_fjt2008110361.jpg" rel="amf:photo" name="slide" id="recipePreviewImage" alt="Erbsen-Frittata" pin="r_140251">
+								</div>
+  							</a>
+							<div class="headline">
+								<a href="/low-carb/low-carb-omelettes-und-andere-eierspeisen-1007870.html?eid=1007933">Low Carb: Omelettes und andere Eierspeisen</a>
+							</div>
+							<div class="teasertext">Eier haben viele Proteine, dafür aber sehr wenige Kohlenhydrate. Somit eignen sich Omelette und Co. hervorragend für ein Low Carb-Abendessen oder ein köstliches Low Carb-Frühstück.</div>
+  							<br>
+							<a href="/low-carb/low-carb-omelettes-und-andere-eierspeisen-1007870.html?eid=1007933">Low Carb: Omelettes und andere Eierspeisen</a>
+							<div style="clear:both"></div>
+							<div class="line"></div>
+						</div>
+						<!-- articleteaser single -->
+					</div>
+				</div>
+      		</div>
+		</div>
+  	</div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="food_static_rechts">
+	<div class="specialsidebar">
+  		<div class="topimage">
+			<img src="http://static1.essen-und-trinken.de/uploads/thumbnails_wlcp/336x120/0003/00000000003/21/05/210551_LowCarb_nav.jpg.cache" rel="amf:photo" name="slide" id="recipePreviewImage" alt="" pin="1007991">
+		</div>
+  		<div class=""><a href="/low-carb/low-carb-rezepte-1007933.html" class="headline">Low Carb Rezepte</a></div>
+  		<div class="boxheader">Rezepte aus der Low Carb Küche</div>
+  		<ul>
+  			<li><a href="/low-carb/low-carb-omelettes-und-andere-eierspeisen-1007870.html?eid=1007933">Low Carb: Omelettes und andere Eierspeisen</a></li>
+			<li><a href="/low-carb/low-carb-salate-1007928.html?eid=1007933">Low Carb: Salate</a></li>
+			<li><a href="/low-carb/low-carb-snacks-1007896.html?eid=1007933">Low Carb: Snacks</a></li>
+			<li><a href="/low-carb/low-carb-fischgerichte-1007877.html?eid=1007933">Low Carb: Fischgerichte</a></li>
+			<li><a href="/low-carb/low-carb-gefluegel-1007889.html?eid=1007933">Low Carb: Geflügel</a></li>
+			<li><a href="/low-carb/low-carb-fleischgerichte-1007903.html?eid=1007933">Low Carb: Fleischgerichte</a></li>
+			<li><a href="/low-carb/low-carb-vegetarische-hauptgerichte-1007915.html?eid=1007933">Low Carb: Vegetarische Hauptgerichte</a></li>
+		</ul>
+	</div>
+	<!-- sidebar box 1 -->
+	<div class="sidebar_linklist">
+		<div class="headline">beliebte Themen</div>
+		<div class="link"><a href="/muffins">Muffins</a></div>
+		<div class="link"><a href="/ei">Ei</a></div>
+		<div class="link"><a href="/nudelteig">Nudelteig</a></div>
+		<div class="link"><a href="/kuchen-im-glas">Kuchen im Glas</a></div>
+		<div class="link"><a href="/hamburger-rezept">Hamburger</a></div>
+		<div class="link"><a href="/strammer-max">Strammer Max</a></div>
+		<div class="link"><a href="/gefuellte-champignons">Gefüllte Champignons</a></div>
+		<div class="link"><a href="/bircher-muesli">Bircher Müsli</a></div>
+	</div>
+</div>
+{% endblock %}
