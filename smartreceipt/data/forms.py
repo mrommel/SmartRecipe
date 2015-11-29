@@ -64,6 +64,8 @@ class ReceiptCategoryRelationInline(admin.TabularInline):
 class ReceiptAdminForm(forms.ModelForm):
     class Meta:
         model = Receipt
+        fields = ('name', 'teaser', 'description', 'image', 'time', 'calories', 'portions', 
+        	'step0', 'step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7', 'step8', 'step9')
         widgets = {
             'teaser': forms.Textarea(attrs={'cols': 40, 'rows': 5}),
             'description': forms.Textarea(attrs={'cols': 40, 'rows': 5}),
@@ -93,3 +95,7 @@ class ReceiptAdmin(admin.ModelAdmin):
         css = {
             'all': ('data/css/admin.css',)
         }
+        
+class IntegrientAdmin(admin.ModelAdmin):
+	model = Integrient
+	list_display = ('name', 'thumbnail',  'type', 'important')

@@ -144,4 +144,24 @@ def receipts_by_integrients(request):
 	
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
 	
+def receipts_export(request):
+	# get all receipts
+	receipt_list = Receipt.objects.all
+	categories = ReceiptCategory.objects.filter(parentReceiptCategory = None)
+	integrient_list = Integrient.objects.all()
 		
+	template = loader.get_template('data/receipts_export.html')
+	context = RequestContext(request, {
+		'receipt_list': receipt_list,
+		'categories' : categories,
+		'integrient_list': integrient_list,
+	})
+	return HttpResponse(template.render(context))
+	
+def export(request):
+		
+	import os
+	os.system('prince --no-author-style --javascript -s http://127.0.0.1:8000/static/data/style_print.css http://127.0.0.1:8000/data/receipts_export/export -o tmp.pdf')
+		
+	image_data = open('tmp.pdf', "rb").read()
+	return HttpResponse(image_data, content_type='application/pdf')

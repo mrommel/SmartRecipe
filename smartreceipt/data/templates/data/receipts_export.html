@@ -1,0 +1,142 @@
+{% load staticfiles %}
+{% load i18n %}
+<book>
+<frontmatter>
+<titlepage>
+	<img src="{% static 'data/images/title_receipts.jpg' %}" alt="Img" width="605">
+<date>{% now "j.F Y" %}</date>
+<title>{% trans "Receiptbook" %}</title>
+<subtitle>{% trans "Receiptbook" %} {% trans "Fam. Rommel" %}</subtitle>
+
+</titlepage>
+
+<acknowledge>{% trans "Receiptbook" %} {% trans "Fam. Rommel" %}</acknowledge>
+
+<toc>
+<title>{% trans "Contents" %}</title>
+<list class="toc">
+
+<!-- index for chapter 1 -->
+
+<p>
+	1. {% trans "Receipts by Category" %}
+</p>
+
+{% if categories %}
+	{% for category in categories %}
+		{% if category.number_of_receipts > 0 %}
+			<p class="sub-chapter">{{ category }}</p>
+			{% for child in category.children %}
+				{% if child.number_of_receipts > 0 %}
+					<p class="sub-chapter">&nbsp;&nbsp;{{ child.name }}</p>
+					{% for item in child.receipts %}
+						<item href="#chapter1-{{ item.receipt.id }}" class="sub-chapter">
+							<a href="#chapter1-{{ item.receipt.id }}" class="nolink">
+								&nbsp;&nbsp;&nbsp;&nbsp;{{ item.receipt }}
+							</a>
+						</item>
+					{% endfor %}
+			
+					{% for child2 in child.children %}
+						<p class="sub-chapter">&nbsp;&nbsp;&nbsp;&nbsp;{{ child2.name }}</p>
+						{% for item2 in child2.receipts %}
+							<item href="#chapter1-{{ item2.receipt.id }}" class="sub-chapter">
+								<a href="#chapter1-{{ item2.receipt.id }}" class="nolink">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item2.receipt }}
+								</a>
+							</item>
+						{% endfor %}
+					{% endfor %}
+				{% endif %}
+			{% endfor %}	
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+<p>
+	2. {% trans "Receipts by ingredients" %}
+</p>
+
+{% if integrient_list %}
+	{% for integrient in integrient_list %}
+		{% if integrient.important == 1 and integrient.number_of_receipts > 0 %}
+			<p>{{ integrient.name }}</p>
+		
+			{% for item2 in integrient.receipts %}
+				<item href="#chapter1-{{ item2.receipt.id }}" class="sub-chapter">
+					<a href="#chapter1-{{ item2.receipt.id }}" class="nolink">
+						{{ item2.receipt }}
+					</a>
+				</item>
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+{% endif %}	
+
+</list>
+</toc>
+
+</frontmatter>
+
+<bookbody>
+<part>
+
+<chapter id="chapter1">
+
+<chapheader>
+<chapnum>1. </chapnum>
+<title>{% trans "Receipts" %}</title>
+<a id="chapter1">&nbsp;</a>
+</chapheader>
+
+<!-- fake table -->
+<para><table><tr><td></td></tr></table></para>
+
+{% if receipt_list %}
+	{% for receipt in receipt_list %}
+		<para>
+			<div class="not_breaking">
+				<a id="chapter1-{{ receipt.id }}" name="#chapter1-{{ receipt.id }}">&nbsp;</a>
+				<div class="recipe">
+					{% if receipt.image %}
+						<img src="{{ receipt.image.url }}" width="250" class="right" />
+					{% else %}
+						<img src="default.png" width="250" class="right" />
+					{% endif%}
+					<div class="recipe_title">{{ receipt.name }}</div>
+					<div class="recipe_description">{{ receipt.description }}</div>
+					<div class="recipe_date">{{ receipt.created_at|date:"d.m.Y" }}</div>
+					<div class="recipe_ingredients">
+						<div class="recipe_ingredients_title">Zutaten</div>
+						<div class="recipe_ingredients_subline">{% trans "für" %} {{ receipt.portions }} {% trans "Portionen" %}:</div>
+						{% for integrient in receipt.integrients %}
+							<div class="recipe_integrient">
+								<div class="recipe_integrient_amount">{{ integrient.amount }}</div>
+								<div class="recipe_integrient_amount_type">{{ integrient.get_amount_type_display }}</div>
+								<div class="recipe_integrient_name">{{ integrient.integrient.name }}</div>
+							</div>
+						{% endfor %} 
+					</div>
+					<div class="recipe_steps">
+						<div class="recipe_steps_title">Schritte:</div>
+						{% for step in receipt.steps %}
+							<div class="recipe_step">{{ step }}</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</para>
+	{% endfor %}
+{% else %}
+	<para>{% trans "No receipts are available." %}</para>
+{% endif %}
+
+</chapter>
+
+
+</chapter>
+
+</part>
+</bookbody>
+</book>
+</gutbook>

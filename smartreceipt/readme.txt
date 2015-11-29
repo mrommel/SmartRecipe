@@ -19,3 +19,6 @@ cd ~/Prog/SmartReceipt/smartreceipt/data/
 python ../manage.py makemessages -l de -e html,txt -e xml
 python ../manage.py compilemessages
 
+
+
+# http://chefville.wikia.com/wiki/Ingredient

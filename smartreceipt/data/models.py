@@ -31,6 +31,17 @@ class Integrient(models.Model):
 	name = models.CharField(max_length=50)
 	type = models.ForeignKey(IntegrientType, blank=True, null=True, related_name="integrient_type") 
 	image = models.ImageField(upload_to='media/integrients', blank=True, null=True)
+	important = models.NullBooleanField(default=False, blank=True, null=True)
+
+	def thumbnail(self):
+		return '<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="20" /></a>' % ((self.image.name, self.image.name))
+	thumbnail.allow_tags = True
+
+	def receipts(self):
+		return ReceiptIntegrientRelation.objects.filter(integrient = self)
+
+	def number_of_receipts(self):
+		return len(self.receipts())
 
 	def __unicode__(self):			  
 		return u'%s' % (self.name)
@@ -101,7 +112,7 @@ class ReceiptIntegrientRelation(models.Model):
 	integrient = models.ForeignKey(Integrient)
 	order = models.IntegerField(default=0)
 	amount = models.FloatField(default=0)
-	amount_type = models.CharField(max_length=1, choices=(('K', 'Kilogramm'), ('G', 'Gramm'), ('L', 'Liter'), ('M', 'Milliliter'), ('T', 'TL'), ('S', 'Stück'), ('B', 'Becher')))
+	amount_type = models.CharField(max_length=1, choices=(('K', 'Kilogramm'), ('G', 'Gramm'), ('L', 'Liter'), ('M', 'Milliliter'), ('T', 'TL'), ('E', 'EL'), ('S', 'Stück'), ('B', 'Becher'), ('P', 'Prise'), ('C', 'Päckchen'), ('F', 'Flasche')))
 	
 	def __unicode__(self):			  
 		return u'%s - %s' % (self.receipt.name, self.integrient.name)
@@ -127,6 +138,14 @@ class ReceiptCategory(models.Model):
 		
 	def receipts(self):
 		return ReceiptCategoryRelation.objects.filter(receiptCategory = self)
+		
+	def number_of_receipts(self):
+		num = len(self.receipts())
+		
+		for child in ReceiptCategory.objects.filter(parentReceiptCategory = self):
+			num = num + child.number_of_receipts()
+		
+		return num
 	
 	def __unicode__(self):			  
 		return u'%s' % (self.path())
