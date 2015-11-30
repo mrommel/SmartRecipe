@@ -106,16 +106,20 @@
 					<div class="recipe_title">{{ receipt.name }}</div>
 					<div class="recipe_description">{{ receipt.description }}</div>
 					<div class="recipe_date">{{ receipt.created_at|date:"d.m.Y" }}</div>
-					<div class="recipe_ingredients">
+					<div class="recipe_ingredients_container">
 						<div class="recipe_ingredients_title">Zutaten</div>
 						<div class="recipe_ingredients_subline">{% trans "für" %} {{ receipt.portions }} {% trans "Portionen" %}:</div>
-						{% for integrient in receipt.integrients %}
-							<div class="recipe_integrient">
-								<div class="recipe_integrient_amount">{{ integrient.amount }}</div>
-								<div class="recipe_integrient_amount_type">{{ integrient.get_amount_type_display }}</div>
-								<div class="recipe_integrient_name">{{ integrient.integrient.name }}</div>
-							</div>
-						{% endfor %} 
+						<table class="recipe_ingredients">
+							<tbody>
+								{% for integrient in receipt.integrients %}
+									<tr class="ingredient">
+										<td class="recipe_integrient_amount">{{ integrient.amount }}&nbsp;{{ integrient.get_amount_type_display }}</td>
+										<td class="recipe_integrient_image"><img src="{% if integrient.integrient.image %}{{ integrient.integrient.image.url }}{% else %}/media/media/integrients/Ingredient-Pack_of_Secret_Flavor.png{% endif%}" width="24" class="recipe_integrient_image_icon" /></td>
+										<td class="recipe_integrient_name">{{ integrient.integrient.name }}</td>
+									</tr>
+								{% endfor %} 
+							</tbody>
+						</table>
 					</div>
 					<div class="recipe_steps">
 						<div class="recipe_steps_title">Schritte:</div>
