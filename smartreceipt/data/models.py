@@ -112,7 +112,7 @@ class ReceiptIntegrientRelation(models.Model):
 	integrient = models.ForeignKey(Integrient)
 	order = models.IntegerField(default=0)
 	amount = models.FloatField(default=0)
-	amount_type = models.CharField(max_length=1, choices=(('K', 'Kilogramm'), ('G', 'Gramm'), ('L', 'Liter'), ('M', 'Milliliter'), ('T', 'TL'), ('E', 'EL'), ('S', 'Stück'), ('B', 'Becher'), ('P', 'Prise'), ('C', 'Päckchen'), ('F', 'Flasche')))
+	amount_type = models.CharField(max_length=1, choices=(('K', 'Kilogramm'), ('G', 'Gramm'), ('L', 'Liter'), ('M', 'Milliliter'), ('T', 'TL'), ('E', 'EL'), ('S', 'Stück'), ('B', 'Becher'), ('P', 'Prise(n)'), ('C', 'Päckchen'), ('F', 'Flasche(n)'), ('N', 'Scheibe(n)'), ('W', 'Etwas')))
 	
 	def __unicode__(self):			  
 		return u'%s - %s' % (self.receipt.name, self.integrient.name)

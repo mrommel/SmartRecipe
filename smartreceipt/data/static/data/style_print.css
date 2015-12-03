@@ -206,6 +206,7 @@ p {
 table {
 	width: 100%;
 	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 td {
@@ -288,17 +289,34 @@ td {
 	display: block;
 }
 
+.recipe_ingredients {
+    border-top: 1px solid #ddd;
+    margin-bottom: 10px;
+    width: 250px;
+}
+
+.recipe_ingredients td {
+    border-bottom: 1px solid #ddd;
+    border-left: 0px;
+    border-right: 0px;
+    padding: 5px;
+}
+
 .recipe_integrient {
-	border-bottom: 1px solid #666;
-	display: inline;
 }
 
 .recipe_integrient_amount {
-	display: inline;
+    font-weight: bold;
+    text-align: right;
+    width: 90px;
 }
 
-.recipe_integrient_amount_type {
-	display: inline;
+.recipe_integrient_image {
+	width: 30px;
+}
+
+.recipe_integrient_name {
+	width: 120px;
 }
 
 .nolink {
