@@ -289,10 +289,17 @@ td {
 	display: block;
 }
 
-.recipe_ingredients {
+table.recipe_ingredients {
+    width: 250px;
+}
+
+.recipe_ingredients tbody {
     border-top: 1px solid #ddd;
     margin-bottom: 10px;
-    width: 250px;
+}
+
+.ingredient {
+	width: 250px;
 }
 
 .recipe_ingredients td {
@@ -306,7 +313,6 @@ td {
 }
 
 .recipe_integrient_amount {
-    font-weight: bold;
     text-align: right;
     width: 90px;
 }
@@ -317,6 +323,7 @@ td {
 
 .recipe_integrient_name {
 	width: 120px;
+	font-weight: bold;
 }
 
 .nolink {
