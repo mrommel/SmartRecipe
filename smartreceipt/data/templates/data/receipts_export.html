@@ -27,12 +27,12 @@
 		{% if category.number_of_receipts > 0 %}
 			<!--<p class="sub-chapter">{{ category }} ({{ category.is_country }})</p>-->
 			{% for child in category.children %}
-				{% if child.number_of_receipts > 0 %}
-					<p class="sub-chapter">{{ child.name }} ({{ child.is_country }})</p>
+				{% if child.number_of_receipts > 0 and child.is_country == False %}
+					<p class="sub-chapter" class="even">{{ child.name }}</p>
 					{% for item in child.receipts %}
 						<item href="#chapter1-{{ item.receipt.id }}" class="sub-chapter">
 							<a href="#chapter1-{{ item.receipt.id }}" class="nolink">
-								&nbsp;&nbsp;&nbsp;&nbsp;{{ item.receipt }}
+								{{ item.receipt }}
 							</a>
 						</item>
 					{% endfor %}
@@ -43,7 +43,7 @@
 							{% for item2 in child2.receipts %}
 								<item href="#chapter1-{{ item2.receipt.id }}" class="sub-chapter">
 									<a href="#chapter1-{{ item2.receipt.id }}" class="nolink">
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item2.receipt }}
+										{{ item2.receipt }}
 									</a>
 								</item>
 							{% endfor %}
