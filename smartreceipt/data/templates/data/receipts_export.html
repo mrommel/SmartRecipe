@@ -6,7 +6,7 @@
 	<img src="{% static 'data/images/title_receipts.jpg' %}" alt="Img" width="605">
 <date>{% now "j.F Y" %}</date>
 <title>{% trans "Receiptbook" %}</title>
-<subtitle>{% trans "Receiptbook" %} {% trans "Fam. Rommel" %}</subtitle>
+<subtitle>{% trans "Fam. Rommel" %}</subtitle>
 
 </titlepage>
 
@@ -19,16 +19,16 @@
 <!-- index for chapter 1 -->
 
 <p>
-	1. {% trans "Receipts by Category" %}
+	1. {% trans "Recipes" %}
 </p>
 
 {% if categories %}
 	{% for category in categories %}
 		{% if category.number_of_receipts > 0 %}
-			<p class="sub-chapter">{{ category }}</p>
+			<!--<p class="sub-chapter">{{ category }} ({{ category.is_country }})</p>-->
 			{% for child in category.children %}
 				{% if child.number_of_receipts > 0 %}
-					<p class="sub-chapter">&nbsp;&nbsp;{{ child.name }}</p>
+					<p class="sub-chapter">{{ child.name }} ({{ child.is_country }})</p>
 					{% for item in child.receipts %}
 						<item href="#chapter1-{{ item.receipt.id }}" class="sub-chapter">
 							<a href="#chapter1-{{ item.receipt.id }}" class="nolink">
@@ -38,40 +38,23 @@
 					{% endfor %}
 			
 					{% for child2 in child.children %}
-						<p class="sub-chapter">&nbsp;&nbsp;&nbsp;&nbsp;{{ child2.name }}</p>
-						{% for item2 in child2.receipts %}
-							<item href="#chapter1-{{ item2.receipt.id }}" class="sub-chapter">
-								<a href="#chapter1-{{ item2.receipt.id }}" class="nolink">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item2.receipt }}
-								</a>
-							</item>
-						{% endfor %}
+						{% if child2.is_country == False %}
+						<p class="sub-chapter">{{ child2.name }}</p>
+							{% for item2 in child2.receipts %}
+								<item href="#chapter1-{{ item2.receipt.id }}" class="sub-chapter">
+									<a href="#chapter1-{{ item2.receipt.id }}" class="nolink">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item2.receipt }}
+									</a>
+								</item>
+							{% endfor %}
+						{% endif %}
 					{% endfor %}
 				{% endif %}
 			{% endfor %}	
 		{% endif %}
-	{% endfor %}
-{% endif %}
+ 	{% endfor %}
+ {% endif %}
 
-<p>
-	2. {% trans "Receipts by ingredients" %}
-</p>
-
-{% if integrient_list %}
-	{% for integrient in integrient_list %}
-		{% if integrient.important == 1 and integrient.number_of_receipts > 0 %}
-			<p>{{ integrient.name }}</p>
-		
-			{% for item2 in integrient.receipts %}
-				<item href="#chapter1-{{ item2.receipt.id }}" class="sub-chapter">
-					<a href="#chapter1-{{ item2.receipt.id }}" class="nolink">
-						{{ item2.receipt }}
-					</a>
-				</item>
-			{% endfor %}
-		{% endif %}
-	{% endfor %}
-{% endif %}	
 
 </list>
 </toc>
@@ -89,32 +72,33 @@
 <a id="chapter1">&nbsp;</a>
 </chapheader>
 
-<!-- fake table -->
-<para><table><tr><td></td></tr></table></para>
-
 {% if receipt_list %}
 	{% for receipt in receipt_list %}
 		<para>
 			<div class="not_breaking">
 				<a id="chapter1-{{ receipt.id }}" name="#chapter1-{{ receipt.id }}">&nbsp;</a>
 				<div class="recipe">
+					<div class="recipe_image">
 					{% if receipt.image %}
-						<img src="{{ receipt.image.url }}" width="250" class="right" />
+						<img src="{{ receipt.image.url }}" width="270" />
 					{% else %}
-						<img src="default.png" width="250" class="right" />
-					{% endif%}
-					<div class="recipe_title">{{ receipt.name }}</div>
+						<img src="default.png" width="270" />
+					{% endif %}
+					</div>
+					<div class="recipe_heading">
+						<div class="recipe_title">{{ receipt.name }}</div>
+						<div class="recipe_date">{{ receipt.created_at|date:"d.m.Y" }}</div>
+					</div>
 					<div class="recipe_description">{{ receipt.description }}</div>
-					<div class="recipe_date">{{ receipt.created_at|date:"d.m.Y" }}</div>
 					<div class="recipe_ingredients_container">
-						<div class="recipe_ingredients_title">Zutaten</div>
+						<div class="recipe_ingredients_title">{% trans "Zutaten" %}</div>
 						<div class="recipe_ingredients_subline">{% trans "für" %} {{ receipt.portions }} {% trans "Portionen" %}:</div>
 						<table class="recipe_ingredients">
 							<tbody>
 								{% for integrient in receipt.integrients %}
-									<tr class="ingredient">
+									<tr class="ingredient {% if forloop.counter|divisibleby:2 %}odd{% else %}even{% endif %}">
 										<td class="recipe_integrient_amount">{{ integrient.amount }}&nbsp;{{ integrient.get_amount_type_display }}</td>
-										<td class="recipe_integrient_image"><img src="{% if integrient.integrient.image %}{{ integrient.integrient.image.url }}{% else %}/media/media/integrients/Ingredient-Pack_of_Secret_Flavor.png{% endif%}" width="24" class="recipe_integrient_image_icon" /></td>
+										<td class="recipe_integrient_image"><img src="{% if integrient.integrient.image %}{{ integrient.integrient.image.url }}{% else %}/media/media/integrients/Ingredient-Pack_of_Secret_Flavor.png{% endif%}" width="20" class="recipe_integrient_image_icon" /></td>
 										<td class="recipe_integrient_name">{{ integrient.integrient.name }}</td>
 									</tr>
 								{% endfor %} 
@@ -122,10 +106,12 @@
 						</table>
 					</div>
 					<div class="recipe_steps">
-						<div class="recipe_steps_title">Schritte:</div>
-						{% for step in receipt.steps %}
-							<div class="recipe_step">{{ step }}</div>
-						{% endfor %}
+						<div class="recipe_steps_title">{% trans "Schritte" %}</div>
+						<div class="recipe_steps_container">
+							{% for step in receipt.steps %}
+								<div class="recipe_step {% if forloop.counter|divisibleby:2 %}odd{% else %}even{% endif %}">{{ step }}</div>
+							{% endfor %}
+						</div>
 					</div>
 				</div>
 			</div>

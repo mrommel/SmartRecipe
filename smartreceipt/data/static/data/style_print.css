@@ -120,7 +120,7 @@ toc title, chapter chapheader {
   display: block;
   font-size: 1.4em;
   text-align: center;
-  padding: 3em 0 2em;
+  padding: 0.5em 0 0.5em;
 }
 
 toc item {
@@ -140,7 +140,6 @@ appendix item:after {
 }
 
 para {
-  text-indent: 1em;
   padding-bottom: 2em;
 }
 
@@ -265,36 +264,60 @@ td {
 	
 }
 
+.recipe_image {
+	float: right;
+	margin-left: 1em;
+	border-top: 1px solid #ddd;
+	padding-top: 2px;
+}
+
+.recipe_heading {
+	display: block;
+	border-top: 1px solid #ddd;
+}
+
 .recipe_title {
 	color:#666; 
 	font-size: 1.5em;
-	display: block;
-}
-
-.recipe_description {
-	color:#666; 
-	font-size: 1.0em;
-	display: block;
+	padding-top: 2px;
+	float: left;
 }
 
 .recipe_date {
 	color:#666; 
 	font-size: 0.7em;
+	float: right;
+	padding-right: 10px;
+}
+
+.recipe_description { 
+	font-size: 0.9em;
+	display: block;
+	clear: left;
+}
+
+.recipe_ingredients_container {
+	padding-top: 10px;
+}
+
+.recipe_ingredients_title {
+	color:#666; 
+	font-size: 1.1em;
 	display: block;
 }
 
 .recipe_ingredients_subline  {
-	color:#666; 
 	font-size: 0.7em;
 	display: block;
 }
 
 table.recipe_ingredients {
-    width: 250px;
+    width: 350px;
 }
 
 .recipe_ingredients tbody {
     border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     margin-bottom: 10px;
 }
 
@@ -302,10 +325,19 @@ table.recipe_ingredients {
 	width: 250px;
 }
 
+.odd {
+	background-color: #E3F6CE;
+}
+
+.even {
+	background-color: #fff;
+}
+
 .recipe_ingredients td {
-    border-bottom: 1px solid #ddd;
     border-left: 0px;
     border-right: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
     padding: 5px;
 }
 
@@ -314,7 +346,7 @@ table.recipe_ingredients {
 
 .recipe_integrient_amount {
     text-align: right;
-    width: 90px;
+    width: 120px;
 }
 
 .recipe_integrient_image {
@@ -322,8 +354,24 @@ table.recipe_ingredients {
 }
 
 .recipe_integrient_name {
-	width: 120px;
-	font-weight: bold;
+	width: 200px;
+}
+
+.recipe_steps_title {
+	color:#666; 
+	font-size: 1.1em;
+	display: block;
+	padding-top: 20px;
+}
+
+.recipe_steps_container {
+	border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.recipe_step {
+	padding: 10px;
 }
 
 .nolink {

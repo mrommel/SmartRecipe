@@ -124,6 +124,7 @@ class ReceiptCategory(models.Model):
 	name = models.CharField(max_length=50)
 	parentReceiptCategory = models.ForeignKey("self", blank=True, null=True)
 	image = models.ImageField(upload_to='media/category', blank=True, null=True)
+	is_country = models.NullBooleanField(default=False, blank=True, null=True)
 	
 	def thumbnail(self):
 		return '<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="20" /></a>' % ((self.image.name, self.image.name))
