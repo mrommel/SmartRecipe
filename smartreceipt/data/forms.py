@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 
-from data.models import IntegrientType, Integrient, Receipt, ReceiptIntegrientRelation, ReceiptCategoryRelation
+from data.models import IntegrientType, Integrient, Receipt, ReceiptIntegrientRelation, ReceiptCategoryRelation, ReceiptCategory
 
 import logging
 
@@ -61,6 +61,15 @@ class ReceiptCategoryRelationInline(admin.TabularInline):
 			return 1
 		return self.extra
 		
+class ReceiptCategoryRelationInline2(admin.TabularInline):
+	model = ReceiptCategoryRelation
+	fk_name = "receiptCategory"
+	extra = 0
+	
+	def get_extra (self, request, obj=None, **kwargs):
+		""" hide all extra if the current user is having the wrong gender """
+		return 0
+		
 class ReceiptAdminForm(forms.ModelForm):
     class Meta:
         model = Receipt
@@ -83,7 +92,7 @@ class ReceiptAdminForm(forms.ModelForm):
 
 class ReceiptAdmin(admin.ModelAdmin):
     form = ReceiptAdminForm
-    ordering = ('-name',)
+    ordering = ('name',)
     inlines = [
         ReceiptIntegrientRelationInline,
         ReceiptCategoryRelationInline,
@@ -99,3 +108,14 @@ class ReceiptAdmin(admin.ModelAdmin):
 class IntegrientAdmin(admin.ModelAdmin):
 	model = Integrient
 	list_display = ('name', 'thumbnail',  'type', 'important')
+	ordering = ('name',)
+
+class ReceiptCategoryAdmin(admin.ModelAdmin):
+    model = ReceiptCategory
+    list_display = ('thumbnail', 'name', 'path', )
+    readonly_fields = ('thumbnail', 'path', )
+    ordering = ('name',)
+    
+    inlines = [
+        ReceiptCategoryRelationInline2,
+    ]

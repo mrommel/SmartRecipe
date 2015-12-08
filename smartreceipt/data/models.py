@@ -103,6 +103,9 @@ class Receipt(models.Model):
 	
 	def __unicode__(self):			  
 		return u'%s' % (self.name)
+		
+	class Meta:
+		ordering = ['name']
 	
 """
 	class of a ReceiptIntegrientRelation
@@ -127,7 +130,7 @@ class ReceiptCategory(models.Model):
 	is_country = models.NullBooleanField(default=False, blank=True, null=True)
 	
 	def thumbnail(self):
-		return '<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="20" /></a>' % ((self.image.name, self.image.name))
+		return '<img border="0" alt="" src="/media/%s" height="20" style="height:20px" />' % (self.image.name)
 	thumbnail.allow_tags = True
 	
 	def path(self):
@@ -152,6 +155,10 @@ class ReceiptCategory(models.Model):
 			num = num + child.number_of_receipts()
 		
 		return num
+		
+	def admin_url(self):
+		return mark_safe('<a href="%s">%s</a>' % (self.id, self.name))
+	admin_url.allow_tags = True
 	
 	def __unicode__(self):			  
 		return u'%s' % (self.path())

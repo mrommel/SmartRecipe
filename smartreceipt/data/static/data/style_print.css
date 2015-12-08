@@ -123,6 +123,13 @@ toc title, chapter chapheader {
   padding: 0.5em 0 0.5em;
 }
 
+toc subtitle {
+	display: block;
+  	font-size: 1.0em;
+  	text-align: center;
+  	padding: 0.0em 0 2em;
+}
+
 toc item {
 	font-size: 0.9em;
 }
@@ -258,10 +265,17 @@ td {
     content: "";
 }
 
+/* toc */
+
+.menu-chapter {
+	color:#666; 
+	font-size: 1.2em;
+	padding-top: 10px;
+}
+
 /* recipe */
 
 .recipe {
-	
 }
 
 .recipe_image {

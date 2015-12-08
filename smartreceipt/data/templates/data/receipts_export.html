@@ -14,13 +14,10 @@
 
 <toc>
 <title>{% trans "Contents" %}</title>
+<subtitle>{% trans "Recipes" %}</subtitle>
 <list class="toc">
 
-<!-- index for chapter 1 -->
-
-<p>
-	1. {% trans "Recipes" %}
-</p>
+<!-- toc -->
 
 {% if categories %}
 	{% for category in categories %}
@@ -28,7 +25,7 @@
 			<!--<p class="sub-chapter">{{ category }} ({{ category.is_country }})</p>-->
 			{% for child in category.children %}
 				{% if child.number_of_receipts > 0 and child.is_country == False %}
-					<p class="sub-chapter" class="even">{{ child.name }}</p>
+					<p class="sub-chapter menu-chapter">{{ child.name }}</p>
 					{% for item in child.receipts %}
 						<item href="#chapter1-{{ item.receipt.id }}" class="sub-chapter">
 							<a href="#chapter1-{{ item.receipt.id }}" class="nolink">
@@ -39,7 +36,7 @@
 			
 					{% for child2 in child.children %}
 						{% if child2.is_country == False %}
-						<p class="sub-chapter">{{ child2.name }}</p>
+						<p class="sub-chapter menu-chapter">{{ child2.name }}</p>
 							{% for item2 in child2.receipts %}
 								<item href="#chapter1-{{ item2.receipt.id }}" class="sub-chapter">
 									<a href="#chapter1-{{ item2.receipt.id }}" class="nolink">
