@@ -317,12 +317,17 @@ td {
 .recipe_ingredients_title {
 	color:#666; 
 	font-size: 1.1em;
-	display: block;
+	float: left;
 }
 
 .recipe_ingredients_subline  {
 	font-size: 0.7em;
-	display: block;
+	clear: left;
+}
+
+.recipe_ingredients_country {
+	float: right;
+	padding-right: 10px;
 }
 
 table.recipe_ingredients {

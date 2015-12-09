@@ -64,8 +64,7 @@
 <chapter id="chapter1">
 
 <chapheader>
-<chapnum>1. </chapnum>
-<title>{% trans "Receipts" %}</title>
+<title>{% trans "Recipes" %}</title>
 <a id="chapter1">&nbsp;</a>
 </chapheader>
 
@@ -79,7 +78,7 @@
 					{% if receipt.image %}
 						<img src="{{ receipt.image.url }}" width="270" />
 					{% else %}
-						<img src="default.png" width="270" />
+						<img src="/media/media/default.png" width="270" />
 					{% endif %}
 					</div>
 					<div class="recipe_heading">
@@ -88,6 +87,7 @@
 					</div>
 					<div class="recipe_description">{{ receipt.description }}</div>
 					<div class="recipe_ingredients_container">
+						{% for country in receipt.countries %}<div class="recipe_ingredients_country"><img src="{{ country.image.url }}" height="12" /></div>{% endfor %}
 						<div class="recipe_ingredients_title">{% trans "Zutaten" %}</div>
 						<div class="recipe_ingredients_subline">{% trans "für" %} {{ receipt.portions }} {% trans "Portionen" %}:</div>
 						<table class="recipe_ingredients">

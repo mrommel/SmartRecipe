@@ -90,16 +90,46 @@ class Receipt(models.Model):
 	def steps(self):
 		steps = []
 		
-		if self.step0 is not None:
+		if self.step0 is not None and self.step0 <> '':
 			steps.append(self.step0)
 			
-		if self.step1 is not None:
+		if self.step1 is not None and self.step1 <> '':
 			steps.append(self.step1)
 	
-		if self.step2 is not None:
+		if self.step2 is not None and self.step2 <> '':
 			steps.append(self.step2)
+			
+		if self.step3 is not None and self.step3 <> '':
+			steps.append(self.step3)
+	
+		if self.step4 is not None and self.step4 <> '':
+			steps.append(self.step4)
+			
+		if self.step5 is not None and self.step5 <> '':
+			steps.append(self.step5)
+			
+		if self.step6 is not None and self.step6 <> '':
+			steps.append(self.step6)
+			
+		if self.step7 is not None and self.step7 <> '':
+			steps.append(self.step7)
+			
+		if self.step8 is not None and self.step8 <> '':
+			steps.append(self.step8)
+			
+		if self.step9 is not None and self.step9 <> '':
+			steps.append(self.step9)
 	
 		return steps
+		
+	def countries(self):
+		country_list = []
+	
+		for category in self.categories():
+			if category.receiptCategory.is_country:
+				country_list.append(category.receiptCategory)
+	
+		return country_list
 	
 	def __unicode__(self):			  
 		return u'%s' % (self.name)
