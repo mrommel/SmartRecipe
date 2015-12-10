@@ -34,7 +34,7 @@ class Integrient(models.Model):
 	important = models.NullBooleanField(default=False, blank=True, null=True)
 
 	def thumbnail(self):
-		return '<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="20" /></a>' % ((self.image.name, self.image.name))
+		return '<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="20" style="height: 20px;" /></a>' % ((self.image.name, self.image.name))
 	thumbnail.allow_tags = True
 
 	def receipts(self):
@@ -130,6 +130,10 @@ class Receipt(models.Model):
 				country_list.append(category.receiptCategory)
 	
 		return country_list
+		
+	def thumbnail(self):
+		return '<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="20" style="height: 20px;" /></a>' % ((self.image.name, self.image.name))
+	thumbnail.allow_tags = True
 	
 	def __unicode__(self):			  
 		return u'%s' % (self.name)

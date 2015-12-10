@@ -92,6 +92,7 @@ class ReceiptAdminForm(forms.ModelForm):
 
 class ReceiptAdmin(admin.ModelAdmin):
     form = ReceiptAdminForm
+    list_display = ('name', 'thumbnail', 'admin_categories')
     ordering = ('name',)
     inlines = [
         ReceiptIntegrientRelationInline,
@@ -99,6 +100,13 @@ class ReceiptAdmin(admin.ModelAdmin):
     ]
     actions_on_top = True
     actions_on_bottom = True
+        
+    def admin_categories(self, instance):
+    	str = ''
+    	for category in instance.categories():
+    		str = '%s, <a href="/admin/data/receiptcategory/%d/change/">%s</a>' % (str, category.receiptCategory.id, category.receiptCategory.name)
+    	return str
+    admin_categories.allow_tags = True
         
     class Media:
         css = {
