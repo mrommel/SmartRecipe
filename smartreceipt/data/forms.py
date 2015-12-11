@@ -92,7 +92,7 @@ class ReceiptAdminForm(forms.ModelForm):
 
 class ReceiptAdmin(admin.ModelAdmin):
     form = ReceiptAdminForm
-    list_display = ('name', 'thumbnail', 'admin_categories')
+    list_display = ('name', 'thumbnail', 'admin_steps_info', 'admin_integrients_info', 'admin_categories')
     ordering = ('name',)
     inlines = [
         ReceiptIntegrientRelationInline,
@@ -108,6 +108,25 @@ class ReceiptAdmin(admin.ModelAdmin):
     	str = '%s</ul>' % str
     	return str
     admin_categories.allow_tags = True
+    admin_categories.short_description = 'categories'
+    
+    def admin_steps_info(self, instance):
+    	steps = len(instance.steps())
+    	if steps == 0:
+    		return '<span style="color:#f00;">no steps</span>'
+    	else:
+    		return '%d steps' % steps
+    admin_steps_info.allow_tags = True
+    admin_steps_info.short_description = '# steps'
+    
+    def admin_integrients_info(self, instance):
+    	integrients = len(instance.integrients())
+    	if integrients == 0:
+    		return '<span style="color:#f00;">no integrients</span>'
+    	else:
+    		return '%d integrients' % integrients
+    admin_integrients_info.allow_tags = True
+    admin_integrients_info.short_description = '# integrients'
         
     class Media:
         css = {
