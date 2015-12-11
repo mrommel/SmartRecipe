@@ -102,9 +102,10 @@ class ReceiptAdmin(admin.ModelAdmin):
     actions_on_bottom = True
         
     def admin_categories(self, instance):
-    	str = ''
+    	str = '<ul class="commalist">'
     	for category in instance.categories():
-    		str = '%s, <a href="/admin/data/receiptcategory/%d/change/">%s</a>' % (str, category.receiptCategory.id, category.receiptCategory.name)
+    		str = '%s<li><a href="/admin/data/receiptcategory/%d/change/">%s</a></li>' % (str, category.receiptCategory.id, category.receiptCategory.name)
+    	str = '%s</ul>' % str
     	return str
     admin_categories.allow_tags = True
         
