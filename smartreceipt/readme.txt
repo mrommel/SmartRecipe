@@ -36,3 +36,5 @@ pip freeze > requirements.txt
 deactivate
 
 pip install -r requirements.txt
+
+admin + forrecipe

@@ -92,11 +92,17 @@
 						<div class="recipe_ingredients_subline">{% trans "für" %} {{ receipt.portions }} {% trans "Portionen" %}:</div>
 						<table class="recipe_ingredients">
 							<tbody>
-								{% for integrient in receipt.integrients %}
+								{% for integrient_rel in receipt.integrients %}
 									<tr class="ingredient {% if forloop.counter|divisibleby:2 %}odd{% else %}even{% endif %}">
-										<td class="recipe_integrient_amount">{{ integrient.amount }}&nbsp;{{ integrient.get_amount_type_display }}</td>
-										<td class="recipe_integrient_image"><img src="{% if integrient.integrient.image %}{{ integrient.integrient.image.url }}{% else %}/media/media/integrients/Ingredient-Pack_of_Secret_Flavor.png{% endif%}" width="20" class="recipe_integrient_image_icon" /></td>
-										<td class="recipe_integrient_name">{{ integrient.integrient.name }}</td>
+										<td class="recipe_integrient_amount">{{ integrient_rel.quantity }}</td>
+										<td class="recipe_integrient_image"><img src="{% if integrient_rel.integrient.image %}{{ integrient_rel.integrient.image.url }}{% else %}/media/media/integrients/Ingredient-Pack_of_Secret_Flavor.png{% endif%}" width="20" class="recipe_integrient_image_icon" /></td>
+										<td class="recipe_integrient_name">
+											{% if integrient_rel.is_plural or len(integrient_rel.integrient.plural) == 0 %}
+												{{ integrient_rel.integrient.name }}
+											{% else %}
+												{{ integrient_rel.integrient.plural }}
+											{% endif %}
+										</td>
 									</tr>
 								{% endfor %} 
 							</tbody>

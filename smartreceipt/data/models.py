@@ -29,6 +29,7 @@ class IntegrientType(models.Model):
 """
 class Integrient(models.Model):
 	name = models.CharField(max_length=50)
+	plural = models.CharField(max_length=50, blank=True, null=True)
 	type = models.ForeignKey(IntegrientType, blank=True, null=True, related_name="integrient_type") 
 	image = models.ImageField(upload_to='media/integrients', blank=True, null=True)
 	important = models.NullBooleanField(default=False, blank=True, null=True)
@@ -149,7 +150,65 @@ class ReceiptIntegrientRelation(models.Model):
 	integrient = models.ForeignKey(Integrient)
 	order = models.IntegerField(default=0)
 	amount = models.FloatField(default=0)
-	amount_type = models.CharField(max_length=1, choices=(('K', 'Kilogramm'), ('G', 'Gramm'), ('L', 'Liter'), ('M', 'Milliliter'), ('T', 'TL'), ('E', 'EL'), ('S', 'Stück'), ('B', 'Becher'), ('P', 'Prise(n)'), ('C', 'Päckchen'), ('F', 'Flasche(n)'), ('N', 'Scheibe(n)'), ('W', 'Etwas')))
+	amount_type = models.CharField(max_length=1, choices=(('K', 'Kilogramm'), ('G', 'Gramm'), ('L', 'Liter'), ('M', 'Milliliter'), ('T', 'TL'), ('E', 'EL'), ('S', 'Stück'), ('B', 'Becher'), ('P', 'Prise(n)'), ('C', 'Päckchen'), ('F', 'Flasche(n)'), ('N', 'Scheibe(n)'), ('W', 'Etwas'), ('D', 'Dose'), ('X', 'Glas')))
+	
+	def quantity(self):
+		if self.amount_type == 'K':
+			return '%1.1f Kg' % self.amount
+			
+		if self.amount_type == 'G':
+			return '%d g' % self.amount
+			
+		if self.amount_type == 'L':
+			return '%1.1f l' % self.amount
+			
+		if self.amount_type == 'M':
+			return '%d ml' % self.amount
+			
+		if self.amount_type == 'T':
+			return '%d TL' % self.amount
+			
+		if self.amount_type == 'E':
+			return '%d EL' % self.amount
+			
+		if self.amount_type == 'S':
+			return '%d' % self.amount
+			
+		if self.amount_type == 'B':
+			return '%d Becher' % self.amount
+			
+		if self.amount_type == 'P':
+			return '%d Prise(n)' % self.amount
+			
+		if self.amount_type == 'C':
+			return '%d Päckchen' % self.amount
+			
+		if self.amount_type == 'F':
+			if int(self.amount) == self.amount:
+				return '%d Flasche(n)' % self.amount
+			else:
+				return '%1.1f Flasche(n)' % self.amount
+			
+		if self.amount_type == 'N':
+			return '%d Scheibe(n)' % self.amount
+			
+		if self.amount_type == 'W':
+			return ''
+			
+		if self.amount_type == 'D':
+			return '%d Dose(n)' % self.amount
+			
+		if self.amount_type == 'X':
+			return '%d Glas' % self.amount
+			
+		return '%1.1f %s' % (self.amount, self.get_amount_type_display())
+		
+	def is_plural(self):
+		if self.amount_type == 'S':
+			if self.amount > 1:
+				return True
+		
+		return False
 	
 	def __unicode__(self):			  
 		return u'%s - %s' % (self.receipt.name, self.integrient.name)
