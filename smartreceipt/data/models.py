@@ -178,16 +178,26 @@ class ReceiptIntegrientRelation(models.Model):
 			return '%d Becher' % self.amount
 			
 		if self.amount_type == 'P':
-			return '%d Prise(n)' % self.amount
+			if self.amount == 1:
+				return '1 Prise'
+			else:
+				return '%d Prisen' % self.amount
 			
 		if self.amount_type == 'C':
-			return '%d Päckchen' % self.amount
+			if self.amount == 0.5:
+				return '½ Päckchen'
+			else:
+				return '%d Päckchen' % self.amount
 			
 		if self.amount_type == 'F':
-			if int(self.amount) == self.amount:
-				return '%d Flasche(n)' % self.amount
+			if self.amount == 0.5:
+				return '½ Flasche'
+			elif self.amount == 1:
+				return '1 Flasche'
+			elif int(self.amount) == self.amount:
+				return '%d Flaschen' % self.amount
 			else:
-				return '%1.1f Flasche(n)' % self.amount
+				return '%1.1f Flaschen' % self.amount
 			
 		if self.amount_type == 'N':
 			return '%d Scheibe(n)' % self.amount

@@ -97,7 +97,7 @@
 										<td class="recipe_integrient_amount">{{ integrient_rel.quantity }}</td>
 										<td class="recipe_integrient_image"><img src="{% if integrient_rel.integrient.image %}{{ integrient_rel.integrient.image.url }}{% else %}/media/media/integrients/Ingredient-Pack_of_Secret_Flavor.png{% endif%}" width="20" class="recipe_integrient_image_icon" /></td>
 										<td class="recipe_integrient_name">
-											{% if integrient_rel.is_plural or len(integrient_rel.integrient.plural) == 0 %}
+											{% if not integrient_rel.is_plural or integrient_rel.integrient.plural|length == 0 %}
 												{{ integrient_rel.integrient.name }}
 											{% else %}
 												{{ integrient_rel.integrient.plural }}

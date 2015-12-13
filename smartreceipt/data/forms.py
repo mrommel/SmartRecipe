@@ -135,7 +135,7 @@ class ReceiptAdmin(admin.ModelAdmin):
         
 class IntegrientAdmin(admin.ModelAdmin):
 	model = Integrient
-	list_display = ('name', 'thumbnail',  'type', 'important')
+	list_display = ('name', 'plural', 'thumbnail',  'type', 'important')
 	ordering = ('name',)
 
 class ReceiptCategoryAdmin(admin.ModelAdmin):
