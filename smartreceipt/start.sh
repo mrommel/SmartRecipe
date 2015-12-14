@@ -37,9 +37,9 @@ stop() {
 		
 		if [ -f $python_pidfile ] ; then
 				echo "stopping python"
-				kill -9 $python_pid
+				pkill -TERM -P $python_pid
 				
-				killall Python
+				#killall python
 		else
 				echo "Cannot stop python - no Pidfile found!"
 		fi
