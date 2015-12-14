@@ -357,7 +357,9 @@ table.recipe_ingredients {
     border-right: 0px;
     border-top: 0px;
     border-bottom: 0px;
-    padding: 5px;
+    padding: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .recipe_integrient {
@@ -369,7 +371,7 @@ table.recipe_ingredients {
 }
 
 .recipe_integrient_image {
-	width: 30px;
+	width: 26px;
 }
 
 .recipe_integrient_name {
@@ -390,7 +392,7 @@ table.recipe_ingredients {
 }
 
 .recipe_step {
-	padding: 10px;
+	padding: 5px;
 }
 
 .nolink {
