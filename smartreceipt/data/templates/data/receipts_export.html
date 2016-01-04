@@ -89,7 +89,7 @@
 					<div class="recipe_ingredients_container">
 						{% for country in receipt.countries %}<div class="recipe_ingredients_country"><img src="{{ country.image.url }}" height="12" /></div>{% endfor %}
 						<div class="recipe_ingredients_title">{% trans "Zutaten" %}</div>
-						<div class="recipe_ingredients_subline">{% trans "für" %} {{ receipt.portions }} {% trans "Portionen" %}:</div>
+						<div class="recipe_ingredients_subline">{% trans "für" %} {{ receipt.portions }} {% trans "Portionen" %}  |  {{ receipt.time }} {% trans "minutes" %}</div>
 						<table class="recipe_ingredients">
 							<tbody>
 								{% for integrient_rel in receipt.integrients %}

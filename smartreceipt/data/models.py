@@ -266,6 +266,9 @@ class ReceiptCategory(models.Model):
 	def __unicode__(self):			  
 		return u'%s' % (self.path())
 		
+	class Meta:
+		ordering = ['name']
+		
 """
 	class of a ReceiptIntegrientRelation
 """	
@@ -275,6 +278,12 @@ class ReceiptCategoryRelation(models.Model):
 	
 	def __unicode__(self):			  
 		return u'%s -> %s' % (self.receipt, self.receiptCategory)
+		
+	def str(self):			  
+		return '%s -> %s' % (self.receipt, self.receiptCategory)
+		
+	class Meta:
+		ordering = ['receipt__name']
 		
 """
 	class of a ReceiptTopic
