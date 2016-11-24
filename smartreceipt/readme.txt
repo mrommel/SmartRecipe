@@ -24,6 +24,7 @@ python ../manage.py compilemessages
 Links
 # http://chefville.wikia.com/wiki/Ingredient
 # http://docs.python-guide.org/en/latest/dev/virtualenvs/
+# http://www.django-rest-framework.org/
 
 # VirtualEnv
 cd /Users/mrommel/Prog/SmartReceipt/smartreceipt
