@@ -185,13 +185,13 @@ class ReceiptIntegrientRelation(models.Model):
 			
 		if self.amount_type == 'C':
 			if self.amount == 0.5:
-				return '½ Päckchen'
+				return '1/2 Paeckchen'
 			else:
-				return '%d Päckchen' % self.amount
+				return '%d Paeckchen' % self.amount
 			
 		if self.amount_type == 'F':
 			if self.amount == 0.5:
-				return '½ Flasche'
+				return '1/2 Flasche'
 			elif self.amount == 1:
 				return '1 Flasche'
 			elif int(self.amount) == self.amount:

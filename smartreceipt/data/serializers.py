@@ -1,20 +1,49 @@
 from django.contrib.auth.models import User, Group
-from data.models import Receipt
+from data.models import Receipt, ReceiptCategory, ReceiptCategoryRelation
 from rest_framework import serializers
 
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'groups')
-
-
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ('url', 'name')
+class ReceiptIntegrientRelationSerializer(serializers.BaseSerializer):
+    def to_representation(self, obj):
+    	integrients = []
+    	
+    	for integrient_relation in obj:
+    		integrient = dict()
+    		integrient['id'] = integrient_relation.integrient.id
+    		integrient['quantity'] = integrient_relation.quantity()
+    		#integrient['order'] = integrient_relation.order
+    		integrients.append(integrient)
+    	
+    	return integrients
         
+class CountryCategorySerializer(serializers.BaseSerializer):
+    def to_representation(self, obj):
+    	name = ''
+    	flag = ''
+    	has_country = False
+    
+    	for item in obj:
+    		 name = item.name
+    		 flag = '/media/%s' % item.image.name
+    		 has_country = True
+    
+    	if has_country:
+        	return {
+        		'country': {
+            		'name': name,
+            		'flag': flag
+            	}
+        	}
+        else:
+        	return {
+        		'country': {
+        		}
+        	}
+        	
+
 class ReceiptSerializer(serializers.HyperlinkedModelSerializer):
+    countries = CountryCategorySerializer()
+    integrients = ReceiptIntegrientRelationSerializer()
+    
     class Meta:
         model = Receipt
-        fields = ('name', 'teaser', 'description')
+        fields = ('id', 'name', 'teaser', 'description', 'image_url', 'time', 'calories', 'portions', 'steps', 'countries', 'integrients')

@@ -9,8 +9,6 @@ from rest_framework import routers
 from data import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
 router.register(r'recipes', views.RecipesViewSet)
 
 urlpatterns = patterns('',

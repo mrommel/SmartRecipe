@@ -10,7 +10,7 @@ import json
 
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from serializers import UserSerializer, GroupSerializer, ReceiptSerializer
+from serializers import ReceiptSerializer
 
 from data.models import Receipt, ReceiptCategory, Integrient, ReceiptIntegrientRelation, ReceiptTopic
 
@@ -170,20 +170,6 @@ def export(request):
 	image_data = open('tmp.pdf', "rb").read()
 	return HttpResponse(image_data, content_type='application/pdf')
 	
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-
-
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
     
 class RecipesViewSet(viewsets.ModelViewSet):
     """
