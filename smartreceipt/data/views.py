@@ -10,7 +10,7 @@ import json
 
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from serializers import ReceiptSerializer
+from serializers import ReceiptSerializer, IntegrientSerializer
 
 from data.models import Receipt, ReceiptCategory, Integrient, ReceiptIntegrientRelation, ReceiptTopic
 
@@ -177,3 +177,10 @@ class RecipesViewSet(viewsets.ModelViewSet):
     """
     queryset = Receipt.objects.all()
     serializer_class = ReceiptSerializer
+    
+class IntegrientsViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows integrient to be viewed or edited.
+    """
+    queryset = Integrient.objects.all()
+    serializer_class = IntegrientSerializer

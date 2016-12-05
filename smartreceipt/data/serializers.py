@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from data.models import Receipt, ReceiptCategory, ReceiptCategoryRelation
+from data.models import Receipt, ReceiptCategory, ReceiptCategoryRelation, Integrient, IntegrientType
 from rest_framework import serializers
 
 class ReceiptIntegrientRelationSerializer(serializers.BaseSerializer):
@@ -38,8 +38,7 @@ class CountryCategorySerializer(serializers.BaseSerializer):
         		'country': {
         		}
         	}
-        	
-
+       	
 class ReceiptSerializer(serializers.HyperlinkedModelSerializer):
     countries = CountryCategorySerializer()
     integrients = ReceiptIntegrientRelationSerializer()
@@ -47,3 +46,16 @@ class ReceiptSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Receipt
         fields = ('id', 'name', 'teaser', 'description', 'image_url', 'time', 'calories', 'portions', 'steps', 'countries', 'integrients')
+        
+class IntegrientTypeSerializer(serializers.HyperlinkedModelSerializer):
+    
+    class Meta:
+        model = IntegrientType
+        fields = ('name', )  
+        
+class IntegrientSerializer(serializers.HyperlinkedModelSerializer):
+    type = IntegrientTypeSerializer()
+    
+    class Meta:
+        model = Integrient
+        fields = ('id', 'name', 'type', 'image_url')

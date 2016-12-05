@@ -37,6 +37,9 @@ class Integrient(models.Model):
 	def thumbnail(self):
 		return '<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="20" style="height: 20px;" /></a>' % ((self.image.name, self.image.name))
 	thumbnail.allow_tags = True
+	
+	def image_url(self):
+		return '/media/%s' % self.image.name
 
 	def receipts(self):
 		return ReceiptIntegrientRelation.objects.filter(integrient = self)
