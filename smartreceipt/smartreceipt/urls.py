@@ -10,7 +10,7 @@ from data import views
 
 router = routers.DefaultRouter()
 router.register(r'recipes', views.RecipesViewSet)
-router.register(r'integrients', views.IntegrientsViewSet)
+router.register(r'ingredients', views.IntegrientsViewSet)
 
 urlpatterns = patterns('',
 	url(r'^$', RedirectView.as_view(url='/data/index')),
