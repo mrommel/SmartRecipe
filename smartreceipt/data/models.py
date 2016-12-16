@@ -239,6 +239,12 @@ class ReceiptCategory(models.Model):
 		return '<img border="0" alt="" src="/media/%s" height="20" style="height:20px" />' % (self.image.name)
 	thumbnail.allow_tags = True
 	
+	def parent_id(self):
+		if self.parentReceiptCategory is None:
+			return -1
+		else:
+			return self.parentReceiptCategory.id
+	
 	def path(self):
 		if self.parentReceiptCategory is None:
 			return self.name
@@ -247,6 +253,9 @@ class ReceiptCategory(models.Model):
 	
 	def url(self):
 		return '/data/category/%d/%s.html' % (self.id, self.name.replace(' ', '_').lower())
+		
+	def image_url(self):
+		return '/media/%s' % self.image.name
 	
 	def children(self):
 		return ReceiptCategory.objects.filter(parentReceiptCategory = self)

@@ -11,6 +11,7 @@ from data import views
 router = routers.DefaultRouter()
 router.register(r'recipes', views.RecipesViewSet)
 router.register(r'ingredients', views.IntegrientsViewSet)
+router.register(r'categories', views.CategorysViewSet)
 
 urlpatterns = patterns('',
 	url(r'^$', RedirectView.as_view(url='/data/index')),

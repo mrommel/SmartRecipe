@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from data.models import Receipt, ReceiptCategory, ReceiptCategoryRelation, Integrient, IntegrientType
+from data.models import Receipt, ReceiptCategory, ReceiptCategoryRelation, Integrient, IntegrientType, ReceiptCategory
 from rest_framework import serializers
 
 class ReceiptIntegrientRelationSerializer(serializers.BaseSerializer):
@@ -14,6 +14,19 @@ class ReceiptIntegrientRelationSerializer(serializers.BaseSerializer):
     		integrients.append(integrient)
     	
     	return integrients
+    	
+class ReceiptCategoriesRelationSerializer(serializers.BaseSerializer):
+    def to_representation(self, obj):
+    	categories = []
+    	
+    	for category_relation in obj:
+    		if not(category_relation.receiptCategory.is_country):
+    	
+    			category = dict()
+    			category['id'] = category_relation.receiptCategory.id
+    			categories.append(category)
+    	
+    	return categories
         
 class CountryCategorySerializer(serializers.BaseSerializer):
     def to_representation(self, obj):
@@ -42,10 +55,11 @@ class CountryCategorySerializer(serializers.BaseSerializer):
 class ReceiptSerializer(serializers.HyperlinkedModelSerializer):
     countries = CountryCategorySerializer()
     integrients = ReceiptIntegrientRelationSerializer()
+    categories = ReceiptCategoriesRelationSerializer()
     
     class Meta:
         model = Receipt
-        fields = ('id', 'name', 'teaser', 'description', 'image_url', 'time', 'calories', 'portions', 'steps', 'countries', 'integrients')
+        fields = ('id', 'name', 'teaser', 'description', 'image_url', 'time', 'calories', 'portions', 'steps', 'countries', 'integrients', 'categories', )
         
 class IntegrientTypeSerializer(serializers.HyperlinkedModelSerializer):
     
@@ -58,4 +72,10 @@ class IntegrientSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Integrient
-        fields = ('id', 'name', 'type', 'image_url')
+        fields = ('id', 'name', 'type', 'image_url', )
+        
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
+    
+    class Meta:
+        model = ReceiptCategory
+        fields = ('id', 'path', 'name', 'parent_id', 'number_of_receipts', )  

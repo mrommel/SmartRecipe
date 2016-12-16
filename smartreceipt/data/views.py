@@ -10,9 +10,9 @@ import json
 
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from serializers import ReceiptSerializer, IntegrientSerializer
+from serializers import ReceiptSerializer, IntegrientSerializer, CategorySerializer
 
-from data.models import Receipt, ReceiptCategory, Integrient, ReceiptIntegrientRelation, ReceiptTopic
+from data.models import Receipt, ReceiptCategory, Integrient, ReceiptIntegrientRelation, ReceiptTopic, ReceiptCategory
 
 def index(request):
 	# get all receipts
@@ -184,3 +184,10 @@ class IntegrientsViewSet(viewsets.ModelViewSet):
     """
     queryset = Integrient.objects.all()
     serializer_class = IntegrientSerializer
+    
+class CategorysViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows integrient to be viewed or edited.
+    """
+    queryset = ReceiptCategory.objects.filter(is_country=False)
+    serializer_class = CategorySerializer
