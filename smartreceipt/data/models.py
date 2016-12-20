@@ -169,7 +169,7 @@ class ReceiptIntegrientRelation(models.Model):
 			return '%d ml' % self.amount
 			
 		if self.amount_type == 'T':
-			return '%d TL' % self.amount
+			return '%1.1f TL' % self.amount
 			
 		if self.amount_type == 'E':
 			return '%d EL' % self.amount

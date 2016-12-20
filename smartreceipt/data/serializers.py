@@ -78,4 +78,4 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = ReceiptCategory
-        fields = ('id', 'path', 'name', 'parent_id', 'number_of_receipts', )  
+        fields = ('id', 'path', 'name', 'parent_id', 'number_of_receipts', 'image_url', )  
