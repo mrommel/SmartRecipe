@@ -9,8 +9,8 @@ class ReceiptIntegrientRelationSerializer(serializers.BaseSerializer):
     	for integrient_relation in obj:
     		integrient = dict()
     		integrient['id'] = integrient_relation.integrient.id
-    		integrient['quantity'] = integrient_relation.quantity()
-    		#integrient['order'] = integrient_relation.order
+    		integrient['quantity'] = integrient_relation.amount
+    		integrient['type'] = integrient_relation.amount_type
     		integrients.append(integrient)
     	
     	return integrients
