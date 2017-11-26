@@ -51,11 +51,26 @@ class CountryCategorySerializer(serializers.BaseSerializer):
         		'country': {
         		}
         	}
+        	
+        	
+class ReceiptStepSerializer(serializers.BaseSerializer):
+	def to_representation(self, obj):
+		return { 
+			'step': {
+				'index': obj.index,
+				'text': obj.text
+			}
+		}
+		
+class ReceiptStepSerializer(serializers.ListSerializer):
+	child = ReceiptStepSerializer()
+	
        	
 class ReceiptSerializer(serializers.HyperlinkedModelSerializer):
     countries = CountryCategorySerializer()
     integrients = ReceiptIntegrientRelationSerializer()
     categories = ReceiptCategoriesRelationSerializer()
+    steps = ReceiptStepSerializer()
     
     class Meta:
         model = Receipt

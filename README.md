@@ -1,1 +1,3 @@
-# SmartAncestry
+# SmartRecipe
+
+http://localhost:8000/admin

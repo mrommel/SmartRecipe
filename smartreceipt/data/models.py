@@ -50,6 +50,14 @@ class Integrient(models.Model):
 	def __unicode__(self):			  
 		return u'%s' % (self.name)
 
+class ReceiptStep():
+	index = 0
+	text = ""
+	
+	def __init__(self, indexValue, stepText):
+		self.index = indexValue
+		self.text = stepText
+
 """
 	class of a receipt
 """
@@ -95,34 +103,34 @@ class Receipt(models.Model):
 		steps = []
 		
 		if self.step0 is not None and self.step0 <> '':
-			steps.append(self.step0)
+			steps.append(ReceiptStep(1, self.step0))
 			
 		if self.step1 is not None and self.step1 <> '':
-			steps.append(self.step1)
+			steps.append(ReceiptStep(2, self.step1))
 	
 		if self.step2 is not None and self.step2 <> '':
-			steps.append(self.step2)
+			steps.append(ReceiptStep(3, self.step2))
 			
 		if self.step3 is not None and self.step3 <> '':
-			steps.append(self.step3)
+			steps.append(ReceiptStep(4, self.step3))
 	
 		if self.step4 is not None and self.step4 <> '':
-			steps.append(self.step4)
+			steps.append(ReceiptStep(5, self.step4))
 			
 		if self.step5 is not None and self.step5 <> '':
-			steps.append(self.step5)
+			steps.append(ReceiptStep(6, self.step5))
 			
 		if self.step6 is not None and self.step6 <> '':
-			steps.append(self.step6)
+			steps.append(ReceiptStep(7, self.step6))
 			
 		if self.step7 is not None and self.step7 <> '':
-			steps.append(self.step7)
+			steps.append(ReceiptStep(8, self.step7))
 			
 		if self.step8 is not None and self.step8 <> '':
-			steps.append(self.step8)
+			steps.append(ReceiptStep(9, self.step8))
 			
 		if self.step9 is not None and self.step9 <> '':
-			steps.append(self.step9)
+			steps.append(ReceiptStep(10, self.step9))
 	
 		return steps
 		
