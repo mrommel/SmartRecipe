@@ -153,7 +153,7 @@ class ReceiptIntegrientRelation(models.Model):
 	integrient = models.ForeignKey(Integrient)
 	order = models.IntegerField(default=0)
 	amount = models.FloatField(default=0)
-	amount_type = models.CharField(max_length=1, choices=(('K', 'Kilogramm'), ('G', 'Gramm'), ('L', 'Liter'), ('M', 'Milliliter'), ('T', 'TL'), ('E', 'EL'), ('S', 'Stück'), ('B', 'Becher'), ('P', 'Prise(n)'), ('C', 'Päckchen'), ('F', 'Flasche(n)'), ('N', 'Scheibe(n)'), ('W', 'Etwas'), ('D', 'Dose'), ('X', 'Glas')))
+	amount_type = models.CharField(max_length=1, choices=(('K', 'Kilogramm'), ('G', 'Gramm'), ('L', 'Liter'), ('M', 'Milliliter'), ('T', 'TL'), ('E', 'EL'), ('S', 'Stück'), ('B', 'Becher'), ('P', 'Prise(n)'), ('C', 'Päckchen'), ('F', 'Flasche(n)'), ('N', 'Scheibe(n)'), ('W', 'Etwas'), ('D', 'Dose'), ('X', 'Glas'), ('R', 'Tasse')))
 	
 	def quantity(self):
 		if self.amount_type == 'K':
@@ -213,6 +213,12 @@ class ReceiptIntegrientRelation(models.Model):
 			
 		if self.amount_type == 'X':
 			return '%d Glas' % self.amount
+			
+		if self.amount_type == 'R':
+			if self.amount == 1.0:
+				return '%d Tasse' % self.amount
+			else:
+				return '%d Tassen' % self.amount
 			
 		return '%1.1f %s' % (self.amount, self.get_amount_type_display())
 		

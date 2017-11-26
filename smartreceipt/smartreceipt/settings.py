@@ -27,6 +27,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -64,12 +66,23 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.contrib.messages.context_processors.messages",
 )
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    "/Users/mrommel/Prog/SmartReceipt/smartreceipt/data/templates",  # extra folder
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(PROJECT_PATH, 'template')
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 ROOT_URLCONF = 'smartreceipt.urls'
 
@@ -91,19 +104,19 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/mrommel/Prog/SmartReceipt/smartreceipt/debug.log',
+            'filename': '/Users/michael.rommel/Prog/SmartReceipt/smartreceipt/debug.log',
             'formatter': 'verbose'
         },
         'file2': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/mrommel/Prog/SmartReceipt/smartreceipt/django.log',
+            'filename': '/Users/michael.rommel/Prog/SmartReceipt/smartreceipt/django.log',
             'formatter': 'verbose'
         },
         'file_forms': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/mrommel/Prog/SmartReceipt/smartreceipt/forms.log',
+            'filename': '/Users/michael.rommel/Prog/SmartReceipt/smartreceipt/forms.log',
             'formatter': 'verbose'
         },
     },
@@ -165,6 +178,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/Users/mrommel/Prog/SmartReceipt/smartreceipt/smartreceipt'
-MEDIA_ROOT = '/Users/mrommel/Prog/SmartReceipt/smartreceipt/data'
+STATIC_ROOT = '/Users/michael.rommel/Prog/SmartReceipt/smartreceipt/smartreceipt'
+MEDIA_ROOT = '/Users/michael.rommel/Prog/SmartReceipt/smartreceipt/data'
 MEDIA_URL = '/media/'

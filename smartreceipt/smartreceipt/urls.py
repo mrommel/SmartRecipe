@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import *
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
@@ -13,7 +13,7 @@ router.register(r'recipes', views.RecipesViewSet)
 router.register(r'ingredients', views.IntegrientsViewSet)
 router.register(r'categories', views.CategorysViewSet)
 
-urlpatterns = patterns('',
+urlpatterns = [
 	url(r'^$', RedirectView.as_view(url='/data/index')),
 	url(r'^data/', include('data.urls')),
 	url(r'^admin/', include(admin.site.urls)),
@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     # api
 	url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-)
+]
 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,9 +1,8 @@
-from django.conf.urls import patterns, url
-
+from django.conf.urls import *
 from data import views
 from django.views.generic import RedirectView
 
-urlpatterns = patterns('',
+urlpatterns = [
 	url(r'^$', RedirectView.as_view(url='/index/')),
     url(r'^index/', views.index, name='data.views.index'),
     url(r'^receipts/', views.receipts, name='data.views.receipts'),
@@ -15,4 +14,4 @@ urlpatterns = patterns('',
     url(r'^integrient_search', views.integrient_search, name='data.views.integrient_search'),
     url(r'^receipts_by_integrients', views.receipts_by_integrients, name='data.views.receipts_by_integrients'),
     url(r'^export/receipts/', views.export, name='data.views.export'),
-)
+]
