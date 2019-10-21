@@ -10,7 +10,7 @@ django-admin-tools==0.7.1
 django-favicon==0.1.1
 django-filter==1.0.0
 django-suit==0.2.15
-djangorestframework==3.5.3
+djangorestframework==3.9.1
 edgegrid-python==1.0.10
 gitdb==0.6.4
 GitPython==2.0.2
