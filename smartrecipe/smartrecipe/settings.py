@@ -1,5 +1,5 @@
 """
-Django settings for smartreceipt project.
+Django settings for smartrecipe project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -84,9 +84,9 @@ TEMPLATES = [
     },
 ]
 
-ROOT_URLCONF = 'smartreceipt.urls'
+ROOT_URLCONF = 'smartrecipe.urls'
 
-WSGI_APPLICATION = 'smartreceipt.wsgi.application'
+WSGI_APPLICATION = 'smartrecipe.wsgi.application'
 
 LOGGING = {
     'version': 1,
@@ -104,19 +104,19 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/michael.rommel/Prog/SmartReceipt/smartreceipt/debug.log',
+            'filename': '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/debug.log',
             'formatter': 'verbose'
         },
         'file2': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/michael.rommel/Prog/SmartReceipt/smartreceipt/django.log',
+            'filename': '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/django.log',
             'formatter': 'verbose'
         },
         'file_forms': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/michael.rommel/Prog/SmartReceipt/smartreceipt/forms.log',
+            'filename': '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/forms.log',
             'formatter': 'verbose'
         },
     },
@@ -178,6 +178,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/Users/michael.rommel/Prog/SmartReceipt/smartreceipt/smartreceipt'
-MEDIA_ROOT = '/Users/michael.rommel/Prog/SmartReceipt/smartreceipt/data'
+STATIC_ROOT = '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/smartrecipe'
+MEDIA_ROOT = '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/data'
 MEDIA_URL = '/media/'

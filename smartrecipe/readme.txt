@@ -1,7 +1,7 @@
 
 # goto web app root
 
-cd ~/Prog/SmartReceipt/smartreceipt
+cd ~/Prog/SmartRecipe/smartrecipe
 
 # run web server
 
@@ -17,7 +17,7 @@ python manage.py sqlmigrate data 0002
 python manage.py migrate
 
 # translations
-cd ~/Prog/SmartReceipt/smartreceipt/data/
+cd ~/Prog/SmartReceipt/smartrecipe/data/
 python ../manage.py makemessages -l de -e html,txt -e xml
 python ../manage.py compilemessages
 
@@ -27,7 +27,7 @@ Links
 # http://www.django-rest-framework.org/
 
 # VirtualEnv
-cd /Users/mrommel/Prog/SmartReceipt/smartreceipt
+cd ~/Prog/SmartRecipe/smartrecipe
 source venv/bin/activate
 deactivate
 

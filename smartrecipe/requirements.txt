@@ -1,21 +1,21 @@
 amqp==1.4.6
 anyjson==0.3.3
-apibootcamp-python==1.0.0
+#apibootcamp-python==1.0.0
 billiard==3.3.0.20
 celery==3.1.18
 data-importer==2.2.1
 Django==1.9
 django-admin-tools==0.7.1
--e git+https://github.com/Homebrew/brew.git@54e3ba354514dc85f6cb860255b309143a986073#egg=django_extensions
+django-extensions
 django-favicon==0.1.1
 django-filter==1.0.0
 django-suit==0.2.15
-djangorestframework==3.9.1
+djangorestframework>=3.9.1
 edgegrid-python==1.0.10
 gitdb==0.6.4
 GitPython==2.0.2
 graphviz==0.4.2
-jdcal==1.0
+jdcal>=1.0
 kombu==3.0.26
 Markdown==2.6.7
 ndg-httpsclient==0.4.0
@@ -25,7 +25,7 @@ pbr==1.8.1
 Pillow==6.2.0
 plotly==1.6.8
 pyasn1==0.1.9
-pyOpenSSL==16.0.0
+pyopenssl>=17.5.0
 reportlab==3.1.44
 requests==2.10.0
 simplejson==3.6.5
@@ -33,8 +33,8 @@ six==1.10.0
 smmap==0.9.0
 South==1.0.2
 stevedore==1.9.0
-urllib3==1.15.1
-vboxapi==1.0
+urllib3>=1.24.2
+#vboxapi==1.0
 virtualenv==15.0.1
 virtualenv-clone==0.2.6
 virtualenvwrapper==4.7.1
