@@ -11,7 +11,7 @@ cffi==1.12.2
 chardet==3.0.4
 cryptography==2.6.1
 data-importer==2.2.1
-Django==1.9
+Django==1.11.28
 django-admin-tools==0.7.1
 django-extensions==2.1.5
 django-favicon==0.1.1
