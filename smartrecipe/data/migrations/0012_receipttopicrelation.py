@@ -15,8 +15,8 @@ class Migration(migrations.Migration):
             name='ReceiptTopicRelation',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('receipt', models.ForeignKey(to='data.Receipt')),
-                ('receiptTopic', models.ForeignKey(to='data.ReceiptTopic')),
+                ('receipt', models.ForeignKey(to='data.Receipt', on_delete=models.CASCADE)),
+                ('receiptTopic', models.ForeignKey(to='data.ReceiptTopic', on_delete=models.CASCADE)),
             ],
             options={
             },

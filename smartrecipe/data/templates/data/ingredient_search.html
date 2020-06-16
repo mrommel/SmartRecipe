@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
 
 {% block scripts %}
@@ -8,10 +8,10 @@
 <script src="{% static 'data/js/jquery-ui.min.js' %}"></script>
 <script src="{% static 'data/js/jquery.caret.min.js' %}"></script>
 <script src="{% static 'data/js/jquery.tag-editor.js' %}"></script>
-<script src="{% static 'data/js/integrient_search.js' %}"></script>
+<script src="{% static 'data/js/ingredient_search.js' %}"></script>
 
 <link rel="stylesheet" type="text/css" href="{% static 'data/css/jquery.tag-editor.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'data/css/integrient_search.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'data/css/ingredient_search.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -21,7 +21,7 @@
 		<div class="h2 floatLeft displayInlineItem">Rezepte</div>
 		<br class="clearboth">
 		Bitte gib die Namen von Zutaten hier ein:
-		<div style="margin:0 0 1.2em"><textarea id="integrients"></textarea></div>
+		<div style="margin:0 0 1.2em"><textarea id="ingredients"></textarea></div>
 
 		<script type="text/javascript">
 			$('#integrients').tagEditor({

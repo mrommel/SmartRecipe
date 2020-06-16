@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=50)),
-                ('parentReceiptCategory', models.ForeignKey(blank=True, to='data.ReceiptCategory', null=True)),
+                ('parentReceiptCategory', models.ForeignKey(blank=True, to='data.ReceiptCategory', on_delete=models.CASCADE, null=True)),
             ],
             options={
             },

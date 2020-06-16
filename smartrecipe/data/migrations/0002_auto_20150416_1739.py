@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
                 ('order', models.IntegerField(default=0)),
                 ('amount', models.FloatField(default=0)),
                 ('amount_ytep', models.CharField(max_length=1, choices=[(b'K', b'Kilogramm'), (b'G', b'Gramm'), (b'L', b'Liter'), (b'M', b'Milliliter')])),
-                ('integrient', models.ForeignKey(to='data.Integrient')),
-                ('receipt', models.ForeignKey(to='data.Receipt')),
+                ('integrient', models.ForeignKey(to='data.Integrient', on_delete=models.CASCADE)),
+                ('receipt', models.ForeignKey(to='data.Receipt', on_delete=models.CASCADE)),
             ],
             options={
             },

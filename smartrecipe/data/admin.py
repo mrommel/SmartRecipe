@@ -1,14 +1,14 @@
 from django.contrib import admin
 
 # Register your models here.
-from data.models import IntegrientType, Integrient, Receipt, ReceiptIntegrientRelation, ReceiptCategory, ReceiptCategoryRelation, ReceiptTopic
-from data.forms import ReceiptAdmin, IntegrientAdmin, ReceiptCategoryAdmin
+from . import models
+from .forms import ReceiptAdmin, IngredientAdmin, ReceiptCategoryAdmin
 
-admin.site.register(IntegrientType)
-admin.site.register(Integrient, IntegrientAdmin)
-admin.site.register(Receipt, ReceiptAdmin)
-admin.site.register(ReceiptIntegrientRelation)
-admin.site.register(ReceiptCategory, ReceiptCategoryAdmin)
-admin.site.register(ReceiptCategoryRelation)
-admin.site.register(ReceiptTopic)
+admin.site.register(models.IngredientType)
+admin.site.register(models.Ingredient, IngredientAdmin)
+admin.site.register(models.Receipt, ReceiptAdmin)
+admin.site.register(models.ReceiptIngredientRelation)
+admin.site.register(models.ReceiptCategory, ReceiptCategoryAdmin)
+admin.site.register(models.ReceiptCategoryRelation)
+admin.site.register(models.ReceiptTopic)
 

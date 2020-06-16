@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='integrient',
             name='type',
-            field=models.ForeignKey(related_name='integrient_type', blank=True, to='data.IntegrientType', null=True),
+            field=models.ForeignKey(related_name='integrient_type', on_delete=models.CASCADE, blank=True, to='data.IntegrientType', null=True),
             preserve_default=True,
         ),
     ]
