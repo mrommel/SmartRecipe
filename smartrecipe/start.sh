@@ -71,13 +71,13 @@ case "$1" in
   status)
         status
         ;;
-  restart|reload|condrestart)
+  restart)
         stop
         sleep 5
         start
         ;;
   *)
-        echo $"Usage: $0 {start|stop|restart|reload|status}"
+        echo $"Usage: $0 {start|stop|restart}"
         exit 1
 esac
 exit 0

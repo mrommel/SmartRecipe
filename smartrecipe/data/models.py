@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*- 
 
 import logging
+from html import escape
 
 from django.db import models
 from django.utils.safestring import mark_safe
@@ -16,8 +17,17 @@ class IngredientType(models.Model):
     """
     name = models.CharField(max_length=50)
 
+    def url(self):
+        if self.name is not None:
+            return '/data/ingredient_type/%d/%s.html' % (self.id, self.name.replace(' ', '_').lower())
+        else:
+            return '-'
+
     def __unicode__(self):
         return u'%s' % self.name
+
+    def __str__(self):
+        return '%s' % self.name
 
 
 class Ingredient(models.Model):
@@ -32,10 +42,14 @@ class Ingredient(models.Model):
     important = models.NullBooleanField(default=False, blank=True, null=True)
 
     def thumbnail(self):
-        return '<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="20" style="height: 20px;" /></a>' % (
-            (self.image.name, self.image.name))
+        if self.image.name is not None:
+            return mark_safe('<img border="0" alt="" src="/media/%s" height="20" style="height: 20px;" />' % (
+                escape(self.image.name)))
+        else:
+            return mark_safe('<img border="0" alt="" src="/media/none.png" height="20" style="height: 20px;" />')
 
     thumbnail.allow_tags = True
+    thumbnail.short_description = 'thumbnail'
 
     def image_url(self):
         return '/media/%s' % self.image.name
@@ -49,8 +63,11 @@ class Ingredient(models.Model):
     def __unicode__(self):
         return u'%s' % self.name
 
+    def __str__(self):
+        return '%s' % self.name
 
-class ReceiptStep():
+
+class ReceiptStep:
     index = 0
     text = ""
 
@@ -86,7 +103,10 @@ class Receipt(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def url(self):
-        return '/data/receipt/%d/%s.html' % (self.id, self.name.replace(' ', '_').lower())
+        if self.name is not None:
+            return '/data/receipt/%d/%s.html' % (self.id, self.name.replace(' ', '_').lower())
+        else:
+            return '-'
 
     def image_url(self):
         return '/media/%s' % self.image.name
@@ -145,13 +165,20 @@ class Receipt(models.Model):
         return country_list
 
     def thumbnail(self):
-        return '<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="20" style="height: 20px;" /></a>' % (
-            (self.image.name, self.image.name))
+        if self.image.name is not None:
+            return mark_safe('<img border="0" alt="" src="/media/%s" height="20" style="height: 20px;" />' % (
+                escape(self.image.name)))
+        else:
+            return mark_safe('<img border="0" alt="" src="/media/none.png" height="20" style="height: 20px;" />')
 
     thumbnail.allow_tags = True
+    thumbnail.short_description = 'thumbnail'
 
     def __unicode__(self):
-        return u'%s' % (self.name)
+        return u'%s' % self.name
+
+    def __str__(self):
+        return '%s' % self.name
 
     class Meta:
         ordering = ['name']
@@ -248,6 +275,9 @@ class ReceiptIngredientRelation(models.Model):
     def __unicode__(self):
         return u'%s - %s' % (self.receipt.name, self.ingredient.name)
 
+    def __str__(self):
+        return '%s - %s' % (self.receipt.name, self.ingredient.name)
+
 
 class ReceiptCategory(models.Model):
     """
@@ -276,7 +306,10 @@ class ReceiptCategory(models.Model):
             return u'%s - %s' % (self.parentReceiptCategory.path(), self.name)
 
     def url(self):
-        return '/data/category/%d/%s.html' % (self.id, self.name.replace(' ', '_').lower())
+        if self.name is not None:
+            return '/data/category/%d/%s.html' % (self.id, self.name.replace(' ', '_').lower())
+        else:
+            return '-'
 
     def image_url(self):
         return '/media/%s' % self.image.name
@@ -303,6 +336,9 @@ class ReceiptCategory(models.Model):
     def __unicode__(self):
         return u'%s' % (self.path())
 
+    def __str__(self):
+        return '%s' % (self.path())
+
     class Meta:
         ordering = ['name']
 
@@ -317,7 +353,7 @@ class ReceiptCategoryRelation(models.Model):
     def __unicode__(self):
         return u'%s -> %s' % (self.receipt, self.receiptCategory)
 
-    def str(self):
+    def __str__(self):
         return '%s -> %s' % (self.receipt, self.receiptCategory)
 
     class Meta:
@@ -338,7 +374,10 @@ class ReceiptTopic(models.Model):
             return u'%s - %s' % (self.parentReceiptTopic.path(), self.name)
 
     def url(self):
-        return '/data/topic/%d/%s.html' % (self.id, self.name.replace(' ', '_').lower())
+        if self.name is not None:
+            return '/data/topic/%d/%s.html' % (self.id, self.name.replace(' ', '_').lower())
+        else:
+            return '-'
 
     def children(self):
         return ReceiptTopic.objects.filter(parentReceiptTopic=self)
@@ -348,6 +387,9 @@ class ReceiptTopic(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.path())
+
+    def __str__(self):
+        return '%s' % (self.path())
 
 
 class ReceiptTopicRelation(models.Model):
@@ -359,3 +401,6 @@ class ReceiptTopicRelation(models.Model):
 
     def __unicode__(self):
         return u'%s -> %s' % (self.receipt, self.receiptTopic)
+
+    def __str__(self):
+        return '%s -> %s' % (self.receipt, self.receiptTopic)

@@ -1,14 +1,16 @@
 from django.contrib import admin
 
 # Register your models here.
-from . import models
-from .forms import ReceiptAdmin, IngredientAdmin, ReceiptCategoryAdmin
 
-admin.site.register(models.IngredientType)
-admin.site.register(models.Ingredient, IngredientAdmin)
-admin.site.register(models.Receipt, ReceiptAdmin)
-admin.site.register(models.ReceiptIngredientRelation)
-admin.site.register(models.ReceiptCategory, ReceiptCategoryAdmin)
-admin.site.register(models.ReceiptCategoryRelation)
-admin.site.register(models.ReceiptTopic)
+from .forms import ReceiptAdmin, IngredientAdmin, IngredientTypeAdmin, ReceiptCategoryAdmin
+from .models import IngredientType, Ingredient, Receipt, ReceiptIngredientRelation, ReceiptCategory, \
+    ReceiptCategoryRelation, ReceiptTopic
+
+admin.site.register(IngredientType, IngredientTypeAdmin)
+admin.site.register(Ingredient, IngredientAdmin)
+admin.site.register(Receipt, ReceiptAdmin)
+admin.site.register(ReceiptIngredientRelation)
+admin.site.register(ReceiptCategory, ReceiptCategoryAdmin)
+admin.site.register(ReceiptCategoryRelation)
+admin.site.register(ReceiptTopic)
 

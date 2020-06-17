@@ -3,9 +3,27 @@ from django import forms
 import logging
 
 from .models import ReceiptIngredientRelation, ReceiptCategoryRelation, Receipt, Ingredient, \
-    ReceiptCategory
+    ReceiptCategory, IngredientType
 
 logger = logging.getLogger(__name__)
+
+
+class IngredientTypeIngredientRelationInline(admin.TabularInline):
+    model = Ingredient
+    fk_name = "type"
+    extra = 1
+
+
+class IngredientTypeAdmin(admin.ModelAdmin):
+
+    inlines = [
+        IngredientTypeIngredientRelationInline,
+    ]
+
+    class Meta:
+        model = IngredientType
+        fields = ('name', )
+        list_display = ('name', )
 
 
 class ReceiptIngredientRelationInline(admin.TabularInline):

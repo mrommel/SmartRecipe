@@ -178,5 +178,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/smartrecipe'
+
 MEDIA_ROOT = '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/data'
 MEDIA_URL = '/media/'

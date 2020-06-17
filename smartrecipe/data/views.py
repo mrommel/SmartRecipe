@@ -86,7 +86,8 @@ def ingredient_search(request):
 
     for ingredient in ingredient_list:
         ingredient_name = ingredient.name
-        ingredient_name = ingredient_name.replace(u'\xdf', '&szlig;')
+        if ingredient_name is not None:
+            ingredient_name = ingredient_name.replace(u'\xdf', '&szlig;')
         ingredient_name_list.append(str(ingredient_name))
 
     return render(request, 'data/ingredient_search.html', {
