@@ -37,7 +37,7 @@ numpy==1.16.5
 openpyxl==2.2.3
 ordereddict==1.1
 pbr==1.8.1
-Pillow==6.2.0
+Pillow==7.1.0
 py2app==0.7.3
 pyasn1==0.1.9
 pycparser==2.19
