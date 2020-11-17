@@ -1,8 +1,9 @@
-Django==1.11.19
+Django==1.11.20
 django-admin-tools==0.7.1
 django-extensions==2.1.5
 django-favicon==0.1.1
 django-filter==1.0.0
+djangorestframework==3.9.1
 django-suit==0.2.15
-Pillow==7.1.0
+Pillow==6.2.2
 six==1.12.0
