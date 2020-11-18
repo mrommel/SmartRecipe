@@ -55,10 +55,10 @@ class Ingredient(models.Model):
         return '/media/%s' % self.image.name
 
     def receipts(self):
-        return ReceiptIngredientRelation.objects.filter(ingredient=self)
+        return RecipeIngredientRelation.objects.filter(ingredient=self)
 
-    def number_of_receipts(self):
-        return len(self.receipts())
+    def number_of_recipes(self):
+        return len(self.recipes())
 
     def __unicode__(self):
         return u'%s' % self.name
@@ -104,7 +104,7 @@ class Recipe(models.Model):
 
     def url(self):
         if self.name is not None:
-            return '/data/receipt/%d/%s.html' % (self.id, self.name.replace(' ', '_').lower())
+            return '/data/recipe/%d/%s.html' % (self.id, self.name.replace(' ', '_').lower())
         else:
             return '-'
 
@@ -115,10 +115,10 @@ class Recipe(models.Model):
         return u'%d min' % self.time
 
     def categories(self):
-        return ReceiptCategoryRelation.objects.filter(receipt=self)
+        return RecipeCategoryRelation.objects.filter(recipe=self)
 
     def ingredients(self):
-        return ReceiptIngredientRelation.objects.filter(recipe=self)
+        return RecipeIngredientRelation.objects.filter(recipe=self)
 
     def steps(self):
         steps = []
@@ -159,8 +159,8 @@ class Recipe(models.Model):
         country_list = []
 
         for category in self.categories():
-            if category.receiptCategory.is_country:
-                country_list.append(category.receiptCategory)
+            if category.recipeCategory.is_country:
+                country_list.append(category.recipeCategory)
 
         return country_list
 
@@ -184,9 +184,9 @@ class Recipe(models.Model):
         ordering = ['name']
 
 
-class ReceiptIngredientRelation(models.Model):
+class RecipeIngredientRelation(models.Model):
     """
-        class of a ReceiptIngredientRelation
+        class of a RecipeIngredientRelation
     """
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
@@ -317,11 +317,11 @@ class RecipeCategory(models.Model):
     def children(self):
         return RecipeCategory.objects.filter(parentRecipeCategory=self)
 
-    def receipts(self):
-        return ReceiptCategoryRelation.objects.filter(receiptCategory=self)
+    def recipes(self):
+        return RecipeCategoryRelation.objects.filter(recipeCategory=self)
 
     def number_of_recipes(self):
-        num = len(self.receipts())
+        num = len(self.recipes())
 
         for child in RecipeCategory.objects.filter(parentRecipeCategory=self):
             num = num + child.number_of_recipes()
@@ -343,35 +343,35 @@ class RecipeCategory(models.Model):
         ordering = ['name']
 
 
-class ReceiptCategoryRelation(models.Model):
+class RecipeCategoryRelation(models.Model):
     """
-        class of a ReceiptIngredientRelation
+        class of a RecipeIngredientRelation
     """
-    receipt = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    receiptCategory = models.ForeignKey(RecipeCategory, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipeCategory = models.ForeignKey(RecipeCategory, on_delete=models.CASCADE)
 
     def __unicode__(self):
-        return u'%s -> %s' % (self.receipt, self.receiptCategory)
+        return u'%s -> %s' % (self.recipe, self.recipeCategory)
 
     def __str__(self):
-        return '%s -> %s' % (self.receipt, self.receiptCategory)
+        return '%s -> %s' % (self.recipe, self.recipeCategory)
 
     class Meta:
-        ordering = ['receipt__name']
+        ordering = ['recipe__name']
 
 
-class ReceiptTopic(models.Model):
+class RecipeTopic(models.Model):
     """
-        class of a ReceiptTopic
+        class of a RecipeTopic
     """
     name = models.CharField(max_length=50)
-    parentReceiptTopic = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
+    parentRecipeTopic = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
 
     def path(self):
-        if self.parentReceiptTopic is None:
+        if self.parentRecipeTopic is None:
             return self.name
         else:
-            return u'%s - %s' % (self.parentReceiptTopic.path(), self.name)
+            return u'%s - %s' % (self.parentRecipeTopic.path(), self.name)
 
     def url(self):
         if self.name is not None:
@@ -380,10 +380,10 @@ class ReceiptTopic(models.Model):
             return '-'
 
     def children(self):
-        return ReceiptTopic.objects.filter(parentReceiptTopic=self)
+        return RecipeTopic.objects.filter(parentRecipeTopic=self)
 
-    def receipts(self):
-        return ReceiptTopicRelation.objects.filter(receiptTopic=self)
+    def recipes(self):
+        return RecipeTopicRelation.objects.filter(recipeTopic=self)
 
     def __unicode__(self):
         return u'%s' % (self.path())
@@ -392,15 +392,15 @@ class ReceiptTopic(models.Model):
         return '%s' % (self.path())
 
 
-class ReceiptTopicRelation(models.Model):
+class RecipeTopicRelation(models.Model):
     """
-        class of a ReceiptTopicRelation
+        class of a RecipeTopicRelation
     """
-    receipt = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    receiptTopic = models.ForeignKey(ReceiptTopic, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipeTopic = models.ForeignKey(RecipeTopic, on_delete=models.CASCADE)
 
     def __unicode__(self):
-        return u'%s -> %s' % (self.receipt, self.receiptTopic)
+        return u'%s -> %s' % (self.recipe, self.recipeTopic)
 
     def __str__(self):
-        return '%s -> %s' % (self.receipt, self.receiptTopic)
+        return '%s -> %s' % (self.recipe, self.recipeTopic)

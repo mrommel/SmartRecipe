@@ -31,9 +31,9 @@ class ReceiptCategoriesRelationSerializer(BaseSerializer):
         categories = []
 
         for category_relation in self.value:
-            if not category_relation.receiptCategory.is_country:
+            if not category_relation.recipeCategory.is_country:
                 category = dict()
-                category['id'] = category_relation.receiptCategory.id
+                category['id'] = category_relation.recipeCategory.id
                 categories.append(category)
 
         return categories

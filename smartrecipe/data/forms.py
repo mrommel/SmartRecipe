@@ -4,7 +4,7 @@ import logging
 
 from django.utils.safestring import SafeString
 
-from .models import ReceiptIngredientRelation, ReceiptCategoryRelation, Recipe, Ingredient, \
+from .models import RecipeIngredientRelation, RecipeCategoryRelation, Recipe, Ingredient, \
     RecipeCategory, IngredientType
 
 logger = logging.getLogger(__name__)
@@ -29,7 +29,7 @@ class IngredientTypeAdmin(admin.ModelAdmin):
 
 
 class ReceiptIngredientRelationInline(admin.TabularInline):
-    model = ReceiptIngredientRelation
+    model = RecipeIngredientRelation
     fk_name = "recipe"
     extra = 4
 
@@ -38,9 +38,9 @@ class ReceiptIngredientRelationInline(admin.TabularInline):
         return 5
 
 
-class ReceiptCategoryRelationInline(admin.TabularInline):
-    model = ReceiptCategoryRelation
-    fk_name = "receipt"
+class RecipeCategoryRelationInline(admin.TabularInline):
+    model = RecipeCategoryRelation
+    fk_name = "recipe"
     extra = 4
 
     def get_extra(self, request, obj=None, **kwargs):
@@ -48,9 +48,9 @@ class ReceiptCategoryRelationInline(admin.TabularInline):
         return 5
 
 
-class ReceiptCategoryRelationInline2(admin.TabularInline):
-    model = ReceiptCategoryRelation
-    fk_name = "receiptCategory"
+class RecipeCategoryRelationInline2(admin.TabularInline):
+    model = RecipeCategoryRelation
+    fk_name = "recipeCategory"
     extra = 0
 
     def get_extra(self, request, obj=None, **kwargs):
@@ -85,7 +85,7 @@ class RecipeAdmin(admin.ModelAdmin):
     ordering = ('name',)
     inlines = [
         ReceiptIngredientRelationInline,
-        ReceiptCategoryRelationInline,
+        RecipeCategoryRelationInline,
     ]
     actions_on_top = True
     actions_on_bottom = True
@@ -93,8 +93,8 @@ class RecipeAdmin(admin.ModelAdmin):
     def admin_categories(self, instance):
         str_value = '<ul class="commalist">'
         for category in instance.categories():
-            str_value = '%s<li><a href="/admin/data/receiptcategory/%d/change/">%s</a></li>' % (
-                str_value, category.receiptCategory.id, category.receiptCategory.name)
+            str_value = '%s<li><a href="/admin/data/recipecategory/%d/change/">%s</a></li>' % (
+                str_value, category.recipeCategory.id, category.recipeCategory.name)
         str_value = '%s</ul>' % str_value
         return SafeString(str_value)
 
@@ -133,12 +133,12 @@ class IngredientAdmin(admin.ModelAdmin):
     ordering = ('name',)
 
 
-class ReceiptCategoryAdmin(admin.ModelAdmin):
+class RecipeCategoryAdmin(admin.ModelAdmin):
     model = RecipeCategory
     list_display = ('thumbnail', 'name', 'path',)
     readonly_fields = ('thumbnail', 'path',)
     ordering = ('name',)
 
     inlines = [
-        ReceiptCategoryRelationInline2,
+        RecipeCategoryRelationInline2,
     ]

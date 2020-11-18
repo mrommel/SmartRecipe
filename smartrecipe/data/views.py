@@ -4,14 +4,14 @@ from django.http import HttpResponse
 from django.http import Http404
 import json
 
-from .models import Recipe, ReceiptTopic, RecipeCategory, Ingredient, ReceiptIngredientRelation
+from .models import Recipe, RecipeTopic, RecipeCategory, Ingredient, RecipeIngredientRelation
 
 
 def index(request):
     # get all receipts
     receipt_list = Recipe.objects.all
     # get root topics
-    topic_list = ReceiptTopic.objects.filter(parentReceiptTopic=None)
+    topic_list = RecipeTopic.objects.filter(parentReceiptTopic=None)
 
     return render(request, 'data/index.html', {
         'receipt_list': receipt_list,
@@ -46,7 +46,7 @@ def category(request, category_id):
     except RecipeCategory.DoesNotExist:
         raise Http404("Category does not exist")
 
-    receipts_value = category_value.receipts()
+    receipts_value = category_value.recipes()
 
     return render(request, 'data/category.html', {
         'receipts': receipts_value,
@@ -64,8 +64,8 @@ def categories(request):
 
 def topic(request, topic_id):
     try:
-        topic_value = ReceiptTopic.objects.get(pk=topic_id)
-    except ReceiptTopic.DoesNotExist:
+        topic_value = RecipeTopic.objects.get(pk=topic_id)
+    except RecipeTopic.DoesNotExist:
         raise Http404("Topic does not exist")
 
     return render(request, 'data/topic.html', {
@@ -106,7 +106,7 @@ def receipts_by_ingredients(request):
     for receipt in Recipe.objects.all():
         ranking = 0
 
-        for receiptIngredientRelation in ReceiptIngredientRelation.objects.filter(receipt=receipt):
+        for receiptIngredientRelation in RecipeIngredientRelation.objects.filter(receipt=receipt):
             for ingredient_id in ingredients:
                 if receiptIngredientRelation.ingredient.id == ingredient_id:
                     ranking = ranking + 1
