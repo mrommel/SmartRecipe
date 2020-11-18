@@ -39,7 +39,7 @@ class Ingredient(models.Model):
     type = models.ForeignKey(IngredientType, on_delete=models.CASCADE, blank=True, null=True,
                              related_name="ingredient_type")
     image = models.ImageField(upload_to='media/ingredients', blank=True, null=True)
-    important = models.NullBooleanField(default=False, blank=True, null=True)
+    important = models.BooleanField(default=False, blank=True, null=True)
 
     def thumbnail(self):
         if self.image.name is not None:
@@ -286,7 +286,7 @@ class ReceiptCategory(models.Model):
     name = models.CharField(max_length=50)
     parentReceiptCategory = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to='media/category', blank=True, null=True)
-    is_country = models.NullBooleanField(default=False, blank=True, null=True)
+    is_country = models.BooleanField(default=False, blank=True, null=True)
 
     def thumbnail(self):
         return '<img border="0" alt="" src="/media/%s" height="20" style="height:20px" />' % self.image.name

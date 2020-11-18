@@ -4,11 +4,7 @@ from django.http import HttpResponse
 from django.http import Http404
 import json
 
-from rest_framework.viewsets import ModelViewSet
-
-from .serializers import ReceiptSerializer, IngredientSerializer, CategorySerializer
-
-from .models import Receipt, Ingredient, ReceiptIngredientRelation, ReceiptTopic, ReceiptCategory
+from .models import Receipt, ReceiptTopic, ReceiptCategory, Ingredient, ReceiptIngredientRelation
 
 
 def index(request):
@@ -147,26 +143,26 @@ def export(request):
     image_data = open('tmp.pdf', "rb").read()
     return HttpResponse(image_data, content_type='application/pdf')
 
-
-class RecipesViewSet(ModelViewSet):
-    """
-    API endpoint that allows recipes to be viewed or edited.
-    """
-    queryset = Receipt.objects.all()
-    serializer_class = ReceiptSerializer
-
-
-class IntegrientsViewSet(ModelViewSet):
-    """
-    API endpoint that allows integrient to be viewed or edited.
-    """
-    queryset = Ingredient.objects.all()
-    serializer_class = IngredientSerializer
-
-
-class CategorysViewSet(ModelViewSet):
-    """
-    API endpoint that allows integrient to be viewed or edited.
-    """
-    queryset = ReceiptCategory.objects.filter(is_country=False)
-    serializer_class = CategorySerializer
+#
+# class RecipesViewSet(ModelViewSet):
+#     """
+#     API endpoint that allows recipes to be viewed or edited.
+#     """
+#     queryset = Receipt.objects.all()
+#     serializer_class = ReceiptSerializer
+#
+#
+# class IntegrientsViewSet(ModelViewSet):
+#     """
+#     API endpoint that allows integrient to be viewed or edited.
+#     """
+#     queryset = Ingredient.objects.all()
+#     serializer_class = IngredientSerializer
+#
+#
+# class CategorysViewSet(ModelViewSet):
+#     """
+#     API endpoint that allows integrient to be viewed or edited.
+#     """
+#     queryset = ReceiptCategory.objects.filter(is_country=False)
+#     serializer_class = CategorySerializer

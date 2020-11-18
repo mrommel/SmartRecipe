@@ -21,10 +21,10 @@ cd ~/Prog/SmartReceipt/smartrecipe/data/
 python ../manage.py makemessages -l de -e html,txt -e xml
 python ../manage.py compilemessages
 
-Links
-# http://chefville.wikia.com/wiki/Ingredient
-# http://docs.python-guide.org/en/latest/dev/virtualenvs/
-# http://www.django-rest-framework.org/
+# Links
+- http://chefville.wikia.com/wiki/Ingredient
+- http://docs.python-guide.org/en/latest/dev/virtualenvs/
+- http://www.django-rest-framework.org/
 
 # VirtualEnv
 cd ~/Prog/SmartRecipe/smartrecipe

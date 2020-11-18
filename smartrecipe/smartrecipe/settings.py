@@ -33,7 +33,7 @@ PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 # Application definition
 
 INSTALLED_APPS = (
-    'suit',
+    #'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'data',
-    'rest_framework',
+    #'rest_framework',
 )
 
 MIDDLEWARE = [

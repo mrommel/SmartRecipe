@@ -11,34 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Ingredient',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('plural', models.CharField(blank=True, max_length=50, null=True)),
-                ('image', models.ImageField(blank=True, null=True, upload_to='media/ingredients')),
-                ('important', models.NullBooleanField(default=False)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='ReceiptIngredientRelation',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('order', models.IntegerField(default=0)),
-                ('amount', models.FloatField(default=0)),
-                ('amount_type', models.CharField(choices=[('K', 'Kilogramm'), ('G', 'Gramm'), ('L', 'Liter'), ('M', 'Milliliter'), ('T', 'TL'), ('E', 'EL'), ('S', 'Stück'), ('B', 'Becher'), ('P', 'Prise(n)'), ('C', 'Päckchen'), ('F', 'Flasche(n)'), ('N', 'Scheibe(n)'), ('W', 'Etwas'), ('D', 'Dose'), ('X', 'Glas'), ('R', 'Tasse')], max_length=1)),
-                ('ingredient', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='data.Ingredient')),
-            ],
-        ),
-        migrations.RemoveField(
-            model_name='receiptintegrientrelation',
-            name='integrient',
-        ),
-        migrations.RemoveField(
-            model_name='receiptintegrientrelation',
-            name='receipt',
-        ),
         migrations.AlterModelOptions(
             name='receiptcategory',
             options={'ordering': ['name']},
@@ -61,20 +33,17 @@ class Migration(migrations.Migration):
             old_name='IntegrientType',
             new_name='IngredientType',
         ),
-        migrations.DeleteModel(
-            name='Integrient',
+        migrations.RenameModel(
+            old_name='Integrient',
+            new_name='Ingredient',
         ),
-        migrations.DeleteModel(
-            name='ReceiptIntegrientRelation',
-        ),
-        migrations.AddField(
-            model_name='receiptingredientrelation',
-            name='receipt',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='data.Receipt'),
-        ),
-        migrations.AddField(
-            model_name='ingredient',
-            name='type',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='ingredient_type', to='data.IngredientType'),
+        # migrations.RenameField(
+        #     model_name='ReceiptIntegrientRelation',
+        #     old_name='integrient_id',
+        #     new_name='ingredient_id',
+        # ),
+        migrations.RenameModel(
+            old_name='ReceiptIntegrientRelation',
+            new_name='ReceiptIngredientRelation',
         ),
     ]

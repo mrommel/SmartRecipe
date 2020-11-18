@@ -1,7 +1,7 @@
 from django.db.migrations.serializer import BaseSerializer, SequenceSerializer, TypeSerializer
-from rest_framework.serializers import HyperlinkedModelSerializer
+#from rest_framework.serializers import HyperlinkedModelSerializer
 
-from .models import Receipt, IngredientType, Ingredient, ReceiptCategory
+from .models import Recipe, IngredientType, Ingredient, RecipeCategory
 
 
 class ReceiptIngredientRelationSerializer(BaseSerializer):
@@ -81,43 +81,43 @@ class ReceiptStepSerializer(BaseSerializer):
             }
         }
 
-
-class ReceiptStepSerializer(SequenceSerializer):
-
-    def __init__(self, value):
-        self.value = value
-
-    #child = ReceiptStepSerializer()
-
-
-class ReceiptSerializer(HyperlinkedModelSerializer):
-
-    class Meta:
-        model = Receipt
-        fields = (
-            'id', 'name', 'teaser', 'description', 'image_url', 'time', 'calories', 'portions', 'steps', 'countries',
-            'ingredients', 'categories',)
-
-
-class IngredientTypeSerializer(HyperlinkedModelSerializer):
-
-    class Meta:
-        model = IngredientType
-        fields = ('name',)
-
-
-class IngredientSerializer(HyperlinkedModelSerializer):
-
-    class Meta:
-        model = Ingredient
-        fields = ('id', 'name', 'type', 'image_url',)
-
-
-class CategorySerializer(HyperlinkedModelSerializer):
-
-    def __init__(self, value):
-        self.value = value
-
-    class Meta:
-        model = ReceiptCategory
-        fields = ('id', 'path', 'name', 'parent_id', 'number_of_receipts', 'image_url',)
+#
+# class ReceiptStepSerializer(SequenceSerializer):
+#
+#     def __init__(self, value):
+#         self.value = value
+#
+#     #child = ReceiptStepSerializer()
+#
+#
+# class ReceiptSerializer(HyperlinkedModelSerializer):
+#
+#     class Meta:
+#         model = Receipt
+#         fields = (
+#             'id', 'name', 'teaser', 'description', 'image_url', 'time', 'calories', 'portions', 'steps', 'countries',
+#             'ingredients', 'categories',)
+#
+#
+# class IngredientTypeSerializer(HyperlinkedModelSerializer):
+#
+#     class Meta:
+#         model = IngredientType
+#         fields = ('name',)
+#
+#
+# class IngredientSerializer(HyperlinkedModelSerializer):
+#
+#     class Meta:
+#         model = Ingredient
+#         fields = ('id', 'name', 'type', 'image_url',)
+#
+#
+# class CategorySerializer(HyperlinkedModelSerializer):
+#
+#     def __init__(self, value):
+#         self.value = value
+#
+#     class Meta:
+#         model = ReceiptCategory
+#         fields = ('id', 'path', 'name', 'parent_id', 'number_of_receipts', 'image_url',)

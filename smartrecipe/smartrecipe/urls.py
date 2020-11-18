@@ -1,18 +1,12 @@
 from django.conf.urls import *
 from django.contrib import admin
 from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
 from django.views.generic import RedirectView
 from django.conf.urls.static import static
 
-from rest_framework import routers
-
-#from smartrecipe.data import views
-#
-#router = routers.DefaultRouter()
-#router.register(r'recipes', views.RecipesViewSet)
-#router.register(r'ingredients', views.IntegrientsViewSet)
-#router.register(r'categories', views.CategorysViewSet)
+#from rest_framework import routers
 
 urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/data/index')),
@@ -23,5 +17,8 @@ urlpatterns = [
 
     # api
     #url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
