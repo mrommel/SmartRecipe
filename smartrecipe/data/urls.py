@@ -14,6 +14,6 @@ urlpatterns = [
     url(r'^category/(?P<category_id>\d+)', views.category, name='data.views.category'),
     url(r'^topic/(?P<topic_id>\d+)', views.topic, name='data.views.topic'),
 
-    url(r'^recipes_export/', views.recipes_export, name='data.views.recipes_export'),
-    url(r'^export/recipes/', views.export, name='data.views.export'),
+    url(r'^recipes_export/(?P<book_id>\d+)', views.recipes_export, name='data.views.recipes_export'),
+    url(r'^export/(?P<book_id>\d+)/recipes/', views.export, name='data.views.export'),
 ]

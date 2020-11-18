@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.http import Http404
 import json
 
-from .models import Recipe, RecipeTopic, RecipeCategory, Ingredient, RecipeIngredientRelation
+from .models import Recipe, RecipeTopic, RecipeCategory, Ingredient, RecipeIngredientRelation, RecipeBook
 
 
 def index(request):
@@ -121,9 +121,15 @@ def recipes_by_ingredients(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-def recipes_export(request):
-    # get all recipes
-    recipe_list = Recipe.objects.all
+def recipes_export(request, book_id):
+
+    try:
+        recipe_book = RecipeBook.objects.get(pk=book_id)
+    except RecipeBook.DoesNotExist:
+        raise Http404("RecipeBook does not exist")
+
+    # get all recipes of book
+    recipe_list = recipe_book.recipes()
     categories = RecipeCategory.objects.filter(parentRecipeCategory=None)
     ingredient_list = Ingredient.objects.all()
 
@@ -134,10 +140,11 @@ def recipes_export(request):
     })
 
 
-def export(request):
+def export(request, book_id):
+
     import os
     os.system(
-        'prince --no-author-style --javascript -s http://127.0.0.1:8024/static/data/style_print.css http://127.0.0.1:8024/data/recipes_export/export -o tmp.pdf')
+        'prince --no-author-style --javascript -s http://127.0.0.1:8024/static/data/style_print.css http://127.0.0.1:8024/data/recipes_export/%s/export -o tmp.pdf' % book_id)
 
     image_data = open('tmp.pdf', "rb").read()
     return HttpResponse(image_data, content_type='application/pdf')

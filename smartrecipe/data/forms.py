@@ -2,12 +2,49 @@ from django.contrib import admin
 from django import forms
 import logging
 
+from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.safestring import SafeString
 
 from .models import RecipeIngredientRelation, RecipeCategoryRelation, Recipe, Ingredient, \
-    RecipeCategory, IngredientType
+    RecipeCategory, IngredientType, RecipeBook, RecipeBookRecipeRelation
 
 logger = logging.getLogger(__name__)
+
+
+class RecipeBookRecipeRelationInline(admin.TabularInline):
+    model = RecipeBookRecipeRelation
+    fk_name = "recipeBook"
+    extra = 1
+
+
+class RecipeBookAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'number_of_recipes', 'book_actions')
+    inlines = [
+        RecipeBookRecipeRelationInline,
+    ]
+
+    def number_of_recipes(self, instance):
+        recipes = len(instance.recipes())
+        if recipes == 0:
+            return SafeString('<span style="color:#f00;">no recipes</span>')
+        else:
+            return '%d recipes' % recipes
+
+    number_of_recipes.allow_tags = True
+    number_of_recipes.short_description = '# recipes'
+
+    def book_actions(self, instance):
+        return SafeString('<a href="/data/export/%d/recipes/" target="_blank">Export as PDF</a>' % instance.id)
+
+    number_of_recipes.allow_tags = True
+    number_of_recipes.short_description = 'Book Actions'
+
+    class Meta:
+        model = RecipeBook
+        fields = ('name', )
+        list_display = ('name', )
 
 
 class IngredientTypeIngredientRelationInline(admin.TabularInline):

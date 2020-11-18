@@ -11,6 +11,25 @@ from django.utils.safestring import mark_safe, SafeString
 logger = logging.getLogger(__name__)
 
 
+class RecipeBook(models.Model):
+    """
+        class of a recipe book
+    """
+    name = models.CharField(max_length=100)
+
+    def recipes(self):
+
+        recipe_list = []
+
+        for recipeRelation in RecipeBookRecipeRelation.objects.filter(recipeBook=self):
+            recipe_list.append(recipeRelation.recipe)
+
+        return recipe_list
+
+    def __str__(self):
+        return '%s' % self.name
+
+
 class IngredientType(models.Model):
     """
         class of a ingredient type
@@ -182,6 +201,20 @@ class Recipe(models.Model):
 
     class Meta:
         ordering = ['name']
+
+
+class RecipeBookRecipeRelation(models.Model):
+    """
+        class of a RecipeBookRecipeRelation
+    """
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipeBook = models.ForeignKey(RecipeBook, on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return u'%s - %s' % (self.recipeBook.name, self.recipe.name)
+
+    def __str__(self):
+        return '%s - %s' % (self.recipeBook.name, self.recipe.name)
 
 
 class RecipeIngredientRelation(models.Model):

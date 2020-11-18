@@ -2,10 +2,11 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .forms import RecipeAdmin, IngredientAdmin, IngredientTypeAdmin, RecipeCategoryAdmin
+from .forms import RecipeAdmin, IngredientAdmin, IngredientTypeAdmin, RecipeCategoryAdmin, RecipeBookAdmin
 from .models import IngredientType, Ingredient, Recipe, RecipeIngredientRelation, RecipeCategory, \
-    RecipeCategoryRelation, RecipeTopic
+    RecipeCategoryRelation, RecipeTopic, RecipeBook
 
+admin.site.register(RecipeBook, RecipeBookAdmin)
 admin.site.register(IngredientType, IngredientTypeAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
