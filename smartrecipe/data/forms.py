@@ -2,6 +2,8 @@ from django.contrib import admin
 from django import forms
 import logging
 
+from django.utils.safestring import SafeString
+
 from .models import ReceiptIngredientRelation, ReceiptCategoryRelation, Receipt, Ingredient, \
     ReceiptCategory, IngredientType
 
@@ -94,7 +96,7 @@ class ReceiptAdmin(admin.ModelAdmin):
             str_value = '%s<li><a href="/admin/data/receiptcategory/%d/change/">%s</a></li>' % (
                 str_value, category.receiptCategory.id, category.receiptCategory.name)
         str_value = '%s</ul>' % str_value
-        return str_value
+        return SafeString(str_value)
 
     admin_categories.allow_tags = True
     admin_categories.short_description = 'categories'
@@ -102,7 +104,7 @@ class ReceiptAdmin(admin.ModelAdmin):
     def admin_steps_info(self, instance):
         steps = len(instance.steps())
         if steps == 0:
-            return '<span style="color:#f00;">no steps</span>'
+            return SafeString('<span style="color:#f00;">no steps</span>')
         else:
             return '%d steps' % steps
 
@@ -112,7 +114,7 @@ class ReceiptAdmin(admin.ModelAdmin):
     def admin_ingredients_info(self, instance):
         ingredients = len(instance.ingredients())
         if ingredients == 0:
-            return '<span style="color:#f00;">no ingredients</span>'
+            return SafeString('<span style="color:#f00;">no ingredients</span>')
         else:
             return '%d ingredients' % ingredients
 

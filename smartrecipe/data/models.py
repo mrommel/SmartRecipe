@@ -5,7 +5,7 @@ import logging
 from html import escape
 
 from django.db import models
-from django.utils.safestring import mark_safe
+from django.utils.safestring import mark_safe, SafeString
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -289,7 +289,7 @@ class ReceiptCategory(models.Model):
     is_country = models.BooleanField(default=False, blank=True, null=True)
 
     def thumbnail(self):
-        return '<img border="0" alt="" src="/media/%s" height="20" style="height:20px" />' % self.image.name
+        return SafeString('<img border="0" alt="" src="/media/%s" height="20" style="height:20px" />' % self.image.name)
 
     thumbnail.allow_tags = True
 
