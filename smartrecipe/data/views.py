@@ -4,12 +4,12 @@ from django.http import HttpResponse
 from django.http import Http404
 import json
 
-from .models import Receipt, ReceiptTopic, ReceiptCategory, Ingredient, ReceiptIngredientRelation
+from .models import Recipe, ReceiptTopic, RecipeCategory, Ingredient, ReceiptIngredientRelation
 
 
 def index(request):
     # get all receipts
-    receipt_list = Receipt.objects.all
+    receipt_list = Recipe.objects.all
     # get root topics
     topic_list = ReceiptTopic.objects.filter(parentReceiptTopic=None)
 
@@ -21,7 +21,7 @@ def index(request):
 
 def receipts(request):
     # get all receipts
-    receipt_list = Receipt.objects.all
+    receipt_list = Recipe.objects.all
 
     return render(request, 'data/receipts.html', {
         'receipt_list': receipt_list,
@@ -31,8 +31,8 @@ def receipts(request):
 def receipt(request, receipt_id):
     # get receipt (or fail)
     try:
-        receipt_value = Receipt.objects.get(pk=receipt_id)
-    except Receipt.DoesNotExist:
+        receipt_value = Recipe.objects.get(pk=receipt_id)
+    except Recipe.DoesNotExist:
         raise Http404("Receipt does not exist")
 
     return render(request, 'data/receipt.html', {
@@ -42,8 +42,8 @@ def receipt(request, receipt_id):
 
 def category(request, category_id):
     try:
-        category_value = ReceiptCategory.objects.get(pk=category_id)
-    except ReceiptCategory.DoesNotExist:
+        category_value = RecipeCategory.objects.get(pk=category_id)
+    except RecipeCategory.DoesNotExist:
         raise Http404("Category does not exist")
 
     receipts_value = category_value.receipts()
@@ -55,7 +55,7 @@ def category(request, category_id):
 
 
 def categories(request):
-    categories_value = ReceiptCategory.objects.filter(parentReceiptCategory=None)
+    categories_value = RecipeCategory.objects.filter(parentReceiptCategory=None)
 
     return render(request, 'data/categories.html', {
         'categories': categories_value,
@@ -75,7 +75,7 @@ def topic(request, topic_id):
 
 def ingredient_search(request):
 
-    receipt_list = Receipt.objects.all
+    receipt_list = Recipe.objects.all
     ingredient_list = Ingredient.objects.all()
 
     ingredient_name_list = []
@@ -103,7 +103,7 @@ def receipts_by_ingredients(request):
         if len(ingredient_objs):
             ingredients.append(ingredient_objs[0].id)
 
-    for receipt in Receipt.objects.all():
+    for receipt in Recipe.objects.all():
         ranking = 0
 
         for receiptIngredientRelation in ReceiptIngredientRelation.objects.filter(receipt=receipt):
@@ -124,8 +124,8 @@ def receipts_by_ingredients(request):
 
 def receipts_export(request):
     # get all receipts
-    receipt_list = Receipt.objects.all
-    categories = ReceiptCategory.objects.filter(parentReceiptCategory=None)
+    receipt_list = Recipe.objects.all
+    categories = RecipeCategory.objects.filter(parentReceiptCategory=None)
     ingredient_list = Ingredient.objects.all()
 
     return render(request, 'data/receipts_export.html', {

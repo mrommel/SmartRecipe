@@ -67,7 +67,7 @@ class Ingredient(models.Model):
         return '%s' % self.name
 
 
-class ReceiptStep:
+class RecipeStep:
     index = 0
     text = ""
 
@@ -76,7 +76,7 @@ class ReceiptStep:
         self.text = step_text
 
 
-class Receipt(models.Model):
+class Recipe(models.Model):
     """
         class of a receipt
     """
@@ -118,40 +118,40 @@ class Receipt(models.Model):
         return ReceiptCategoryRelation.objects.filter(receipt=self)
 
     def ingredients(self):
-        return ReceiptIngredientRelation.objects.filter(receipt=self)
+        return ReceiptIngredientRelation.objects.filter(recipe=self)
 
     def steps(self):
         steps = []
 
         if self.step0 is not None and self.step0 != '':
-            steps.append(ReceiptStep(1, self.step0))
+            steps.append(RecipeStep(1, self.step0))
 
         if self.step1 is not None and self.step1 != '':
-            steps.append(ReceiptStep(2, self.step1))
+            steps.append(RecipeStep(2, self.step1))
 
         if self.step2 is not None and self.step2 != '':
-            steps.append(ReceiptStep(3, self.step2))
+            steps.append(RecipeStep(3, self.step2))
 
         if self.step3 is not None and self.step3 != '':
-            steps.append(ReceiptStep(4, self.step3))
+            steps.append(RecipeStep(4, self.step3))
 
         if self.step4 is not None and self.step4 != '':
-            steps.append(ReceiptStep(5, self.step4))
+            steps.append(RecipeStep(5, self.step4))
 
         if self.step5 is not None and self.step5 != '':
-            steps.append(ReceiptStep(6, self.step5))
+            steps.append(RecipeStep(6, self.step5))
 
         if self.step6 is not None and self.step6 != '':
-            steps.append(ReceiptStep(7, self.step6))
+            steps.append(RecipeStep(7, self.step6))
 
         if self.step7 is not None and self.step7 != '':
-            steps.append(ReceiptStep(8, self.step7))
+            steps.append(RecipeStep(8, self.step7))
 
         if self.step8 is not None and self.step8 != '':
-            steps.append(ReceiptStep(9, self.step8))
+            steps.append(RecipeStep(9, self.step8))
 
         if self.step9 is not None and self.step9 != '':
-            steps.append(ReceiptStep(10, self.step9))
+            steps.append(RecipeStep(10, self.step9))
 
         return steps
 
@@ -188,7 +188,7 @@ class ReceiptIngredientRelation(models.Model):
     """
         class of a ReceiptIngredientRelation
     """
-    receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     order = models.IntegerField(default=0)
     amount = models.FloatField(default=0)
@@ -273,18 +273,18 @@ class ReceiptIngredientRelation(models.Model):
         return False
 
     def __unicode__(self):
-        return u'%s - %s' % (self.receipt.name, self.ingredient.name)
+        return u'%s - %s' % (self.recipe.name, self.ingredient.name)
 
     def __str__(self):
-        return '%s - %s' % (self.receipt.name, self.ingredient.name)
+        return '%s - %s' % (self.recipe.name, self.ingredient.name)
 
 
-class ReceiptCategory(models.Model):
+class RecipeCategory(models.Model):
     """
-        class of a ReceiptCategory
+        class of a RecipeCategory
     """
     name = models.CharField(max_length=50)
-    parentReceiptCategory = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
+    parentRecipeCategory = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to='media/category', blank=True, null=True)
     is_country = models.BooleanField(default=False, blank=True, null=True)
 
@@ -294,16 +294,16 @@ class ReceiptCategory(models.Model):
     thumbnail.allow_tags = True
 
     def parent_id(self):
-        if self.parentReceiptCategory is None:
+        if self.parentRecipeCategory is None:
             return -1
         else:
-            return self.parentReceiptCategory.id
+            return self.parentRecipeCategory.id
 
     def path(self):
-        if self.parentReceiptCategory is None:
+        if self.parentRecipeCategory is None:
             return self.name
         else:
-            return u'%s - %s' % (self.parentReceiptCategory.path(), self.name)
+            return u'%s - %s' % (self.parentRecipeCategory.path(), self.name)
 
     def url(self):
         if self.name is not None:
@@ -315,16 +315,16 @@ class ReceiptCategory(models.Model):
         return '/media/%s' % self.image.name
 
     def children(self):
-        return ReceiptCategory.objects.filter(parentReceiptCategory=self)
+        return RecipeCategory.objects.filter(parentRecipeCategory=self)
 
     def receipts(self):
         return ReceiptCategoryRelation.objects.filter(receiptCategory=self)
 
-    def number_of_receipts(self):
+    def number_of_recipes(self):
         num = len(self.receipts())
 
-        for child in ReceiptCategory.objects.filter(parentReceiptCategory=self):
-            num = num + child.number_of_receipts()
+        for child in RecipeCategory.objects.filter(parentRecipeCategory=self):
+            num = num + child.number_of_recipes()
 
         return num
 
@@ -347,8 +347,8 @@ class ReceiptCategoryRelation(models.Model):
     """
         class of a ReceiptIngredientRelation
     """
-    receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE)
-    receiptCategory = models.ForeignKey(ReceiptCategory, on_delete=models.CASCADE)
+    receipt = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    receiptCategory = models.ForeignKey(RecipeCategory, on_delete=models.CASCADE)
 
     def __unicode__(self):
         return u'%s -> %s' % (self.receipt, self.receiptCategory)
@@ -396,7 +396,7 @@ class ReceiptTopicRelation(models.Model):
     """
         class of a ReceiptTopicRelation
     """
-    receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE)
+    receipt = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     receiptTopic = models.ForeignKey(ReceiptTopic, on_delete=models.CASCADE)
 
     def __unicode__(self):

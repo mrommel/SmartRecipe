@@ -37,11 +37,6 @@ class Migration(migrations.Migration):
             old_name='Integrient',
             new_name='Ingredient',
         ),
-        # migrations.RenameField(
-        #     model_name='ReceiptIntegrientRelation',
-        #     old_name='integrient_id',
-        #     new_name='ingredient_id',
-        # ),
         migrations.RenameModel(
             old_name='ReceiptIntegrientRelation',
             new_name='ReceiptIngredientRelation',

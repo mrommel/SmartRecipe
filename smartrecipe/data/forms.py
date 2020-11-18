@@ -4,8 +4,8 @@ import logging
 
 from django.utils.safestring import SafeString
 
-from .models import ReceiptIngredientRelation, ReceiptCategoryRelation, Receipt, Ingredient, \
-    ReceiptCategory, IngredientType
+from .models import ReceiptIngredientRelation, ReceiptCategoryRelation, Recipe, Ingredient, \
+    RecipeCategory, IngredientType
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ class IngredientTypeAdmin(admin.ModelAdmin):
 
 class ReceiptIngredientRelationInline(admin.TabularInline):
     model = ReceiptIngredientRelation
-    fk_name = "receipt"
+    fk_name = "recipe"
     extra = 4
 
     def get_extra(self, request, obj=None, **kwargs):
@@ -58,9 +58,9 @@ class ReceiptCategoryRelationInline2(admin.TabularInline):
         return 0
 
 
-class ReceiptAdminForm(forms.ModelForm):
+class RecipeAdminForm(forms.ModelForm):
     class Meta:
-        model = Receipt
+        model = Recipe
         fields = ('name', 'teaser', 'description', 'image', 'time', 'calories', 'portions',
                   'step0', 'step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7', 'step8', 'step9')
         widgets = {
@@ -79,8 +79,8 @@ class ReceiptAdminForm(forms.ModelForm):
         }
 
 
-class ReceiptAdmin(admin.ModelAdmin):
-    form = ReceiptAdminForm
+class RecipeAdmin(admin.ModelAdmin):
+    form = RecipeAdminForm
     list_display = ('name', 'thumbnail', 'admin_steps_info', 'admin_ingredients_info', 'admin_categories')
     ordering = ('name',)
     inlines = [
@@ -134,7 +134,7 @@ class IngredientAdmin(admin.ModelAdmin):
 
 
 class ReceiptCategoryAdmin(admin.ModelAdmin):
-    model = ReceiptCategory
+    model = RecipeCategory
     list_display = ('thumbnail', 'name', 'path',)
     readonly_fields = ('thumbnail', 'path',)
     ordering = ('name',)
