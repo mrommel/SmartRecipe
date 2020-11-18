@@ -38,8 +38,8 @@ class RecipeBookAdmin(admin.ModelAdmin):
     def book_actions(self, instance):
         return SafeString('<a href="/data/export/%d/recipes/" target="_blank">Export as PDF</a>' % instance.id)
 
-    number_of_recipes.allow_tags = True
-    number_of_recipes.short_description = 'Book Actions'
+    book_actions.allow_tags = True
+    book_actions.short_description = 'Book Actions'
 
     class Meta:
         model = RecipeBook
