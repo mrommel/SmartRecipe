@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-28 16:49+0000\n"
+"POT-Creation-Date: 2020-11-18 10:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,32 +18,48 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/data/receipts_export.html:8 templates/data/receipts_export.html:9
-#: templates/data/receipts_export.html:13
-msgid "Receiptbook"
+#: templates/data/recipes_export.html:8 templates/data/recipes_export.html:13
+msgid "Recipebook"
 msgstr "Rezeptbuch"
 
-#: templates/data/receipts_export.html:9
-#: templates/data/receipts_export.html:13
+#: templates/data/recipes_export.html:9 templates/data/recipes_export.html:13
 msgid "Fam. Rommel"
 msgstr "Fam. Rommel"
 
-#: templates/data/receipts_export.html:16
+#: templates/data/recipes_export.html:16
 msgid "Contents"
 msgstr "Inhaltsverzeichnis"
 
-#: templates/data/receipts_export.html:22
-msgid "Receipts by Category"
-msgstr "Rezepte nach Kategorie"
-
-#: templates/data/receipts_export.html:63
-msgid "Receipts by ingredients"
-msgstr "Rezepte nach Zutaten"
-
-#: templates/data/receipts_export.html:96
-msgid "Receipts"
+#: templates/data/recipes_export.html:17 templates/data/recipes_export.html:67
+msgid "Recipes"
 msgstr "Rezepte"
 
-#: templates/data/receipts_export.html:129
-msgid "No receipts are available."
+#: templates/data/recipes_export.html:91
+msgid "Zutaten"
+msgstr ""
+
+#: templates/data/recipes_export.html:92
+msgid "für"
+msgstr ""
+
+#: templates/data/recipes_export.html:92
+msgid "Portionen"
+msgstr ""
+
+#: templates/data/recipes_export.html:92
+msgid "minutes"
+msgstr ""
+
+#: templates/data/recipes_export.html:112
+msgid "Schritte"
+msgstr ""
+
+#: templates/data/recipes_export.html:124
+msgid "No recipes are available."
 msgstr "Keine Rezepte vorhanden"
+
+#~ msgid "Recipes by Category"
+#~ msgstr "Rezepte nach Kategorie"
+
+#~ msgid "Recipes by ingredients"
+#~ msgstr "Rezepte nach Zutaten"

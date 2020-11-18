@@ -9,6 +9,8 @@ python get-pip.py
 pip install --user pipenv
 sudo pip install -r requirements.txt
 
+keep in mind to allow prince (start once and go to settings security)
+
 ## run web server
 
 ./start.sh start

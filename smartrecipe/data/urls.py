@@ -2,20 +2,18 @@
 
 from django.conf.urls import *
 from . import views
-from django.views.generic import RedirectView
 
 urlpatterns = [
-    #url(r'^$', RedirectView.as_view(url='/index/')),
-    #url(r'^index/', views.index, name='data.views.index'),
-    #url(r'^receipts/', views.receipts, name='data.views.receipts'),
-    #url(r'^receipts_export/', views.receipts_export, name='data.views.receipts_export'),
-    #url(r'^receipt/(?P<receipt_id>\d+)', views.receipt, name='data.views.receipt'),
-    #url(r'^category/(?P<category_id>\d+)', views.category, name='data.views.category'),
-    #url(r'^categories/', views.categories, name='data.views.categories'),
-    #url(r'^topic/(?P<topic_id>\d+)', views.topic, name='data.views.topic'),
     #url(r'^ingredient_search', views.ingredient_search, name='data.views.ingredient_search'),
     #url(r'^receipts_by_ingredients', views.receipts_by_ingredients, name='data.views.receipts_by_ingredients'),
-    #url(r'^export/receipts/', views.export, name='data.views.export'),
 
-    url('', views.index, name='index')
+    url(r'^$', views.index, name='index'),
+    url(r'^recipes/', views.recipes, name='data.views.recipes'),
+    url(r'^recipe/(?P<recipe_id>\d+)', views.recipe, name='data.views.recipe'),
+    url(r'^categories/', views.categories, name='data.views.categories'),
+    url(r'^category/(?P<category_id>\d+)', views.category, name='data.views.category'),
+    url(r'^topic/(?P<topic_id>\d+)', views.topic, name='data.views.topic'),
+
+    url(r'^recipes_export/', views.recipes_export, name='data.views.recipes_export'),
+    url(r'^export/recipes/', views.export, name='data.views.export'),
 ]

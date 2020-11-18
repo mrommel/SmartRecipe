@@ -1,0 +1,135 @@
+{% load static %}
+{% load i18n %}
+<book>
+<frontmatter>
+<titlepage>
+	<img src="{% static 'data/images/title_recipes.jpg' %}" alt="Img" width="605">
+<date>{% now "j.F Y" %}</date>
+<title>{% trans "Recipebook" %}</title>
+<subtitle>{% trans "Fam. Rommel" %}</subtitle>
+
+</titlepage>
+
+<acknowledge>{% trans "Recipebook" %} {% trans "Fam. Rommel" %}</acknowledge>
+
+<toc>
+<title>{% trans "Contents" %}</title>
+<subtitle>{% trans "Recipes" %}</subtitle>
+<list class="toc">
+
+<!-- toc -->
+
+{% if categories %}
+	{% for category in categories %}
+		{% if category.number_of_recipes > 0 %}
+			<!--<p class="sub-chapter">{{ category }} ({{ category.is_country }})</p>-->
+			{% for child in category.children %}
+				{% if child.number_of_recipes > 0 and child.is_country == False %}
+					<p class="sub-chapter menu-chapter">{{ child.name }}</p>
+					{% for item in child.recipes %}
+						<item href="#chapter1-{{ item.recipe.id }}" class="sub-chapter">
+							<a href="#chapter1-{{ item.recipe.id }}" class="nolink">
+								{{ item.recipe }}
+							</a>
+						</item>
+					{% endfor %}
+			
+					{% for child2 in child.children %}
+						{% if child2.is_country == False %}
+						<p class="sub-chapter menu-chapter">{{ child2.name }}</p>
+							{% for item2 in child2.recipes %}
+								<item href="#chapter1-{{ item2.recipe.id }}" class="sub-chapter">
+									<a href="#chapter1-{{ item2.recipe.id }}" class="nolink">
+										{{ item2.recipe }}
+									</a>
+								</item>
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			{% endfor %}	
+		{% endif %}
+ 	{% endfor %}
+ {% endif %}
+
+
+</list>
+</toc>
+
+</frontmatter>
+
+<bookbody>
+<part>
+
+<chapter id="chapter1">
+
+<chapheader>
+<title>{% trans "Recipes" %}</title>
+<a id="chapter1">&nbsp;</a>
+</chapheader>
+
+{% if recipe_list %}
+	{% for recipe in recipe_list %}
+		<para>
+			<div class="not_breaking">
+				<a id="chapter1-{{ recipe.id }}" name="#chapter1-{{ recipe.id }}">&nbsp;</a>
+				<div class="recipe">
+					<div class="recipe_image">
+					{% if recipe.image %}
+						<img src="{{ recipe.image.url }}" width="270" />
+					{% else %}
+						<img src="/media/media/default.png" width="270" />
+					{% endif %}
+					</div>
+					<div class="recipe_heading">
+						<div class="recipe_title">{{ recipe.name }}</div>
+						<div class="recipe_date">{{ recipe.created_at|date:"d.m.Y" }}</div>
+					</div>
+					<div class="recipe_description">{{ recipe.description }}</div>
+					<div class="recipe_ingredients_container">
+						{% for country in recipe.countries %}<div class="recipe_ingredients_country"><img src="{{ country.image.url }}" height="12" /></div>{% endfor %}
+						<div class="recipe_ingredients_title">{% trans "Zutaten" %}</div>
+						<div class="recipe_ingredients_subline">{% trans "für" %} {{ recipe.portions }} {% trans "Portionen" %}  |  {{ recipe.time }} {% trans "minutes" %}</div>
+						<table class="recipe_ingredients">
+							<tbody>
+								{% for ingredient_rel in recipe.ingredients %}
+									<tr class="ingredient {% if forloop.counter|divisibleby:2 %}odd{% else %}even{% endif %}">
+										<td class="recipe_ingredient_amount">{{ ingredient_rel.quantity }}</td>
+										<td class="recipe_ingredient_image"><img src="{% if ingredient_rel.ingredient.image %}{{ ingredient_rel.ingredient.image.url }}{% else %}/media/media/ingredients/Ingredient-Pack_of_Secret_Flavor.png{% endif%}" width="20" class="recipe_ingredient_image_icon" /></td>
+										<td class="recipe_ingredient_name">
+											{% if not ingredient_rel.is_plural or ingredient_rel.ingredient.plural|length == 0 %}
+												{{ ingredient_rel.ingredient.name }}
+											{% else %}
+												{{ ingredient_rel.ingredient.plural }}
+											{% endif %}
+										</td>
+									</tr>
+								{% endfor %} 
+							</tbody>
+						</table>
+					</div>
+					<div class="recipe_steps">
+						<div class="recipe_steps_title">{% trans "Schritte" %}</div>
+						<div class="recipe_steps_container">
+							{% for step in recipe.steps %}
+								<div class="recipe_step {% if forloop.counter|divisibleby:2 %}odd{% else %}even{% endif %}">{{ step.text }}</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</para>
+	{% endfor %}
+{% else %}
+	<para>{% trans "No recipes are available." %}</para>
+{% endif %}
+
+</chapter>
+
+
+</chapter>
+
+</part>
+</bookbody>
+</book>
+</gutbook>

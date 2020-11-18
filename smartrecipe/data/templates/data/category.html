@@ -24,7 +24,7 @@
 			<a class="arrowleft" href="/rezept-suche">Profi-Rezeptsuche</a>                      
 		</div>
 		<br class="clearboth">
-		<div class="bold midGrey">{{ category.receipts|length }} Ergebnisse in der Kategorie
+		<div class="bold midGrey">{{ category.recipes|length }} Ergebnisse in der Kategorie
 			<span class="black">"{{ category.name }}"</span>
 		</div>
 		<br>
@@ -55,26 +55,26 @@
 				</dl>
 			</li>
 
-			{% for receipt in receipts %}
-			<!-- {{ receipt.receipt }} -->
+			{% for recipe in recipes %}
+			<!-- {{ recipe.recipe }} -->
 			<li>
 				<dl id="suchErgZeile">
 					<dd class="rezept">
 						<a title="Kommentare ansehen" rel="nofollow" href="/rezept/1369/kommentare">
 							<img src="{% static 'data/images/rating_crown5.gif' %}" alt="500">
 						</a>
-						<a class="headline" href="{{ receipt.url }}">{{ receipt.receipt.name }}</a>            
+						<a class="headline" href="{{ recipe.url }}">{{ recipe.recipe.name }}</a>
 						<span class="midGrey smallFont">von <a rel="nofollow" href="/user/essen+%26+trinken">essen &amp; trinken</a><!-- catline --></span>
 						<a href="#"><div class="file" recipe_id="1369">Rezept merken<span class="arrow"></span></div></a>
 					</dd>
 					<dd class="foto">
-						<a class="" href="{{ receipt.receipt.url }}">
-							<img alt="{{ receipt.receipt.name }}" class="img3" id="recipePreviewImage" src="{{ receipt.receipt.image_url }}">
+						<a class="" href="{{ recipe.recipe.url }}">
+							<img alt="{{ recipe.recipe.name }}" class="img3" id="recipePreviewImage" src="{{ recipe.recipe.image_url }}">
 						</a>
 						<div class="clearboth"></div>
 					</dd>
-					<dd class="time">{{ receipt.receipt.time }}</dd>
-					<dd class="date">{{ receipt.receipt.created_at | date:"d.m.Y" }}</dd>
+					<dd class="time">{{ recipe.recipe.time }}</dd>
+					<dd class="date">{{ recipe.recipe.created_at | date:"d.m.Y" }}</dd>
 				</dl>
 			</li>
 			{% endfor %}

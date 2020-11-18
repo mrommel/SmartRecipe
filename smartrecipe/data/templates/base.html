@@ -3,7 +3,7 @@
 <html>
 <head>
 	<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
-    <title>{% block title %}Startpage{% endblock %} - SmartReceipt</title>
+    <title>{% block title %}Startpage{% endblock %} - SmartRecipe</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'data/css/default.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'data/css/rebrush.css' %}" />
@@ -25,9 +25,9 @@
     			<div id="topnavi">
         
 			  		<ul id="personal-bar">
-						<li><a href="/data/my_receipts">Mein Kochbuch</a></li>
+						<li><a href="/data/my_recipes">Mein Kochbuch</a></li>
 						<li><a href="/data/user/0">Mein Profil</a></li>
-						<li><a href="/admin/data/receipt/add/">Rezept eingeben</a></li>
+						<li><a href="/admin/data/recipe/add/">Rezept eingeben</a></li>
 					</ul>
   
 					<div id="login-bar">
@@ -41,9 +41,9 @@
 
 				<form method="get" accept-charset="utf-8" action="/search">    
 					<ul id="navmenu" style="z-index: 11000;">
-						<li><a href="/data/receipts">Rezepte</a>
+						<li><a href="/data/recipes">Rezepte</a>
 							<ul>
-								<li><a href="/data/receipts">Startseite Rezepte</a></li>
+								<li><a href="/data/recipes">Startseite Rezepte</a></li>
 								<li><a href="/data/integrient_search">Zutaten-Suche</a></li>
 								<li><a href="/data/categories">Kategorien</a></li>
 							</ul>

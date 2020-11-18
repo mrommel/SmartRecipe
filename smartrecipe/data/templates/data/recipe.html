@@ -19,7 +19,7 @@
 			<h1 class="h2 marginBottom5">
 				<span class="marginRight10">
 					<span class="item">
-						<span class="fn" itemprop="name">{{ receipt.name }}</span>
+						<span class="fn" itemprop="name">{{ recipe.name }}</span>
 					</span>
 					<span class="crown crown0"></span>
 					<div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating" style="display:none">
@@ -37,7 +37,7 @@
 				</span>
 				<span class="published" content="2012-05">
 					<span class="value-title" title="2012-05"></span> 
-					{{ receipt.created_at|date:"d.m.Y" }}
+					{{ recipe.created_at|date:"d.m.Y" }}
 				</span>
 				<a id="addFavoriteCookLinkActive" style="display:none" href="#" onclick="return false;; return false;">
 					<img id="addFavoriteCookLinkAktiveImg" src="{% static 'data/images/icon_user_rot.gif' %}" alt="Icon_user_rot">
@@ -50,14 +50,14 @@
 
 		<!-- hRecipe photo -->
 		<div class="pictureframe" id="picframe">
-			<a rel="galerie" class="thickbox" title="<b>Fotos:</b> Matthias Haupt" href="{{ receipt.image_url }}" id="image_267994">
-				<span><img alt="" title="" class="img3 photo" id="recipePreviewImage" name="slide" itemprop="image" border="0" src="{{ receipt.image_url }}" height="420" width="560"></span>
+			<a rel="galerie" class="thickbox" title="<b>Fotos:</b> Matthias Haupt" href="{{ recipe.image_url }}" id="image_267994">
+				<span><img alt="" title="" class="img3 photo" id="recipePreviewImage" name="slide" itemprop="image" border="0" src="{{ recipe.image_url }}" height="420" width="560"></span>
 			</a>
 			<input type="hidden" name="image_asset_id" id="image_asset_id" value="0">
 			<input type="hidden" name="headline" id="headline" value="Spargel mit Schweinemedaillons">  
 			<div class="picAuthor" id="picAuthor"><b>Fotos:</b> Matthias Haupt</div>
 			<span id="recipeImageNav" class="floatRight rezeptAnsichtImgNav">
-				<a rel="-galerie" class="thickbox" title="<b>Fotos:</b> Matthias Haupt" href="{{ receipt.image_url }}"><img id="img4" class="img4" src="{% static 'data/images/pager_lupe.gif' %}" alt="Pager_lupe"></a>    
+				<a rel="-galerie" class="thickbox" title="<b>Fotos:</b> Matthias Haupt" href="{{ recipe.image_url }}"><img id="img4" class="img4" src="{% static 'data/images/pager_lupe.gif' %}" alt="Pager_lupe"></a>
 			</span>  
 		</div>
 		<!-- ENDE DES BILDTEILS LINKS -->
@@ -89,7 +89,7 @@
 					<a class="linkBackLupe2" style="" href="#" onclick="new Ajax.Request('/asset_recipe/GetRecipeImage', {asynchronous:true, evalScripts:false, onComplete:function(request, json){changeRecipeImage(request, json);hideBigImg();}, parameters:{'pos': 0, 'asset_id':267993, 'image_asset_id': $('image_asset_id').value, 'img2change':'recipePreviewImage'}}); return false;">Zurück zum Rezept</a>
 				</div>
 				<div class="clearboth"></div>
-				<img id="recipeBigImage" title="" src="{{ receipt.image_url }}">    
+				<img id="recipeBigImage" title="" src="{{ recipe.image_url }}">
 				<div class="midGrey marginTop5" id="picBigAuthor"><b>Fotos:</b> Matthias Haupt</div>
 			</div>
 		</div>
@@ -100,11 +100,11 @@
 			<div class="floatLeft width50Percent">
 				<h2 class="h5 rezeptAnsichtH2">Zutaten</h2>
 				<div class="rezeptAnsichtH2">
-					<span itemprop="recipeYield">Für {{ receipt.portions }} Portionen</span>
+					<span itemprop="recipeYield">Für {{ recipe.portions }} Portionen</span>
 					<br>
 				</div>        
 				<div class="marginTop15">
-					{% for integrient in receipt.integrients %}
+					{% for integrient in recipe.integrients %}
 						<span><span class="ingredient" itemprop="ingredients"><span>{{ integrient.amount }} {{ integrient.get_amount_type_display }}</span> <span>{{ integrient.integrient.name }}</span></span></span>
 					{% endfor %}       
 				</div><!-- marginTop15 -->
@@ -114,7 +114,7 @@
 				<div class="recipe-cooktime">
 					<h2 class="h5 rezeptAnsichtH2">Zeit</h2>
 					<meta itemprop="cookTime" content="P0Y0M0DT1H15M">
-					<span class="black"><span class="cooktime" content="P0Y0M0DT1H15M"><span class="value-title" title="P0Y0M0DT1H15M"></span>{{ receipt.time_str }}</span><br></span>    	
+					<span class="black"><span class="cooktime" content="P0Y0M0DT1H15M"><span class="value-title" title="P0Y0M0DT1H15M"></span>{{ recipe.time_str }}</span><br></span>
 				</div>
 				<div class="recipe-nutrition" itemprop="nutrition" itemscope="" itemtype="http://schema.org/NutritionInformation">
 					<h2 class="h5 rezeptAnsichtH2">Nährwerte</h2>
@@ -130,10 +130,10 @@
 				<div class="kategorien" id="katsTop">
 					<div id="kats">
 						<h2 class="h5 rezeptAnsichtH2">Kategorien</h2>
-						{% for category in receipt.categories %}
+						{% for category in recipe.categories %}
 							<div class="" style="display:">
-								<a class="midGreyA" href="{{ category.receiptCategory.url }}">
-									<span itemprop="recipeCategory">{{ category.receiptCategory.name }}</span>
+								<a class="midGreyA" href="{{ category.recipeCategory.url }}">
+									<span itemprop="recipeCategory">{{ category.recipeCategory.name }}</span>
 								</a>
 							</div>
 						{% endfor %}              
@@ -147,8 +147,8 @@
 		<div id="content-rezeptansichtbeschreibung">
 			<h2 class="h5 rezeptAnsichtH">Zubereitung</h2>
 			<span itemprop="recipeInstructions">
-				{% for step in receipt.steps %}
-					<p class="rezeptansichttext">{{ step }}</p>
+				{% for step in recipe.steps %}
+					<p class="rezeptansichttext">{{ step.text }}</p>
 				{% endfor %}
 			</span>
 			<div id="recipestepimages">

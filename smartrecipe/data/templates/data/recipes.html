@@ -18,28 +18,28 @@
 	<div class="artikel">
 		<div class="articleteaser" id="articleteaser_2">
 			<div class="articleteaser_group">
-				{% if receipt_list %}
-					{% for receipt in receipt_list %}
+				{% if recipe_list %}
+					{% for recipe in recipe_list %}
 						<!-- articleteaser single -->
 						<div class="articleteaser_single">
-							<a href="{{ receipt.url }}">  
+							<a href="{{ recipe.url }}">
 								<div class="image">
-									<img src="{{ receipt.image_url }}" rel="amf:photo" name="slide" id="recipePreviewImage" class="recipePreviewImage" alt="{{ receipt.name }}" />
+									<img src="{{ recipe.image_url }}" rel="amf:photo" name="slide" id="recipePreviewImage" class="recipePreviewImage" alt="{{ recipe.name }}" />
 								</div>
 							</a>
 							<div class="spitzmarke"></div>
 							<div class="headline">
-								<a href="{{ receipt.url }}">{{ receipt.name }}</a>
+								<a href="{{ recipe.url }}">{{ recipe.name }}</a>
 							</div>
-							<div class="teasertext">{{ receipt.teaser }}</div>
+							<div class="teasertext">{{ recipe.teaser }}</div>
 							<br>
-							<a href="{{ receipt.url }}">zum Rezept</a>
+							<a href="{{ recipe.url }}">zum Rezept</a>
 							<div style="clear:both"></div>
 							<div class="line"></div>
 						</div>
 					{% endfor %}
 				{% else %}
-					<p>No receipts are available.</p>
+					<p>No recipes are available.</p>
 				{% endif %}
 			</div>
 		</div>
