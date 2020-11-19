@@ -28,12 +28,12 @@ class RecipeBookAdmin(admin.ModelAdmin):
     def number_of_recipes(self, instance):
         recipes = len(instance.recipes())
         if recipes == 0:
-            return SafeString('<span style="color:#f00;">no recipes</span>')
+            return SafeString('<span style="color:#f00;">No Recipes</span>')
         else:
-            return '%d recipes' % recipes
+            return '%d Recipes' % recipes
 
     number_of_recipes.allow_tags = True
-    number_of_recipes.short_description = '# recipes'
+    number_of_recipes.short_description = '# Recipes'
 
     def book_actions(self, instance):
         return SafeString('<a href="/data/export/%d/recipes/" target="_blank">Export as PDF</a>' % instance.id)
@@ -95,7 +95,17 @@ class RecipeCategoryRelationInline2(admin.TabularInline):
         return 0
 
 
+class RecipeBookRecipeRelationInline(admin.TabularInline):
+    model = RecipeBookRecipeRelation
+    fk_name = "recipe"
+    extra = 0
+
+    def get_extra(self, request, obj=None, **kwargs):
+        return 0
+
+
 class RecipeAdminForm(forms.ModelForm):
+
     class Meta:
         model = Recipe
         fields = ('name', 'teaser', 'description', 'image', 'time', 'calories', 'portions',
@@ -121,6 +131,7 @@ class RecipeAdmin(admin.ModelAdmin):
     list_display = ('name', 'thumbnail', 'admin_steps_info', 'admin_ingredients_info', 'admin_categories')
     ordering = ('name',)
     inlines = [
+        RecipeBookRecipeRelationInline,
         ReceiptIngredientRelationInline,
         RecipeCategoryRelationInline,
     ]
