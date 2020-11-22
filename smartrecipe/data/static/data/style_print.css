@@ -273,6 +273,14 @@ td {
 	padding-top: 10px;
 }
 
+/* chapter */
+
+.chapter1-category {
+	color:#666;
+	font-size: 2em;
+	padding-top: 5px;
+}
+
 /* recipe */
 
 .recipe {

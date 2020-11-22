@@ -118,6 +118,8 @@ class Recipe(models.Model):
     step8 = models.CharField(max_length=1000, blank=True, null=True)
     step9 = models.CharField(max_length=1000, blank=True, null=True)
 
+    source = models.CharField(max_length=100, blank=True, null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -353,6 +355,15 @@ class RecipeCategory(models.Model):
     def recipes(self):
         return RecipeCategoryRelation.objects.filter(recipeCategory=self)
 
+    def main_recipes(self):
+        main_recipes_list = []
+
+        for relation in RecipeCategoryRelation.objects.filter(recipeCategory=self):
+            if relation.is_main:
+                main_recipes_list.append(relation)
+
+        return  main_recipes_list
+
     def number_of_recipes(self):
         num = len(self.recipes())
 
@@ -361,10 +372,18 @@ class RecipeCategory(models.Model):
 
         return num
 
-    def admin_url(self):
-        return mark_safe('<a href="%s">%s</a>' % (self.id, self.name))
+    def number_of_main_recipes(self):
+        num = len(self.main_recipes())
 
-    admin_url.allow_tags = True
+        for child in RecipeCategory.objects.filter(parentRecipeCategory=self):
+            num = num + child.number_of_main_recipes()
+
+        return num
+
+    #def admin_url(self):
+    #    return mark_safe('<a href="%s">%s</a>' % (self.id, self.name))
+
+    #admin_url.allow_tags = True
 
     def __unicode__(self):
         return u'%s' % (self.path())
@@ -382,6 +401,7 @@ class RecipeCategoryRelation(models.Model):
     """
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     recipeCategory = models.ForeignKey(RecipeCategory, on_delete=models.CASCADE)
+    is_main = models.BooleanField(default=False, blank=True, null=True)
 
     def __unicode__(self):
         return u'%s -> %s' % (self.recipe, self.recipeCategory)

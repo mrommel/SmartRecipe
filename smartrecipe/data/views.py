@@ -134,6 +134,7 @@ def recipes_export(request, book_id):
     ingredient_list = Ingredient.objects.all()
 
     return render(request, 'data/recipes_export.html', {
+        'recipe_book': recipe_book,
         'recipe_list': recipe_list,
         'categories': categories,
         'ingredient_list': ingredient_list,

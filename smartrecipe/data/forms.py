@@ -95,6 +95,16 @@ class RecipeCategoryRelationInline2(admin.TabularInline):
         return 0
 
 
+class ParentRecipeCategoryInline(admin.TabularInline):
+    model = RecipeCategory
+    fk_name = "parentRecipeCategory"
+    extra = 0
+
+    def get_extra(self, request, obj=None, **kwargs):
+        """ hide all extra if the current user is having the wrong gender """
+        return 0
+
+
 class RecipeBookRecipeRelationInline(admin.TabularInline):
     model = RecipeBookRecipeRelation
     fk_name = "recipe"
@@ -109,7 +119,7 @@ class RecipeAdminForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = ('name', 'teaser', 'description', 'image', 'time', 'calories', 'portions',
-                  'step0', 'step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7', 'step8', 'step9')
+                  'step0', 'step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7', 'step8', 'step9', 'source')
         widgets = {
             'teaser': forms.Textarea(attrs={'cols': 40, 'rows': 5}),
             'description': forms.Textarea(attrs={'cols': 40, 'rows': 5}),
@@ -141,8 +151,12 @@ class RecipeAdmin(admin.ModelAdmin):
     def admin_categories(self, instance):
         str_value = '<ul class="commalist">'
         for category in instance.categories():
-            str_value = '%s<li><a href="/admin/data/recipecategory/%d/change/">%s</a></li>' % (
+            if category.is_main:
+                str_value = '%s<li><a href="/admin/data/recipecategory/%d/change/"><b>%s</b></a></li>' % (
                 str_value, category.recipeCategory.id, category.recipeCategory.name)
+            else:
+                str_value = '%s<li><a href="/admin/data/recipecategory/%d/change/">%s</a></li>' % (
+                    str_value, category.recipeCategory.id, category.recipeCategory.name)
         str_value = '%s</ul>' % str_value
         return SafeString(str_value)
 
@@ -177,16 +191,16 @@ class RecipeAdmin(admin.ModelAdmin):
 
 class IngredientAdmin(admin.ModelAdmin):
     model = Ingredient
-    list_display = ('name', 'plural', 'thumbnail', 'type', 'important')
+    list_display = ('name', 'thumbnail', 'plural', 'type', 'important')
     ordering = ('name',)
 
 
 class RecipeCategoryAdmin(admin.ModelAdmin):
     model = RecipeCategory
-    list_display = ('thumbnail', 'name', 'path',)
+    list_display = ('name', 'thumbnail', 'path',)
     readonly_fields = ('thumbnail', 'path',)
     ordering = ('name',)
 
     inlines = [
-        RecipeCategoryRelationInline2,
+        ParentRecipeCategoryInline, RecipeCategoryRelationInline2,
     ]
