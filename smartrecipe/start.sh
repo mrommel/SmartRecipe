@@ -28,8 +28,8 @@ start() {
 				sleep 5
 		fi
 		
-        echo "node/python servers startup"
-        echo
+    echo "node/python servers startup"
+    echo
 }
 # Restart the service node
 stop() {
