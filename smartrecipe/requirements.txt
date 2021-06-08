@@ -5,5 +5,5 @@ django-favicon==0.1.1
 django-filter==1.0.0
 #djangorestframework==3.9.1
 django-suit==0.2.25
-Pillow==8.1.1
+Pillow==8.2.0
 #six==1.12.0
