@@ -90,7 +90,13 @@
 															<div class="recipe_title">{{ recipe_category_relation.recipe.name }}</div>
 															<div class="recipe_date">{{ recipe_category_relation.recipe.created_at|date:"d.m.Y" }}</div>
 														</div>
-														<div class="recipe_description">{{ recipe_category_relation.recipe.description }}</div>
+														
+														{% if recipe_category_relation.recipe.description %}
+															<div class="recipe_description">{{ recipe_category_relation.recipe.description }}</div>
+														{% else %}
+															<div class="recipe_description">&nbsp;</div>
+														{% endif %}
+														
 														<div class="recipe_ingredients_container">
 															{% for country in recipe_category_relation.recipe.countries %}<div class="recipe_ingredients_country"><img src="{{ country.image.url }}" height="12" /></div>{% endfor %}
 															<div class="recipe_ingredients_title">{% trans "Zutaten" %}</div>
@@ -121,7 +127,12 @@
 																{% endfor %}
 															</div>
 														</div>
-														<div class="recipe_source">{{ recipe_category_relation.recipe.source }}</div>
+														
+														{% if recipe_category_relation.recipe.source %}
+															<div class="recipe_source">{{ recipe_category_relation.recipe.source }}</div>
+														{% else %}
+															<div class="recipe_source">&nbsp;</div>
+														{% endif %}
 													</div>
 												</div>
 											</para>
