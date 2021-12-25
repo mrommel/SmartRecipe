@@ -19,12 +19,14 @@ start() {
 						echo "Starting python"
 						python3 manage.py runserver 0.0.0.0:8023 &> ./python.log &
 						echo $! > $python_pidfile
+						echo "open http://localhost:8023/admin/data/recipebook/"
 						sleep 5
 				fi
 		else
 				echo "Starting python"
 				python3 manage.py runserver 0.0.0.0:8023 &> ./python.log &
 				echo $! > $python_pidfile
+				echo "open http://localhost:8023/admin/data/recipebook/"
 				sleep 5
 		fi
 		

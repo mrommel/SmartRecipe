@@ -145,7 +145,7 @@ def export(request, book_id):
 
     import os
     os.system(
-        'prince --no-author-style --javascript -s http://127.0.0.1:8024/static/data/style_print.css http://127.0.0.1:8024/data/recipes_export/%s/export -o tmp.pdf' % book_id)
+        'prince --no-author-style --javascript -s http://127.0.0.1:8023/static/data/style_print.css http://127.0.0.1:8023/data/recipes_export/%s/export -o tmp.pdf' % book_id)
 
     image_data = open('tmp.pdf', "rb").read()
     return HttpResponse(image_data, content_type='application/pdf')
