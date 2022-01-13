@@ -27,15 +27,15 @@ python ../manage.py compilemessages
 - http://www.django-rest-framework.org/
 
 # VirtualEnv
-cd ~/Prog/SmartRecipe/smartrecipe
-source venv/bin/activate
-deactivate
+// cd ~/Prog/SmartRecipe/smartrecipe
+// source venv/bin/activate
+// deactivate
 
 # install something - keep it
-pip freeze > requirements.txt
+pip3 freeze > requirements.txt
 
 # install requirements
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
 # admin password
 admin + forrecipe
