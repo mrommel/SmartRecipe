@@ -13,9 +13,14 @@ keep in mind to allow prince (start once and go to settings security)
 
 ## run web server
 
-./start.sh start
-http://localhost:8023/admin
+make run
 
-## get icons
+## links
 
-https://chefville.fandom.com/wiki/Milk
+- https://chefville.fandom.com/wiki/Milk
+- http://chefville.wikia.com/wiki/Ingredient
+- http://docs.python-guide.org/en/latest/dev/virtualenvs/
+- http://www.django-rest-framework.org/
+
+# admin password
+admin + forrecipe

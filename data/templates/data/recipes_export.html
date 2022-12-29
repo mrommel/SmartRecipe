@@ -68,77 +68,75 @@
 				{% if categories %}
 					{% for category in categories %}
 						{% if category.number_of_recipes > 0 %}
-							<!--<p class="sub-chapter">{{ category }} ({{ category.is_country }})</p>-->
+							<!--<p class="sub-chapter">{{ category }} ({{ category.is_country }}) / {{ category.number_of_recipes }}</p>-->
 							{% for child in category.children %}
-								{% if child.number_of_main_recipes > 0 %}
-									<a id="chapter1-{{ child.id }}" name="#chapter1-{{ child.id }}">&nbsp;</a>
-									<h2 class="chapter1-category">{{ child.name }}</h2>
-									{% for recipe_category_relation in child.recipes %}
-										{% if recipe_category_relation.is_main == True %}
-											<para>
-												<div class="not_breaking">
-													<a id="chapter1-{{ recipe_category_relation.recipe.id }}" name="#chapter1-{{ recipe_category_relation.recipe.id }}">&nbsp;</a>
-													<div class="recipe">
-														<div class="recipe_image">
-														{% if recipe_category_relation.recipe.image %}
-															<img src="{{ recipe_category_relation.recipe.image.url }}" width="270" />
-														{% else %}
-															<img src="/media/media/default.png" width="270" />
-														{% endif %}
-														</div>
-														<div class="recipe_heading">
-															<div class="recipe_title">{{ recipe_category_relation.recipe.name }}</div>
-															<div class="recipe_date">{{ recipe_category_relation.recipe.created_at|date:"d.m.Y" }}</div>
-														</div>
-														
-														{% if recipe_category_relation.recipe.description %}
-															<div class="recipe_description">{{ recipe_category_relation.recipe.description }}</div>
-														{% else %}
-															<div class="recipe_description">&nbsp;</div>
-														{% endif %}
-														
-														<div class="recipe_ingredients_container">
-															{% for country in recipe_category_relation.recipe.countries %}<div class="recipe_ingredients_country"><img src="{{ country.image.url }}" height="12" /></div>{% endfor %}
-															<div class="recipe_ingredients_title">{% trans "Zutaten" %}</div>
-															<div class="recipe_ingredients_subline">{% trans "für" %} {{ recipe_category_relation.recipe.portions }} {% trans "Portionen" %}  |  {{ recipe_category_relation.recipe.time }} {% trans "minutes" %}</div>
-															<table class="recipe_ingredients">
-																<tbody>
-																	{% for ingredient_rel in recipe_category_relation.recipe.ingredients %}
-																		<tr class="ingredient {% if forloop.counter|divisibleby:2 %}odd{% else %}even{% endif %}">
-																			<td class="recipe_ingredient_amount">{{ ingredient_rel.quantity }}</td>
-																			<td class="recipe_ingredient_image"><img src="{% if ingredient_rel.ingredient.image %}{{ ingredient_rel.ingredient.image.url }}{% else %}/media/media/ingredients/Ingredient-Pack_of_Secret_Flavor.png{% endif%}" width="20" class="recipe_ingredient_image_icon" /></td>
-																			<td class="recipe_ingredient_name">
-																				{% if not ingredient_rel.is_plural or ingredient_rel.ingredient.plural|length == 0 %}
-																					{{ ingredient_rel.ingredient.name }}
-																				{% else %}
-																					{{ ingredient_rel.ingredient.plural }}
-																				{% endif %}
-																			</td>
-																		</tr>
-																	{% endfor %}
-																</tbody>
-															</table>
-														</div>
-														<div class="recipe_steps">
-															<div class="recipe_steps_title">{% trans "Schritte" %}</div>
-															<div class="recipe_steps_container">
-																{% for step in recipe_category_relation.recipe.steps %}
-																	<div class="recipe_step {% if forloop.counter|divisibleby:2 %}odd{% else %}even{% endif %}">{{ step.text }}</div>
-																{% endfor %}
-															</div>
-														</div>
-														
-														{% if recipe_category_relation.recipe.source %}
-															<div class="recipe_source">{{ recipe_category_relation.recipe.source }}</div>
-														{% else %}
-															<div class="recipe_source">&nbsp;</div>
-														{% endif %}
+								<a id="chapter1-{{ child.id }}" name="#chapter1-{{ child.id }}">&nbsp;</a>
+								<h2 class="chapter1-category">{{ child.name }}</h2>
+								{% for recipe_category_relation in child.recipes %}
+									{# if recipe_category_relation.is_main == True #}
+										<para>
+											<div class="not_breaking">
+												<a id="chapter1-{{ recipe_category_relation.recipe.id }}" name="#chapter1-{{ recipe_category_relation.recipe.id }}">&nbsp;</a>
+												<div class="recipe">
+													<div class="recipe_image">
+													{% if recipe_category_relation.recipe.image %}
+														<img src="{{ recipe_category_relation.recipe.image.url }}" width="270" />
+													{% else %}
+														<img src="/media/media/default.png" width="270" />
+													{% endif %}
 													</div>
+													<div class="recipe_heading">
+														<div class="recipe_title">{{ recipe_category_relation.recipe.name }}</div>
+														<div class="recipe_date">{{ recipe_category_relation.recipe.created_at|date:"d.m.Y" }}</div>
+													</div>
+
+													{% if recipe_category_relation.recipe.description %}
+														<div class="recipe_description">{{ recipe_category_relation.recipe.description }}</div>
+													{% else %}
+														<div class="recipe_description">&nbsp;</div>
+													{% endif %}
+
+													<div class="recipe_ingredients_container">
+														{% for country in recipe_category_relation.recipe.countries %}<div class="recipe_ingredients_country"><img src="{{ country.image.url }}" height="12" /></div>{% endfor %}
+														<div class="recipe_ingredients_title">{% trans "Zutaten" %}</div>
+														<div class="recipe_ingredients_subline">{% trans "für" %} {{ recipe_category_relation.recipe.portions }} {% trans "Portionen" %}  |  {{ recipe_category_relation.recipe.time }} {% trans "minutes" %}</div>
+														<table class="recipe_ingredients">
+															<tbody>
+																{% for ingredient_rel in recipe_category_relation.recipe.ingredients %}
+																	<tr class="ingredient {% if forloop.counter|divisibleby:2 %}odd{% else %}even{% endif %}">
+																		<td class="recipe_ingredient_amount">{{ ingredient_rel.quantity }}</td>
+																		<td class="recipe_ingredient_image"><img src="{% if ingredient_rel.ingredient.image %}{{ ingredient_rel.ingredient.image.url }}{% else %}/media/media/ingredients/Ingredient-Pack_of_Secret_Flavor.png{% endif%}" width="20" class="recipe_ingredient_image_icon" /></td>
+																		<td class="recipe_ingredient_name">
+																			{% if not ingredient_rel.is_plural or ingredient_rel.ingredient.plural|length == 0 %}
+																				{{ ingredient_rel.ingredient.name }}
+																			{% else %}
+																				{{ ingredient_rel.ingredient.plural }}
+																			{% endif %}
+																		</td>
+																	</tr>
+																{% endfor %}
+															</tbody>
+														</table>
+													</div>
+													<div class="recipe_steps">
+														<div class="recipe_steps_title">{% trans "Schritte" %}</div>
+														<div class="recipe_steps_container">
+															{% for step in recipe_category_relation.recipe.steps %}
+																<div class="recipe_step {% if forloop.counter|divisibleby:2 %}odd{% else %}even{% endif %}">{{ step.text }}</div>
+															{% endfor %}
+														</div>
+													</div>
+
+													{% if recipe_category_relation.recipe.source %}
+														<div class="recipe_source">{{ recipe_category_relation.recipe.source }}</div>
+													{% else %}
+														<div class="recipe_source">&nbsp;</div>
+													{% endif %}
 												</div>
-											</para>
-										{% endif %}
-									{% endfor %}
-								{% endif %}
+											</div>
+										</para>
+									{# endif #}
+								{% endfor %}
 							{% endfor %}
 						{% endif %}
 					{% endfor %}

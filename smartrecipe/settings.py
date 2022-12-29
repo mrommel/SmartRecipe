@@ -181,7 +181,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/smartrecipe'
+STATIC_ROOT = os.path.join(BASE_DIR, 'smartrecipe')
 
-MEDIA_ROOT = '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/data'
+MEDIA_ROOT = os.path.join(PROJECT_PATH, '../data')
 MEDIA_URL = '/media/'
