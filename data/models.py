@@ -362,7 +362,7 @@ class RecipeCategory(models.Model):
             if relation.is_main:
                 main_recipes_list.append(relation)
 
-        return  main_recipes_list
+        return main_recipes_list
 
     def number_of_recipes(self):
         num = len(self.recipes())

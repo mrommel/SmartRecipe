@@ -149,15 +149,23 @@ class RecipeAdmin(admin.ModelAdmin):
     actions_on_bottom = True
 
     def admin_categories(self, instance):
+        has_main = 0
         str_value = '<ul class="commalist">'
         for category in instance.categories():
             if category.is_main:
                 str_value = '%s<li><a href="/admin/data/recipecategory/%d/change/"><b>%s</b></a></li>' % (
-                str_value, category.recipeCategory.id, category.recipeCategory.name)
+                    str_value, category.recipeCategory.id, category.recipeCategory.name)
+                has_main = has_main + 1
             else:
                 str_value = '%s<li><a href="/admin/data/recipecategory/%d/change/">%s</a></li>' % (
                     str_value, category.recipeCategory.id, category.recipeCategory.name)
         str_value = '%s</ul>' % str_value
+
+        if has_main == 0:
+            str_value = '%s<p style="color: red;">no main category</p>' % str_value
+        elif has_main > 1:
+            str_value = '%s<p style="color: red;">no too many categories</p>' % str_value
+
         return SafeString(str_value)
 
     admin_categories.allow_tags = True

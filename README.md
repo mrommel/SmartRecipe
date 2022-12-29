@@ -17,8 +17,7 @@ make run
 
 ## links
 
-- https://chefville.fandom.com/wiki/Milk
-- http://chefville.wikia.com/wiki/Ingredient
+- https://chefville.fandom.com/wiki/Ingredient
 - http://docs.python-guide.org/en/latest/dev/virtualenvs/
 - http://www.django-rest-framework.org/
 

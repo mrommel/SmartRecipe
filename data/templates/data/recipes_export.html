@@ -73,7 +73,7 @@
 								<a id="chapter1-{{ child.id }}" name="#chapter1-{{ child.id }}">&nbsp;</a>
 								<h2 class="chapter1-category">{{ child.name }}</h2>
 								{% for recipe_category_relation in child.recipes %}
-									{# if recipe_category_relation.is_main == True #}
+									{% if recipe_category_relation.is_main == True %}
 										<para>
 											<div class="not_breaking">
 												<a id="chapter1-{{ recipe_category_relation.recipe.id }}" name="#chapter1-{{ recipe_category_relation.recipe.id }}">&nbsp;</a>
@@ -135,7 +135,7 @@
 												</div>
 											</div>
 										</para>
-									{# endif #}
+									{% endif %}
 								{% endfor %}
 							{% endfor %}
 						{% endif %}
