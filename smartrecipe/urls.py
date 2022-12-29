@@ -9,11 +9,11 @@ from django.conf.urls.static import static
 # from rest_framework import routers
 
 urlpatterns = [
-    url(r'^$', RedirectView.as_view(url='/data/index')),
-    url(r'^data/', include('data.urls')),
+    path(r'', RedirectView.as_view(url='/data/index')),
+    path(r'data/', include('data.urls')),
     path('admin/', admin.site.urls),
-    url(r'^i18n/', include('django.conf.urls.i18n')),
-    url(r'^favicon\.ico$', RedirectView.as_view(url=settings.MEDIA_URL + 'images/favicon.ico')),
+    path(r'i18n/', include('django.conf.urls.i18n')),
+    path(r'favicon\.ico', RedirectView.as_view(url=settings.MEDIA_URL + 'images/favicon.ico')),
 
     # api
     # url(r'^', include(router.urls)),

@@ -13,7 +13,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -108,19 +108,19 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/debug.log',
+            'filename': os.path.join(BASE_DIR, 'debug.log'),
             'formatter': 'verbose'
         },
         'file2': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/django.log',
+            'filename': os.path.join(BASE_DIR, 'django.log'),
             'formatter': 'verbose'
         },
         'file_forms': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/michaelrommel/Prog/SmartRecipe/smartrecipe/forms.log',
+            'filename': os.path.join(BASE_DIR, 'forms.log'),
             'formatter': 'verbose'
         },
     },

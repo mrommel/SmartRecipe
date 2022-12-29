@@ -14,7 +14,7 @@ keep in mind to allow prince (start once and go to settings security)
 ## run web server
 
 ./start.sh start
-http://localhost:8000/admin
+http://localhost:8023/admin
 
 ## get icons
 

@@ -3,3 +3,8 @@ smartrecipe/data/media/ingredients
 smartrecipe/data/media/integrients
 tmp.pdf
 db.sqlite3
+debug.log
+django.log
+forms.log
+.idea
+venv
