@@ -352,6 +352,13 @@ table.recipe_ingredients {
 	width: 250px;
 }
 
+.ingredient_part td {
+	width: 250px;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    text-align: center;
+}
+
 .odd {
 	background-color: #E3F6CE;
 }

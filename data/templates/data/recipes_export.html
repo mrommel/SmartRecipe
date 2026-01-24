@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load define_action %}
 <book>
 	<frontmatter>
 		<titlepage>
@@ -100,12 +101,23 @@
 														{% for country in recipe_category_relation.recipe.countries %}<div class="recipe_ingredients_country"><img src="{{ country.image.url }}" height="12" /></div>{% endfor %}
 														<div class="recipe_ingredients_title">{% trans "Zutaten" %}</div>
 														<div class="recipe_ingredients_subline">{% trans "für" %} {{ recipe_category_relation.recipe.portions }} {% trans "Portionen" %}  |  {{ recipe_category_relation.recipe.time }} {% trans "minutes" %}</div>
-														<table class="recipe_ingredients">
+														{# define the alternating css row class #}
+                                                        {% cycle "odd" "even" as rowcolors silent %}
+                                                        <table class="recipe_ingredients">
 															<tbody>
+                                                                {% define "No" as part %}
 																{% for ingredient_rel in recipe_category_relation.recipe.ingredients %}
-																	<tr class="ingredient {% if forloop.counter|divisibleby:2 %}odd{% else %}even{% endif %}">
+                                                                    {% if part != ingredient_rel.recipe_part %}
+                                                                        {% cycle rowcolors %}
+                                                                        <tr class="ingredient_part {{ rowcolors }}">
+                                                                            <td colspan="3" class="recipe_ingredient_part"><strong>{{ ingredient_rel.recipe_part }}</strong></td>
+                                                                        </tr>
+                                                                    {% endif %}
+                                                                    {% define ingredient_rel.recipe_part as part %}
+                                                                    {% cycle rowcolors %}
+																	<tr class="ingredient {{ rowcolors }}">
 																		<td class="recipe_ingredient_amount">{{ ingredient_rel.quantity }}</td>
-																		<td class="recipe_ingredient_image"><img src="{% if ingredient_rel.ingredient.image %}{{ ingredient_rel.ingredient.image.url }}{% else %}/media/media/ingredients/Ingredient-Pack_of_Secret_Flavor.png{% endif%}" width="20" class="recipe_ingredient_image_icon" /></td>
+																		<td class="recipe_ingredient_image"><img src="{% if ingredient_rel.ingredient.image %}{{ ingredient_rel.ingredient.image.url }}{% else %}/media/media/ingredients/default.png{% endif%}" width="20" class="recipe_ingredient_image_icon" /></td>
 																		<td class="recipe_ingredient_name">
 																			{% if not ingredient_rel.is_plural or ingredient_rel.ingredient.plural|length == 0 %}
 																				{{ ingredient_rel.ingredient.name }}

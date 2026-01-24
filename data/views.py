@@ -1,3 +1,6 @@
+import datetime
+import time
+
 from django.shortcuts import render
 
 from django.http import HttpResponse
@@ -28,7 +31,7 @@ def recipes(request):
     })
 
 
-def recipe(request, recipe_id):
+def recipe(request, recipe_id: int, recipe_name: str):
     # get receipt (or fail)
     try:
         recipe_value = Recipe.objects.get(pk=recipe_id)
@@ -145,7 +148,7 @@ def export(request, book_id):
 
     import os
     os.system(
-        'prince --no-author-style --javascript -s http://127.0.0.1:8083/static/data/style_print.css http://127.0.0.1:8083/data/recipes_export/%s -o tmp.pdf' % book_id)
+        f'prince --no-author-style --javascript -s http://127.0.0.1:8083/static/data/style_print.css?time={time.time()} http://127.0.0.1:8083/data/recipes_export/{book_id} -o tmp.pdf')
 
     image_data = open('tmp.pdf', "rb").read()
     return HttpResponse(image_data, content_type='application/pdf')

@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .forms import RecipeAdmin, IngredientAdmin, IngredientTypeAdmin, RecipeCategoryAdmin, RecipeBookAdmin
 from .models import IngredientType, Ingredient, Recipe, RecipeCategory, \
-    RecipeTopic, RecipeBook
+	RecipeTopic, RecipeBook, RecipePart
 
 # Register your models here.
 
@@ -14,4 +14,5 @@ admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(RecipeCategory, RecipeCategoryAdmin)
 # admin.site.register(RecipeCategoryRelation)
 admin.site.register(RecipeTopic)
+admin.site.register(RecipePart)
 
