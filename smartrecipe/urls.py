@@ -13,7 +13,7 @@ urlpatterns = [
     path(r'data/', include('data.urls')),
     path('admin/', admin.site.urls),
     path(r'i18n/', include('django.conf.urls.i18n')),
-    path(r'favicon\.ico', RedirectView.as_view(url=settings.MEDIA_URL + 'images/favicon.ico')),
+    path(r'favicon.ico', RedirectView.as_view(url=settings.MEDIA_URL + 'images/favicon.ico')),
 
     # api
     # url(r'^', include(router.urls)),

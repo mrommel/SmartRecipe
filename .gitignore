@@ -8,3 +8,5 @@ django.log
 forms.log
 .idea
 venv
+*.pyc
+/data/media

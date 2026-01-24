@@ -2021,6 +2021,13 @@ span.legendtext {
 	position: relative;
 	overflow: hidden;
 }
+.ingredient_part {
+	border-bottom: 1px solid #d4d4d4;
+	display: block;
+	padding: 5px;
+	position: relative;
+	overflow: hidden;
+}
 .ingredient span[property="v:amount"] {
 	position: absolute;
 	top: 4px;

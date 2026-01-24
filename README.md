@@ -21,5 +21,3 @@ make run
 - http://docs.python-guide.org/en/latest/dev/virtualenvs/
 - http://www.django-rest-framework.org/
 
-# admin password
-admin + forrecipe
