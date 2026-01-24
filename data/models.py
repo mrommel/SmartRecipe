@@ -60,6 +60,8 @@ class Ingredient(models.Model):
     image = models.ImageField(upload_to='media/ingredients', blank=True, null=True)
     important = models.BooleanField(default=False, blank=True, null=True)
 
+    objects = models.Manager()
+
     def thumbnail(self):
         if self.image.name is not None:
             return mark_safe('<img border="0" alt="" src="/media/%s" height="20" style="height: 20px;" />' % (
@@ -122,6 +124,8 @@ class Recipe(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
 
     def url(self):
         if self.name is not None:
