@@ -1,4 +1,4 @@
-django==6.0.1
+django==6.0.2
 django-admin-tools==0.9.3
 django-extensions==4.1
 django-favicon==0.1.4
